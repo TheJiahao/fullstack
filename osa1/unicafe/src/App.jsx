@@ -33,7 +33,10 @@ const Statistics = ({ good, neutral, bad }) => {
         <StatisticLine text="bad" value={bad}></StatisticLine>
         <StatisticLine text="all" value={total}></StatisticLine>
         <StatisticLine text="average" value={average}></StatisticLine>
-        <StatisticLine text="positive" value={positive}></StatisticLine>
+        <StatisticLine
+          text="positive"
+          value={positive.toLocaleString("fi", { style: "percent" })}
+        ></StatisticLine>
       </>
     );
   }
