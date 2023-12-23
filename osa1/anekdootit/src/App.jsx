@@ -18,19 +18,31 @@ const MostVotedAnecdote = ({ anecdotes, votes }) => {
   return (
     <div>
       <h1>Anecdote with most votes</h1>
-      <p>{anecdotes[mostVoted]}</p>
+      <Anecdote
+        anecdote={anecdotes[mostVoted]}
+        votes={votes[mostVoted]}
+      ></Anecdote>
     </div>
   );
 };
 
-const AnecdoteOfTheDay = ({ anecdote }) => {
+const AnecdoteOfTheDay = ({ anecdote, votes }) => {
   console.log("anecdote:", anecdote);
 
   return (
     <div>
       <h1>Anecdote of the day</h1>
-      <p>{anecdote}</p>
+      <Anecdote anecdote={anecdote} votes={votes}></Anecdote>
     </div>
+  );
+};
+
+const Anecdote = ({ anecdote, votes }) => {
+  return (
+    <>
+      <p>{anecdote}</p>
+      <p>has votes {votes}</p>
+    </>
   );
 };
 
@@ -72,7 +84,10 @@ const App = () => {
 
   return (
     <div>
-      <AnecdoteOfTheDay anecdote={anecdotes[selected]}></AnecdoteOfTheDay>
+      <AnecdoteOfTheDay
+        anecdote={anecdotes[selected]}
+        votes={votes[selected]}
+      ></AnecdoteOfTheDay>
 
       <button onClick={handleVote}>vote</button>
       <button onClick={handleNext}>next</button>
