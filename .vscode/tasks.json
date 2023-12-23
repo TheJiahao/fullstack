@@ -1,0 +1,33 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "Launch Vite",
+            "type": "shell",
+            "command": "pnpm run dev",
+            "options": {
+                "cwd": "${fileDirname}"
+            },
+            "isBackground": true,
+            "background": {
+                "activeOnStart": false,
+                "beginsPattern": "VITE\\sv\\d*.\\d*.\\d*\\s*ready[\\s\\S]*"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "Terminate All Tasks",
+            "command": "echo ${input:terminate}",
+            "type": "shell",
+            "problemMatcher": []
+        }
+    ],
+    "inputs": [
+        {
+            "id": "terminate",
+            "type": "command",
+            "command": "workbench.action.tasks.terminate",
+            "args": "terminateAll"
+        }
+    ]
+}

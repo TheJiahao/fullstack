@@ -1,0 +1,13 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "msedge",
+            "name": "Debug Vite",
+            "request": "launch",
+            "url": "http://localhost:5173/",
+            "preLaunchTask": "Launch Vite",
+            "postDebugTask": "Terminate All Tasks"
+        },
+    ]
+}
