@@ -23,6 +23,17 @@ const MostVotedAnecdote = ({ anecdotes, votes }) => {
   );
 };
 
+const AnecdoteOfTheDay = ({ anecdote }) => {
+  console.log("anecdote:", anecdote);
+
+  return (
+    <div>
+      <h1>Anecdote of the day</h1>
+      <p>{anecdote}</p>
+    </div>
+  );
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -61,7 +72,7 @@ const App = () => {
 
   return (
     <div>
-      <p>{anecdotes[selected]}</p>
+      <AnecdoteOfTheDay anecdote={anecdotes[selected]}></AnecdoteOfTheDay>
 
       <button onClick={handleVote}>vote</button>
       <button onClick={handleNext}>next</button>
