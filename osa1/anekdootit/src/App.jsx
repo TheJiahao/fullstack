@@ -18,7 +18,7 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
 
-  const handleClick = (setCounter) => () => {
+  const handleNext = (setCounter) => () => {
     const next = getRandomInt(0, anecdotes.length);
     console.log("next index:", next);
 
@@ -29,7 +29,7 @@ const App = () => {
     <div>
       <p>{anecdotes[selected]}</p>
 
-      <button onClick={handleClick(setSelected)}>next</button>
+      <button onClick={handleNext(setSelected)}>next</button>
     </div>
   );
 };
