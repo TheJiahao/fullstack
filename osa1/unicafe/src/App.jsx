@@ -13,12 +13,19 @@ const Status = ({ text, value }) => {
 };
 
 const Statistics = ({ good, neutral, bad }) => {
+  const total = good + neutral + bad;
+  const average = (good * 1 + neutral * 0 + bad * -1) / total;
+  const positive = good / total;
+
   return (
     <div>
       <h1>Statistics</h1>
       <Status text="good" value={good}></Status>
       <Status text="neutral" value={neutral}></Status>
       <Status text="bad" value={bad}></Status>
+      <p>all {total}</p>
+      <p>average {average}</p>
+      <p>positive {positive}</p>
     </div>
   );
 };
