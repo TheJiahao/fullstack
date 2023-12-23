@@ -12,6 +12,17 @@ const Status = ({ text, value }) => {
   );
 };
 
+const Statistics = ({ good, neutral, bad }) => {
+  return (
+    <div>
+      <h1>Statistics</h1>
+      <Status text="good" value={good}></Status>
+      <Status text="neutral" value={neutral}></Status>
+      <Status text="bad" value={bad}></Status>
+    </div>
+  );
+};
+
 const App = () => {
   // tallenna napit omaan tilaansa
   const [good, setGood] = useState(0);
@@ -40,10 +51,7 @@ const App = () => {
       ></Button>
       <Button handleClick={handleClick(bad, setBad)} text="bad"></Button>
 
-      <h1>Statistics</h1  >
-      <Status text="good" value={good}></Status>
-      <Status text="neutral" value={neutral}></Status>
-      <Status text="bad" value={bad}></Status>
+      <Statistics good={good} neutral={neutral} bad={bad}></Statistics>
     </div>
   );
 };
