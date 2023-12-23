@@ -6,14 +6,10 @@ const Button = ({ handleClick, text }) => {
 
 const StatisticLine = ({ text, value }) => {
   return (
-    <table>
-      <tbody>
-        <tr>
-          <td>{text}</td>
-          <td>{value}</td>
-        </tr>
-      </tbody>
-    </table>
+    <tr>
+      <td>{text}</td>
+      <td>{value}</td>
+    </tr>
   );
 };
 
@@ -28,15 +24,22 @@ const Statistics = ({ good, neutral, bad }) => {
     content = (
       <>
         {" "}
-        <StatisticLine text="good" value={good}></StatisticLine>
-        <StatisticLine text="neutral" value={neutral}></StatisticLine>
-        <StatisticLine text="bad" value={bad}></StatisticLine>
-        <StatisticLine text="all" value={total}></StatisticLine>
-        <StatisticLine text="average" value={average.toFixed(2)}></StatisticLine>
-        <StatisticLine
-          text="positive"
-          value={positive.toLocaleString("fi", { style: "percent" })}
-        ></StatisticLine>
+        <table>
+          <tbody>
+            <StatisticLine text="good" value={good}></StatisticLine>
+            <StatisticLine text="neutral" value={neutral}></StatisticLine>
+            <StatisticLine text="bad" value={bad}></StatisticLine>
+            <StatisticLine text="all" value={total}></StatisticLine>
+            <StatisticLine
+              text="average"
+              value={average.toFixed(2)}
+            ></StatisticLine>
+            <StatisticLine
+              text="positive"
+              value={positive.toLocaleString("fi", { style: "percent" })}
+            ></StatisticLine>
+          </tbody>
+        </table>
       </>
     );
   }
