@@ -4,6 +4,25 @@ function getRandomInt(min, max) {
   return Math.floor(Math.random() * (max - min) + min);
 }
 
+const MostVotedAnecdote = ({ anecdotes, votes }) => {
+  let mostVoted = 0;
+
+  for (const i of anecdotes.keys()) {
+    if (votes[i] > votes[mostVoted]) {
+      mostVoted = i;
+    }
+  }
+
+  console.log("most voted:", mostVoted);
+
+  return (
+    <div>
+      <h1>Anecdote with most votes</h1>
+      <p>{anecdotes[mostVoted]}</p>
+    </div>
+  );
+};
+
 const App = () => {
   const anecdotes = [
     "If it hurts, do it more often.",
@@ -30,12 +49,12 @@ const App = () => {
 
   const handleVote = () => {
     console.log("voted:", selected);
-    console.log("votes before:", votes)
+    console.log("votes before:", votes);
 
     const votes_copy = [...votes];
     votes_copy[selected] += 1;
 
-    console.log("votes after:", votes_copy)
+    console.log("votes after:", votes_copy);
 
     setVotes(votes_copy);
   };
@@ -46,6 +65,11 @@ const App = () => {
 
       <button onClick={handleVote}>vote</button>
       <button onClick={handleNext}>next</button>
+
+      <MostVotedAnecdote
+        anecdotes={anecdotes}
+        votes={votes}
+      ></MostVotedAnecdote>
     </div>
   );
 };
