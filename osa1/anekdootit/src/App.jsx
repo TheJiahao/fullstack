@@ -18,18 +18,18 @@ const App = () => {
 
   const [selected, setSelected] = useState(0);
 
-  const handleNext = (setCounter) => () => {
+  const handleNext = () => {
     const next = getRandomInt(0, anecdotes.length);
     console.log("next index:", next);
 
-    setCounter(next);
+    setSelected(next);
   };
 
   return (
     <div>
       <p>{anecdotes[selected]}</p>
 
-      <button onClick={handleNext(setSelected)}>next</button>
+      <button onClick={handleNext}>next</button>
     </div>
   );
 };
