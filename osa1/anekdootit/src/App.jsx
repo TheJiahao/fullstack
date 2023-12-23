@@ -17,6 +17,9 @@ const App = () => {
   ];
 
   const [selected, setSelected] = useState(0);
+  const [votes, setVotes] = useState(new Uint32Array(anecdotes.length));
+
+  console.log("votes:", votes);
 
   const handleNext = () => {
     const next = getRandomInt(0, anecdotes.length);
@@ -25,10 +28,23 @@ const App = () => {
     setSelected(next);
   };
 
+  const handleVote = () => {
+    console.log("voted:", selected);
+    console.log("votes before:", votes)
+
+    const votes_copy = [...votes];
+    votes_copy[selected] += 1;
+
+    console.log("votes after:", votes_copy)
+
+    setVotes(votes_copy);
+  };
+
   return (
     <div>
       <p>{anecdotes[selected]}</p>
 
+      <button onClick={handleVote}>vote</button>
       <button onClick={handleNext}>next</button>
     </div>
   );
