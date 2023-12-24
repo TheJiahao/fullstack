@@ -26,12 +26,10 @@ const Part = (props) => {
   );
 };
 
-const Total = (props) => {
-  let sum = 0;
+const Total = ({ course }) => {
+  const sum = course.parts.reduce((sum, part) => sum + part.exercises, 0);
 
-  for (const part of props.course.parts) {
-    sum += part.exercises;
-  }
+  console.log("total excercises:", sum);
 
   return (
     <div>
