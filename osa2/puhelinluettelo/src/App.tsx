@@ -1,5 +1,6 @@
-import { FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useState } from "react";
 import PersonList from "./components/PersonList";
+import FilterForm from "./components/FilterForm";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -7,6 +8,7 @@ const App = () => {
   ]);
   const [newName, setNewName] = useState("");
   const [newPhoneNumber, setNewPhoneNumber] = useState("");
+  const [keyword, setKeyword] = useState("");
 
   const addPerson = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -23,9 +25,21 @@ const App = () => {
     console.log("add person:", person);
   };
 
+  const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("keyword:", keyword)
+    
+    setKeyword(event.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
+
+      <FilterForm
+        handleKeywordChange={handleKeywordChange}
+        keywordValue={keyword}
+      />
+
       <form onSubmit={addPerson}>
         <div>
           name:{" "}
