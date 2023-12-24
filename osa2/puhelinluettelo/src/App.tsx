@@ -2,8 +2,11 @@ import { ChangeEvent, FormEvent, useState } from "react";
 import PersonList from "./components/Persons";
 
 const App = () => {
-  const [persons, setPersons] = useState([{ name: "Arto Hellas" }]);
+  const [persons, setPersons] = useState([
+    { name: "Arto Hellas", phoneNumber: "040-123456" },
+  ]);
   const [newName, setNewName] = useState("");
+  const [newPhoneNumber, setNewPhoneNumber] = useState("");
 
   const addPerson = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -13,7 +16,11 @@ const App = () => {
       return;
     }
 
-    setPersons(persons.concat({ name: newName }));
+    const person = { name: newName, phoneNumber: newPhoneNumber };
+
+    setPersons(persons.concat(person));
+
+    console.log("add person:", person);
   };
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
@@ -27,6 +34,14 @@ const App = () => {
         <div>
           name: <input value={newName} onChange={handleNameChange} />
         </div>
+        <div>
+          number:{" "}
+          <input
+            value={newPhoneNumber}
+            onChange={(event) => setNewPhoneNumber(event.target.value)}
+          />
+        </div>
+
         <div>
           <button type="submit">add</button>
         </div>
