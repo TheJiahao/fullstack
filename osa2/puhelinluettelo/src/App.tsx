@@ -25,8 +25,10 @@ const App = () => {
     const person = { name: newName, number: newNumber };
 
     setPersons(persons.concat(person));
-
     console.log("add person:", person);
+
+    setNewName("");
+    setNewNumber("");
   };
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
