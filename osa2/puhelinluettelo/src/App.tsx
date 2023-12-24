@@ -56,6 +56,7 @@ const App = () => {
         keywordValue={keyword}
       />
 
+      <h3>Add a new</h3>
       <AddPersonForm
         handleAddPerson={handleAddPerson}
         handleNameChange={handleNameChange}
@@ -64,6 +65,7 @@ const App = () => {
         newNumber={newNumber}
       />
 
+      <h3>Numbers</h3>
       <PersonList persons={persons} keyword={keyword} />
     </div>
   );
