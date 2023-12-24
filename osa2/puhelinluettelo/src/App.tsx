@@ -26,8 +26,8 @@ const App = () => {
   };
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("keyword:", keyword)
-    
+    console.log("keyword:");
+
     setKeyword(event.target.value);
   };
 
