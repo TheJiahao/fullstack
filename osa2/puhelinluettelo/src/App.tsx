@@ -17,8 +17,6 @@ const App = () => {
   };
 
   const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log(event.target.value);
-
     setNewName(event.target.value);
   };
 
