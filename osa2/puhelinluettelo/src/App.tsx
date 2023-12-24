@@ -4,10 +4,10 @@ import FilterForm from "./components/FilterForm";
 
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: "Arto Hellas", phoneNumber: "040-123456" },
+    { name: "Arto Hellas", number: "040-123456" },
   ]);
   const [newName, setNewName] = useState("");
-  const [newPhoneNumber, setNewPhoneNumber] = useState("");
+  const [newNumber, setNewPhoneNumber] = useState("");
   const [keyword, setKeyword] = useState("");
 
   const addPerson = (event: FormEvent<HTMLFormElement>) => {
@@ -18,7 +18,7 @@ const App = () => {
       return;
     }
 
-    const person = { name: newName, phoneNumber: newPhoneNumber };
+    const person = { name: newName, number: newNumber };
 
     setPersons(persons.concat(person));
 
@@ -51,7 +51,7 @@ const App = () => {
         <div>
           number:{" "}
           <input
-            value={newPhoneNumber}
+            value={newNumber}
             onChange={(event) => setNewPhoneNumber(event.target.value)}
           />
         </div>

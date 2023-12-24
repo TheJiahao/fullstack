@@ -1,6 +1,6 @@
 interface Person {
   name: string;
-  phoneNumber: string;
+  number: string;
 }
 
 const PersonList = ({ persons }: { persons: Person[] }) => {
@@ -10,7 +10,7 @@ const PersonList = ({ persons }: { persons: Person[] }) => {
       <ul>
         {persons.map((person) => (
           <li key={person.name}>
-            {person.name} {person.phoneNumber}
+            {person.name} {person.number}
           </li>
         ))}
       </ul>
