@@ -45,7 +45,7 @@ const App = () => {
   };
 
   const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("new name:", event.target.value);
+    console.log("new number:", event.target.value);
 
     setNewNumber(event.target.value);
   };
