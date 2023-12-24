@@ -3,6 +3,8 @@ interface Person {
 }
 
 const PersonList = ({ persons }: { persons: Person[] }) => {
+  console.log("persons:", persons);
+
   return (
     <>
       <h2>Numbers</h2>
