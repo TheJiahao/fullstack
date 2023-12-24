@@ -31,6 +31,7 @@ const App = () => {
           <button type="submit">add</button>
         </div>
       </form>
+
       <PersonList persons={persons} />
     </div>
   );
