@@ -64,7 +64,7 @@ const App = () => {
         </div>
       </form>
 
-      <PersonList persons={persons} />
+      <PersonList persons={persons} keyword={keyword} />
     </div>
   );
 };
