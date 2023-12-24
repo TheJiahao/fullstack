@@ -1,6 +1,7 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import PersonList from "./components/PersonList";
 import FilterForm from "./components/FilterForm";
+import AddPersonForm from "./components/AddPersonForm";
 
 const App = () => {
   const [persons, setPersons] = useState([
@@ -10,10 +11,10 @@ const App = () => {
     { name: "Mary Poppendieck", number: "39-23-6423122" },
   ]);
   const [newName, setNewName] = useState("");
-  const [newNumber, setNewPhoneNumber] = useState("");
+  const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
 
-  const addPerson = (event: FormEvent<HTMLFormElement>) => {
+  const handleAddPerson = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (persons.map((person) => person.name).includes(newName)) {
@@ -34,6 +35,18 @@ const App = () => {
     setKeyword(event.target.value);
   };
 
+  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("new name:", event.target.value);
+
+    setNewName(event.target.value);
+  };
+
+  const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
+    console.log("new name:", event.target.value);
+
+    setNewNumber(event.target.value);
+  };
+
   return (
     <div>
       <h2>Phonebook</h2>
@@ -43,26 +56,13 @@ const App = () => {
         keywordValue={keyword}
       />
 
-      <form onSubmit={addPerson}>
-        <div>
-          name:{" "}
-          <input
-            value={newName}
-            onChange={(event) => setNewName(event.target.value)}
-          />
-        </div>
-        <div>
-          number:{" "}
-          <input
-            value={newNumber}
-            onChange={(event) => setNewPhoneNumber(event.target.value)}
-          />
-        </div>
-
-        <div>
-          <button type="submit">add</button>
-        </div>
-      </form>
+      <AddPersonForm
+        handleAddPerson={handleAddPerson}
+        handleNameChange={handleNameChange}
+        handleNumberChange={handleNumberChange}
+        newName={newName}
+        newNumber={newNumber}
+      />
 
       <PersonList persons={persons} keyword={keyword} />
     </div>
