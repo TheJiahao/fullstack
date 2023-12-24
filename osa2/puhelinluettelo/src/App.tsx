@@ -7,7 +7,11 @@ const App = () => {
 
   const addPerson = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    console.log("button clicked");
+
+    if (persons.map((person) => person.name).includes(newName)) {
+      alert(`${newName} is already added to phonebook`);
+      return;
+    }
 
     setPersons(persons.concat({ name: newName }));
   };
