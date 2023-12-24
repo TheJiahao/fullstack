@@ -1,5 +1,5 @@
-import { ChangeEvent, FormEvent, useState } from "react";
-import PersonList from "./components/Persons";
+import { FormEvent, useState } from "react";
+import PersonList from "./components/PersonList";
 
 const App = () => {
   const [persons, setPersons] = useState([
