@@ -1,7 +1,7 @@
-const Header = (props) => {
+const Header = ({ course }) => {
   return (
     <>
-      <h1>{props.course.name}</h1>
+      <h2>{course.name}</h2>
     </>
   );
 };
@@ -43,7 +43,6 @@ const Total = ({ course }) => {
 const Course = ({ course }) => {
   return (
     <>
-      {" "}
       <Header course={course} />
       <Content course={course} />
       <Total course={course} />
