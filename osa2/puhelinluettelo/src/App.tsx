@@ -1,10 +1,8 @@
+import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
-import PersonList from "./components/PersonList";
-import FilterForm from "./components/FilterForm";
 import AddPersonForm from "./components/AddPersonForm";
-import { Person } from "./components/PersonList";
-import axios from "axios";
-import { AxiosResponse } from "axios";
+import FilterForm from "./components/FilterForm";
+import PersonList, { Person } from "./components/PersonList";
 import {
   handleAddPerson,
   handleKeywordChange,
