@@ -1,10 +1,16 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import PersonList from "./components/PersonList";
 import FilterForm from "./components/FilterForm";
 import AddPersonForm from "./components/AddPersonForm";
 import { Person } from "./components/PersonList";
 import axios from "axios";
 import { AxiosResponse } from "axios";
+import {
+  handleAddPerson,
+  handleKeywordChange,
+  handleNameChange,
+  handleNumberChange,
+} from "./services/handlers";
 
 const App = () => {
   const [persons, setPersons] = useState(new Array<Person>());
@@ -24,55 +30,26 @@ const App = () => {
 
   console.log("Rendered", persons.length, "persons");
 
-  const handleAddPerson = (event: FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
-    if (persons.map((person) => person.name).includes(newName)) {
-      alert(`${newName} is already added to phonebook`);
-      return;
-    }
-
-    const person = new Person(newName, newNumber);
-
-    setPersons(persons.concat(person));
-    console.log("add person:", person);
-
-    setNewName("");
-    setNewNumber("");
-  };
-
-  const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("keyword:", event.target.value);
-
-    setKeyword(event.target.value);
-  };
-
-  const handleNameChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("new name:", event.target.value);
-
-    setNewName(event.target.value);
-  };
-
-  const handleNumberChange = (event: ChangeEvent<HTMLInputElement>) => {
-    console.log("new number:", event.target.value);
-
-    setNewNumber(event.target.value);
-  };
-
   return (
     <div>
       <h2>Phonebook</h2>
 
       <FilterForm
-        handleKeywordChange={handleKeywordChange}
+        handleKeywordChange={handleKeywordChange(setKeyword)}
         keywordValue={keyword}
       />
 
       <h3>Add a new</h3>
       <AddPersonForm
-        handleAddPerson={handleAddPerson}
-        handleNameChange={handleNameChange}
-        handleNumberChange={handleNumberChange}
+        handleAddPerson={handleAddPerson(
+          new Person(newName, newNumber),
+          persons,
+          setPersons,
+          setNewName,
+          setNewNumber
+        )}
+        handleNameChange={handleNameChange(setNewName)}
+        handleNumberChange={handleNumberChange(setNewNumber)}
         newName={newName}
         newNumber={newNumber}
       />
