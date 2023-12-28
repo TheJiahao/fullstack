@@ -4,7 +4,7 @@ const baseUrl = "http://localhost:3001/persons";
 
 const create = (newPerson: Person) => {
   return axios
-    .post<Person>(baseUrl, newPerson)
+    .post(baseUrl, newPerson)
     .catch((error) => console.log("Add person failed", error));
 };
 
