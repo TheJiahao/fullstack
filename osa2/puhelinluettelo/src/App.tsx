@@ -1,19 +1,28 @@
-import { ChangeEvent, FormEvent, useState } from "react";
+import { ChangeEvent, FormEvent, useEffect, useState } from "react";
 import PersonList from "./components/PersonList";
 import FilterForm from "./components/FilterForm";
 import AddPersonForm from "./components/AddPersonForm";
 import { Person } from "./components/PersonList";
+import axios from "axios";
+import { AxiosResponse } from "axios";
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    new Person("Arto Hellas", "040-123456"),
-    new Person("Ada Lovelace", "39-44-5323523"),
-    new Person("Dan Abramov", "12-43-234345"),
-    new Person("Mary Poppendieck", "39-23-6423122"),
-  ]);
+  const [persons, setPersons] = useState(new Array<Person>());
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
+
+  useEffect(() => {
+    axios
+      .get("http://localhost:3001/persons")
+      .then((response: AxiosResponse<Person[]>) => {
+        console.log("promise fullfilled");
+
+        setPersons(response.data);
+      });
+  }, []);
+
+  console.log("Rendered", persons.length, "persons");
 
   const handleAddPerson = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
