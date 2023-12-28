@@ -5,6 +5,7 @@ import {
   FormEventHandler,
 } from "react";
 import { Person } from "../components/PersonList";
+import personService from "./personService";
 
 const handleAddPerson = (
   newPerson: Person,
@@ -20,6 +21,8 @@ const handleAddPerson = (
       alert(`${newPerson.name} is already added to phonebook`);
       return;
     }
+
+    personService.create(newPerson);
 
     setPersons(persons.concat(newPerson));
     console.log("add person:", newPerson);
@@ -63,5 +66,6 @@ export {
   handleAddPerson,
   handleKeywordChange,
   handleNameChange,
-  handleNumberChange,
+  handleNumberChange
 };
+
