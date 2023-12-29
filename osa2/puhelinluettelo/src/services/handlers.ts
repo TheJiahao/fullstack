@@ -13,13 +13,22 @@ function clearFields(...setters: CallableFunction[]) {
   }
 }
 
+const showSuccessMessage = (message: string, setMessage: CallableFunction) => {
+  setMessage({ message: message, type: "success" });
+
+  setTimeout(() => {
+    setMessage({ message: null, type: null });
+  }, 500000);
+};
+
 const handleAddPerson = (
   newName: string,
   newNumber: string,
   persons: Person[],
   setPersons: CallableFunction,
   setNewName: CallableFunction,
-  setNewNumber: CallableFunction
+  setNewNumber: CallableFunction,
+  setMessage: CallableFunction
 ): FormEventHandler<HTMLFormElement> => {
   return (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -36,6 +45,8 @@ const handleAddPerson = (
         updatePerson(newPerson, persons, setPersons);
 
         clearFields(setNewName, setNewNumber);
+
+        showSuccessMessage(`Updated ${newPerson.name}`, setMessage);
         return;
       }
     }
@@ -51,6 +62,8 @@ const handleAddPerson = (
       .catch((error) => console.log("Add person failed", error));
 
     clearFields(setNewName, setNewNumber);
+
+    showSuccessMessage(`Added ${newPerson.name}`, setMessage);
   };
 };
 
@@ -112,7 +125,8 @@ const handleNumberChange = (
 const handleRemovePerson = (
   person: Person,
   persons: Array<Person>,
-  setPersons: CallableFunction
+  setPersons: CallableFunction,
+  setMessage: CallableFunction
 ) => {
   return () => {
     if (!window.confirm(`Delete ${person.name}?`)) {
@@ -133,6 +147,8 @@ const handleRemovePerson = (
         setPersons(persons.filter((item) => item.id !== person.id));
       })
       .catch((error) => console.log("Remove person failed", error));
+
+    showSuccessMessage(`Removed ${person.name}`, setMessage);
   };
 };
 

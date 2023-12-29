@@ -5,10 +5,12 @@ const PersonList = ({
   persons,
   keyword,
   setPersons,
+  setMessage,
 }: {
   persons: Person[];
   keyword: string;
   setPersons: CallableFunction;
+  setMessage: CallableFunction;
 }) => {
   const filteredPersons = persons.filter((person) =>
     person.name.toLowerCase().includes(keyword.toLowerCase())
@@ -22,7 +24,12 @@ const PersonList = ({
             {person.name} {person.number}
             <button
               value={person.name}
-              onClick={handleRemovePerson(person, persons, setPersons)}
+              onClick={handleRemovePerson(
+                person,
+                persons,
+                setPersons,
+                setMessage
+              )}
             >
               delete
             </button>

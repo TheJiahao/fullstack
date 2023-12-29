@@ -49,7 +49,8 @@ const App = () => {
           persons,
           setPersons,
           setNewName,
-          setNewNumber
+          setNewNumber,
+          setMessage
         )}
         handleNameChange={handleNameChange(setNewName)}
         handleNumberChange={handleNumberChange(setNewNumber)}
@@ -58,7 +59,12 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-      <PersonList persons={persons} keyword={keyword} setPersons={setPersons} />
+      <PersonList
+        persons={persons}
+        keyword={keyword}
+        setPersons={setPersons}
+        setMessage={setMessage}
+      />
     </div>
   );
 };
