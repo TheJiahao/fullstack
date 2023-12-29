@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Person } from "../components/PersonList";
+import Person from "../entities/Person";
 const baseUrl = "http://localhost:3001/persons";
 
 const create = (newPerson: Person) => {

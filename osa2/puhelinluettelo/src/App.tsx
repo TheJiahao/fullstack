@@ -2,7 +2,8 @@ import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import AddPersonForm from "./components/AddPersonForm";
 import FilterForm from "./components/FilterForm";
-import PersonList, { Person } from "./components/PersonList";
+import PersonList from "./components/PersonList";
+import Person from "./entities/Person";
 import {
   handleAddPerson,
   handleKeywordChange,

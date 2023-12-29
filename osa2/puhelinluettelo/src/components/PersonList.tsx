@@ -1,13 +1,5 @@
+import Person from "../entities/Person";
 import { handleRemovePerson } from "../services/handlers";
-export class Person {
-  name: string;
-  number: string;
-
-  constructor(name: string, number: string) {
-    this.name = name;
-    this.number = number;
-  }
-}
 
 const PersonList = ({
   persons,

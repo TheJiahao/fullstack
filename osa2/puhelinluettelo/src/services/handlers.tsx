@@ -4,7 +4,7 @@ import {
   FormEvent,
   FormEventHandler,
 } from "react";
-import { Person } from "../components/PersonList";
+import Person from "../entities/Person";
 import personService from "./personService";
 
 const handleAddPerson = (
@@ -77,5 +77,6 @@ export {
   handleKeywordChange,
   handleNameChange,
   handleNumberChange,
-  handleRemovePerson,
+  handleRemovePerson
 };
+
