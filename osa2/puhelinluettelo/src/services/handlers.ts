@@ -71,6 +71,9 @@ const handleRemovePerson = (
   setPersons: CallableFunction
 ) => {
   return () => {
+    if (!window.confirm(`Delete ${person.name}?`)) {
+      return;
+    }
 
     if (person.id === null) {
       console.log("Remove person failed:", "id of", person, "is", null);
