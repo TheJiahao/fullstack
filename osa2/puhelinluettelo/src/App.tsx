@@ -10,12 +10,14 @@ import {
   handleNameChange,
   handleNumberChange,
 } from "./services/handlers";
+import Notification from "./components/Notification";
 
 const App = () => {
   const [persons, setPersons] = useState(new Array<Person>());
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("Error");
 
   useEffect(() => {
     axios
@@ -33,7 +35,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-
+      <Notification message={errorMessage} />
       <FilterForm
         handleKeywordChange={handleKeywordChange(setKeyword)}
         keywordValue={keyword}
