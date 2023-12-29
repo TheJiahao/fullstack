@@ -7,6 +7,12 @@ import {
 import Person from "../entities/Person";
 import personService from "./personService";
 
+function clearFields(...setters: CallableFunction[]) {
+  for (const setField of setters) {
+    setField("");
+  }
+}
+
 const handleAddPerson = (
   newName: string,
   newNumber: string,
@@ -40,11 +46,10 @@ const handleAddPerson = (
       .then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
         console.log("Added person:", newPerson);
-
-        setNewName("");
-        setNewNumber("");
       })
       .catch((error) => console.log("Add person failed", error));
+
+    clearFields(setNewName, setNewNumber);
   };
 };
 
