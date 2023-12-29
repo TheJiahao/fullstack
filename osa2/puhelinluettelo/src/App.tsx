@@ -53,7 +53,7 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-      <PersonList persons={persons} keyword={keyword} />
+      <PersonList persons={persons} keyword={keyword} setPersons={setPersons} />
     </div>
   );
 };

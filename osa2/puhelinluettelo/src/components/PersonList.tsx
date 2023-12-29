@@ -1,3 +1,4 @@
+import { handleRemovePerson } from "../services/handlers";
 export class Person {
   name: string;
   number: string;
@@ -11,9 +12,11 @@ export class Person {
 const PersonList = ({
   persons,
   keyword,
+  setPersons,
 }: {
   persons: Person[];
   keyword: string;
+  setPersons: CallableFunction;
 }) => {
   const filteredPersons = persons.filter((person) =>
     person.name.toLowerCase().includes(keyword.toLowerCase())
@@ -25,6 +28,12 @@ const PersonList = ({
         {filteredPersons.map((person) => (
           <li key={person.name}>
             {person.name} {person.number}
+            <button
+              value={person.name}
+              onClick={handleRemovePerson(person.name, persons, setPersons)}
+            >
+              delete
+            </button>
           </li>
         ))}
       </ul>

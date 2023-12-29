@@ -62,10 +62,20 @@ const handleNumberChange = (
   };
 };
 
+const handleRemovePerson = (
+  name: string,
+  persons: Array<Person>,
+  setPersons: CallableFunction
+) => {
+  return () => {
+    setPersons(persons.filter((person) => person.name !== name));
+  };
+};
+
 export {
   handleAddPerson,
   handleKeywordChange,
   handleNameChange,
-  handleNumberChange
+  handleNumberChange,
+  handleRemovePerson,
 };
-
