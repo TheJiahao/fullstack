@@ -1,4 +1,5 @@
 class Person {
+  id: number = -1;
   name: string;
   number: string;
 

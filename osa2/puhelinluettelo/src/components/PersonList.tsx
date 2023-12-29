@@ -18,7 +18,7 @@ const PersonList = ({
     <>
       <ul>
         {filteredPersons.map((person) => (
-          <li key={person.name}>
+          <li key={person.id}>
             {person.name} {person.number}
             <button
               value={person.name}

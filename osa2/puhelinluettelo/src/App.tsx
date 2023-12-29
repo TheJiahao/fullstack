@@ -27,6 +27,7 @@ const App = () => {
       });
   }, []);
 
+  console.log("Persons", persons);
   console.log("Rendered", persons.length, "persons");
 
   return (
