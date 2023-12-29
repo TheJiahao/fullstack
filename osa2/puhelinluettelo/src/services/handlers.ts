@@ -13,6 +13,14 @@ function clearFields(...setters: CallableFunction[]) {
   }
 }
 
+const showErrorMessage = (message: string, setMessage: CallableFunction) => {
+  setMessage({ message: message, type: "error" });
+
+  setTimeout(() => {
+    setMessage({ message: null, type: null });
+  }, 5000);
+};
+
 const showSuccessMessage = (message: string, setMessage: CallableFunction) => {
   setMessage({ message: message, type: "success" });
 
@@ -50,11 +58,10 @@ const handleAddPerson = (
         }
 
         newPerson.id = person.id;
-        updatePerson(newPerson, persons, setPersons);
 
+        updatePerson(newPerson, persons, setPersons, setMessage);
         clearFields(setNewName, setNewNumber);
 
-        showSuccessMessage(`Updated ${newPerson.name}`, setMessage);
         return;
       }
     }
@@ -78,17 +85,28 @@ const handleAddPerson = (
 const updatePerson = (
   newPerson: Person,
   persons: Person[],
-  setPersons: CallableFunction
+  setPersons: CallableFunction,
+  setMessage: CallableFunction
 ) => {
-  personService.update(newPerson).then((returnedPerson) => {
-    console.log("Returned person", returnedPerson);
+  personService
+    .update(newPerson)
+    .then((returnedPerson) => {
+      console.log("Returned person", returnedPerson);
 
-    setPersons(
-      persons.map((person) =>
-        person.id === returnedPerson.id ? returnedPerson : person
-      )
-    );
-  });
+      setPersons(
+        persons.map((person) =>
+          person.id === returnedPerson.id ? returnedPerson : person
+        )
+      );
+
+      showSuccessMessage(`Updated ${newPerson.name}`, setMessage);
+    })
+    .catch(() => {
+      showErrorMessage(
+        `${newPerson.name} has already been removed from server.`,
+        setMessage
+      );
+    });
 
   return;
 };
