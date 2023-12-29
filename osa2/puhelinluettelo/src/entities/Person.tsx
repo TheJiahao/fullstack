@@ -1,10 +1,10 @@
 class Person {
-  id: number;
+  id: number | null;
   name: string;
   number: string;
 
-  constructor(name: string, number: string, id: number = -1) {
-    this.id = id;
+  constructor(name: string, number: string, id?: number) {
+    this.id = id || null;
     this.name = name;
     this.number = number;
   }

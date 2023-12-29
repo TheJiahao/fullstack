@@ -22,13 +22,16 @@ const handleAddPerson = (
       return;
     }
 
-    personService.create(newPerson);
+    personService
+      .create(newPerson)
+      .then((returnedPerson) => {
+        setPersons(persons.concat(returnedPerson));
+        console.log("Added person:", newPerson);
 
-    setPersons(persons.concat(newPerson));
-    console.log("add person:", newPerson);
-
-    setNewName("");
-    setNewNumber("");
+        setNewName("");
+        setNewNumber("");
+      })
+      .catch((error) => console.log("Add person failed", error));
   };
 };
 
@@ -77,6 +80,5 @@ export {
   handleKeywordChange,
   handleNameChange,
   handleNumberChange,
-  handleRemovePerson
+  handleRemovePerson,
 };
-
