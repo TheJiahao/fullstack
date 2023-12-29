@@ -10,4 +10,8 @@ const create = (newPerson: Person): Promise<Person> => {
   return request.then((response) => response.data);
 };
 
-export default { create };
+const remove = (id: number) => {
+  return axios.delete(`${baseUrl}/${id}`).then((response) => response.data);
+};
+
+export default { create, remove };

@@ -66,12 +66,19 @@ const handleNumberChange = (
 };
 
 const handleRemovePerson = (
-  name: string,
+  id: number,
   persons: Array<Person>,
   setPersons: CallableFunction
 ) => {
   return () => {
-    setPersons(persons.filter((person) => person.name !== name));
+    personService
+      .remove(id)
+      .then(() => {
+        console.log("Removed person with id:", id);
+
+        setPersons(persons.filter((person) => person.id !== id));
+      })
+      .catch((error) => console.log("Remove person failed", error));
   };
 };
 
