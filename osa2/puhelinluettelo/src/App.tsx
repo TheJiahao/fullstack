@@ -17,7 +17,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [message, setMessage] = useState({ message: "Error", type: "error" });
+  const [message, setMessage] = useState({ message: null, type: null });
 
   useEffect(() => {
     axios
