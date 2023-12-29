@@ -41,6 +41,14 @@ const handleAddPerson = (
           throw new Error("Error, the id of person is null");
         }
 
+        if (
+          !window.confirm(
+            `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
+          )
+        ) {
+          return;
+        }
+
         newPerson.id = person.id;
         updatePerson(newPerson, persons, setPersons);
 
@@ -72,13 +80,6 @@ const updatePerson = (
   persons: Person[],
   setPersons: CallableFunction
 ) => {
-  if (
-    !window.confirm(
-      `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
-    )
-  ) {
-    return;
-  }
   personService.update(newPerson).then((returnedPerson) => {
     console.log("Returned person", returnedPerson);
 
