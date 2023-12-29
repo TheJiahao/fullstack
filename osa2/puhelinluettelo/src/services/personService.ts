@@ -10,4 +10,10 @@ const remove = (id: number) => {
   return axios.delete(`${baseUrl}/${id}`).then((response) => response.data);
 };
 
-export default { create, remove };
+const update = (newPerson: Person): Promise<Person> => {
+  return axios
+    .put(`${baseUrl}/${newPerson.id}`, newPerson)
+    .then((response) => response.data);
+};
+
+export default { create, remove, update };

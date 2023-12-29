@@ -20,6 +20,17 @@ const handleAddPerson = (
 
     const newPerson = new Person(newName, newNumber);
 
+    for (const person of persons) {
+      if (person.name === newPerson.name) {
+        if (person.id === null) {
+          throw new Error("Error, the id of person is null");
+        }
+
+        newPerson.id = person.id;
+        updatePerson(newPerson, persons, setPersons);
+
+        return;
+      }
     }
 
     console.log("Adding person", newPerson);
@@ -35,6 +46,31 @@ const handleAddPerson = (
       })
       .catch((error) => console.log("Add person failed", error));
   };
+};
+
+const updatePerson = (
+  newPerson: Person,
+  persons: Person[],
+  setPersons: CallableFunction
+) => {
+  if (
+    !window.confirm(
+      `${newPerson.name} is already added to phonebook, replace the old number with a new one?`
+    )
+  ) {
+    return;
+  }
+  personService.update(newPerson).then((returnedPerson) => {
+    console.log("Returned person", returnedPerson);
+
+    setPersons(
+      persons.map((person) =>
+        person.id === returnedPerson.id ? returnedPerson : person
+      )
+    );
+  });
+
+  return;
 };
 
 const handleKeywordChange = (
@@ -90,8 +126,8 @@ const handleRemovePerson = (
 
         setPersons(persons.filter((item) => item.id !== person.id));
       })
-      .catch((error) =>console.log("Remove person failed", error));
-  }; 
+      .catch((error) => console.log("Remove person failed", error));
+  };
 };
 
 export {
