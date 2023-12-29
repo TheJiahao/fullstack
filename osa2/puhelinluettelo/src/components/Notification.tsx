@@ -1,23 +1,17 @@
-const errorStyle = {
-  color: "red",
-  background: "lightgrey",
-  fontSize: "20px",
-  borderStyle: "solid",
-  borderRadius: "5px",
-  padding: "10px",
-  marginBottom: "10px",
-};
+import "../css/notification.css"
 
-const Notification = ({ message }: { message: string | null }) => {
+const Notification = ({
+  message,
+  type,
+}: {
+  message: string | null;
+  type?: string;
+}) => {
   if (message === null) {
     return null;
   }
 
-  return (
-    <div className="error" style={errorStyle}>
-      {message}
-    </div>
-  );
+  return <div className={type}>{message}</div>;
 };
 
 export default Notification;

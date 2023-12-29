@@ -17,7 +17,7 @@ const App = () => {
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [errorMessage, setErrorMessage] = useState("Error");
+  const [message, setMessage] = useState({ message: "Error", type: "error" });
 
   useEffect(() => {
     axios
@@ -35,7 +35,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={errorMessage} />
+      <Notification message={message.message} type={message.type} />
       <FilterForm
         handleKeywordChange={handleKeywordChange(setKeyword)}
         keywordValue={keyword}
