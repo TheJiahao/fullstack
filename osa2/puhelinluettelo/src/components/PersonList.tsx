@@ -22,7 +22,7 @@ const PersonList = ({
             {person.name} {person.number}
             <button
               value={person.name}
-              onClick={handleRemovePerson(person.id, persons, setPersons)}
+              onClick={handleRemovePerson(person, persons, setPersons)}
             >
               delete
             </button>
