@@ -42,7 +42,8 @@ const App = () => {
       <h3>Add a new</h3>
       <AddPersonForm
         handleAddPerson={handleAddPerson(
-          new Person(newName, newNumber),
+          newName,
+          newNumber,
           persons,
           setPersons,
           setNewName,

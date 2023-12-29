@@ -8,7 +8,8 @@ import Person from "../entities/Person";
 import personService from "./personService";
 
 const handleAddPerson = (
-  newPerson: Person,
+  newName: string,
+  newNumber: string,
   persons: Person[],
   setPersons: CallableFunction,
   setNewName: CallableFunction,
@@ -17,10 +18,11 @@ const handleAddPerson = (
   return (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (persons.map((person) => person.name).includes(newPerson.name)) {
-      alert(`${newPerson.name} is already added to phonebook`);
-      return;
+    const newPerson = new Person(newName, newNumber);
+
     }
+
+    console.log("Adding person", newPerson);
 
     personService
       .create(newPerson)
