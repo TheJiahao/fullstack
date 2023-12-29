@@ -35,6 +35,7 @@ const handleAddPerson = (
         newPerson.id = person.id;
         updatePerson(newPerson, persons, setPersons);
 
+        clearFields(setNewName, setNewNumber);
         return;
       }
     }
