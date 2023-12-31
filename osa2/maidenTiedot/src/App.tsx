@@ -1,8 +1,29 @@
-import { ChangeEvent, useState } from "react";
+import axios from "axios";
+import { ChangeEvent, useEffect, useState } from "react";
+import CountryList from "./components/CountryList";
 import FilterForm from "./components/FilterForm";
+import Country from "./interfaces/Country";
 
 function App() {
   const [keyword, setKeyword] = useState("");
+  const [countries, setCountries] = useState(Array<Country>());
+
+  useEffect(() => {
+    axios
+      .get("https://studies.cs.helsinki.fi/restcountries/api/all")
+      .then((response) => {
+        const data: Country[] = response.data;
+
+        const filteredCountries = data.filter((country) => {
+          const name = country.name.common.toLowerCase();
+          return name.includes(keyword.toLowerCase());
+        });
+
+        console.log("filtered countries", filteredCountries);
+
+        setCountries(filteredCountries);
+      });
+  }, [keyword]);
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
@@ -15,7 +36,7 @@ function App() {
           handleKeywordChange={handleKeywordChange}
           keywordValue={keyword}
         />
-        <p>Test</p>
+        <CountryList countries={countries} />
       </div>
     </>
   );
