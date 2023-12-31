@@ -6,13 +6,13 @@ const CountryList = ({ countries }: { countries: Country[] }) => {
 
   switch (true) {
     case n === 1:
-      return <CountryEntry country={countries[0]} />;
+      return <CountryEntry country={countries[0]} collapse={false} />;
     case n <= 10:
       return (
         <div>
           <ul>
             {countries.map((country) => (
-              <li key={country.name.common}>{country.name.common}</li>
+              <CountryEntry country={country} />
             ))}
           </ul>
         </div>

@@ -1,6 +1,16 @@
 import Country from "../interfaces/Country";
 
-const CountryEntry = ({ country }: { country: Country }) => {
+const CountryEntry = ({
+  country,
+  collapse = true,
+}: {
+  country: Country;
+  collapse?: boolean;
+}) => {
+  if (collapse) {
+    return <li key={country.name.common}>{country.name.common}</li>;
+  }
+
   return (
     <div>
       <h2>{country.name.common}</h2>
