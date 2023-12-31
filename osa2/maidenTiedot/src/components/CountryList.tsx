@@ -6,7 +6,7 @@ const CountryList = ({ countries }: { countries: Country[] }) => {
 
   switch (true) {
     case n === 1:
-      return <CountryEntry country={countries[0]} collapse={false} />;
+      return <CountryEntry country={countries[0]} initialCollapse={false} />;
     case n <= 10:
       return (
         <div>
