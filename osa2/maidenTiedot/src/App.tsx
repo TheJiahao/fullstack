@@ -7,8 +7,14 @@ import Country from "./interfaces/Country";
 function App() {
   const [keyword, setKeyword] = useState("");
   const [countries, setCountries] = useState(Array<Country>());
+  const [country, setCountry] = useState(null);
 
   useEffect(() => {
+    if (country) {
+      setCountries([country]);
+      return;
+    }
+
     axios
       .get("https://studies.cs.helsinki.fi/restcountries/api/all")
       .then((response) => {
@@ -23,7 +29,7 @@ function App() {
 
         setCountries(filteredCountries);
       });
-  }, [keyword]);
+  }, [keyword, country]);
 
   const handleKeywordChange = (event: ChangeEvent<HTMLInputElement>) => {
     setKeyword(event.target.value);
@@ -36,7 +42,7 @@ function App() {
           handleKeywordChange={handleKeywordChange}
           keywordValue={keyword}
         />
-        <CountryList countries={countries} />
+        <CountryList countries={countries} setCountry={setCountry} />
       </div>
     </>
   );

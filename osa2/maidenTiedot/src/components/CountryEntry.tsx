@@ -1,20 +1,19 @@
-import { useState } from "react";
 import Country from "../interfaces/Country";
 
 const CountryEntry = ({
   country,
-  initialCollapse = true,
+  collapse = true,
+  setCountry,
 }: {
   country: Country;
-  initialCollapse?: boolean;
+  collapse?: boolean;
+  setCountry: CallableFunction;
 }) => {
-  const [collapse, setCollapse] = useState(initialCollapse);
-
   if (collapse) {
     return (
       <li>
         {country.name.common}
-        <button onClick={() => setCollapse(!collapse)}>show</button>
+        <button onClick={() => setCountry(country)}>show</button>
       </li>
     );
   }
