@@ -12,7 +12,7 @@ const CountryList = ({ countries }: { countries: Country[] }) => {
         <div>
           <ul>
             {countries.map((country) => (
-              <CountryEntry country={country} />
+              <CountryEntry country={country} key={country.name.common} />
             ))}
           </ul>
         </div>

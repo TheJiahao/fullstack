@@ -7,8 +7,7 @@ const CountryEntry = ({
   country: Country;
   collapse?: boolean;
 }) => {
-  if (collapse) {
-    return <li key={country.name.common}>{country.name.common}</li>;
+    return <li>{country.name.common}</li>;
   }
 
   return (
