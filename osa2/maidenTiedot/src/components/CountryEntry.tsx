@@ -1,4 +1,5 @@
 import Country from "../interfaces/Country";
+import WeatherInfo from "./WeatherInfo";
 
 const CountryEntry = ({
   country,
@@ -36,6 +37,9 @@ const CountryEntry = ({
       </ul>
 
       <img src={country.flags.svg} alt={country.flags.alt} width="10%"></img>
+
+      <h3>Weather in {country.capital}</h3>
+      <WeatherInfo city={country.capital} />
     </div>
   );
 };
