@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import AddPersonForm from "./components/AddPersonForm";
 import FilterForm from "./components/FilterForm";
 import Notification from "./components/Notification";
@@ -55,12 +55,17 @@ const App = () => {
       />
 
       <h3>Numbers</h3>
-      <PersonList
-        persons={persons}
-        keyword={keyword}
-        setPersons={setPersons}
-        setMessage={setMessage}
-      />
+      {useMemo(
+        () => (
+          <PersonList
+            persons={persons}
+            keyword={keyword}
+            setPersons={setPersons}
+            setMessage={setMessage}
+          />
+        ),
+        [keyword, persons]
+      )}
     </div>
   );
 };
