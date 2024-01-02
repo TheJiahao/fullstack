@@ -26,7 +26,7 @@ const showSuccessMessage = (message: string, setMessage: CallableFunction) => {
 
   setTimeout(() => {
     setMessage({ message: null, type: null });
-  }, 500000);
+  }, 5000);
 };
 
 const handleAddPerson = (
