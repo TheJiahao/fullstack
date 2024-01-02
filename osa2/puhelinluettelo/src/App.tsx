@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import AddPersonForm from "./components/AddPersonForm";
 import FilterForm from "./components/FilterForm";
+import Notification from "./components/Notification";
 import PersonList from "./components/PersonList";
 import Person from "./entities/Person";
 import {
@@ -9,7 +10,6 @@ import {
   handleNameChange,
   handleNumberChange,
 } from "./services/handlers";
-import Notification from "./components/Notification";
 import personService from "./services/personService";
 
 const App = () => {
