@@ -1,4 +1,3 @@
-import axios, { AxiosResponse } from "axios";
 import { useEffect, useState } from "react";
 import AddPersonForm from "./components/AddPersonForm";
 import FilterForm from "./components/FilterForm";
@@ -11,6 +10,7 @@ import {
   handleNumberChange,
 } from "./services/handlers";
 import Notification from "./components/Notification";
+import personService from "./services/personService";
 
 const App = () => {
   const [persons, setPersons] = useState(new Array<Person>());
@@ -20,13 +20,9 @@ const App = () => {
   const [message, setMessage] = useState({ message: null, type: null });
 
   useEffect(() => {
-    axios
-      .get("http://localhost:3001/persons")
-      .then((response: AxiosResponse<Person[]>) => {
-        console.log("promise fullfilled");
-
-        setPersons(response.data);
-      });
+    personService
+      .getAllPersons()
+      .then((returnedPersons) => setPersons(returnedPersons));
   }, []);
 
   console.log("Persons", persons);
