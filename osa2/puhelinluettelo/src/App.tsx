@@ -11,13 +11,14 @@ import {
   handleNumberChange,
 } from "./services/handlers";
 import personService from "./services/personService";
+import Message from "./interfaces/Message";
 
 const App = () => {
   const [persons, setPersons] = useState(new Array<Person>());
   const [newName, setNewName] = useState("");
   const [newNumber, setNewNumber] = useState("");
   const [keyword, setKeyword] = useState("");
-  const [message, setMessage] = useState({ message: null, type: null });
+  const [message, setMessage] = useState<Message>({ message: "", type: "" });
 
   useEffect(() => {
     personService
@@ -31,7 +32,7 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
-      <Notification message={message.message} type={message.type} />
+      <Notification message={message} />
       <FilterForm
         handleKeywordChange={handleKeywordChange(setKeyword)}
         keywordValue={keyword}
