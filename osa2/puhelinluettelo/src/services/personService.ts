@@ -1,9 +1,9 @@
 import axios from "axios";
 import Person from "../entities/Person";
-const baseUrl = "http://localhost:3001/api";
+const baseUrl = "http://localhost:3001/api/persons";
 
 const getAllPersons = () => {
-  return axios.get(`${baseUrl}/persons`).then((response) => response.data);
+  return axios.get(`${baseUrl}`).then((response) => response.data);
 };
 
 const create = (newPerson: Person): Promise<Person> => {
