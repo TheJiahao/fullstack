@@ -1,5 +1,6 @@
 import axios from "axios";
 import Person from "../entities/Person";
+const baseUrl = "http://localhost:3001/api";
 
 const getAllPersons = () => {
   return axios.get(`${baseUrl}/persons`).then((response) => response.data);
