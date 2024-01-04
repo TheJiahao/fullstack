@@ -78,8 +78,8 @@ const handleAddPerson = (
         clearFields(setNewName, setNewNumber);
       })
       .catch((error) => {
-        console.log("Add person failed", error);
-        showErrorMessage("Add person failed", setMessage);
+        console.log(error.response.data);
+        showErrorMessage(error.response.data, setMessage);
       });
   };
 };
