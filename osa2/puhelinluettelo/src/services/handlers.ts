@@ -103,11 +103,9 @@ const updatePerson = (
 
       showSuccessMessage(`Updated ${newPerson.name}`, setMessage);
     })
-    .catch(() => {
-      showErrorMessage(
-        `${newPerson.name} has already been removed from server.`,
-        setMessage
-      );
+    .catch((error) => {
+      console.log(error.response.data);
+      showErrorMessage(error.response.data, setMessage);
     });
 
   return;
