@@ -2,9 +2,6 @@
 	"folders": [
 		{
 			"path": "."
-		},
-		{
-			"path": "../fullstack-osa3-puhelinluettelo"
 		}
 	],
 	"settings": {}
