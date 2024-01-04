@@ -73,12 +73,14 @@ const handleAddPerson = (
       .then((returnedPerson) => {
         setPersons(persons.concat(returnedPerson));
         console.log("Added person:", newPerson);
+        showSuccessMessage(`Added ${newPerson.name}`, setMessage);
+
+        clearFields(setNewName, setNewNumber);
       })
-      .catch((error) => console.log("Add person failed", error));
-
-    clearFields(setNewName, setNewNumber);
-
-    showSuccessMessage(`Added ${newPerson.name}`, setMessage);
+      .catch((error) => {
+        console.log("Add person failed", error);
+        showErrorMessage("Add person failed", setMessage);
+      });
   };
 };
 
