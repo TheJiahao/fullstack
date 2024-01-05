@@ -4,4 +4,8 @@ const dummy = (blogs: Blog[]): number => {
   return 1;
 };
 
-export default { dummy };
+const totalLikes = (blogs: Blog[]): number => {
+  return blogs.reduce((sum, blog) => sum + blog.likes, 0);
+};
+
+export default { dummy, totalLikes };
