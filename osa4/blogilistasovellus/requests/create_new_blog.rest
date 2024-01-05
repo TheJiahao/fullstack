@@ -1,0 +1,9 @@
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "author": "Jaska Jokunen",
+    "title": "How to make a fusion power plant at home",
+    "url": "https://blog.test",
+    "likes": 1000000
+}
