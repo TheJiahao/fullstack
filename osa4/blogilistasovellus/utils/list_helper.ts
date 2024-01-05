@@ -4,4 +4,4 @@ const dummy = (blogs: Blog[]): number => {
   return 1;
 };
 
-export = { dummy };
+export default { dummy };
