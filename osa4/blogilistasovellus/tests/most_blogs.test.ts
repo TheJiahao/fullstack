@@ -5,6 +5,22 @@ describe("most blogs", () => {
     expect(listHelper.mostBlogs([])).toBe(null);
   });
 
+  test("is correct with only one blog", () => {
+    const blogs = [
+      {
+        author: "Jaska Jokunen",
+        title: "A blog",
+        url: "sfsadfs",
+        likes: 1,
+      },
+    ];
+
+    expect(listHelper.mostBlogs(blogs)).toEqual({
+      author: "Jaska Jokunen",
+      blogs: 1,
+    });
+  });
+
   test("is correct when blogger with most blogs is unique", () => {
     const blogs = [
       {
