@@ -1,10 +1,10 @@
 import config = require("./utils/config");
 import blogRouter = require("./controllers/blogs");
+import express = require("express");
+import cors = require("cors");
+import mongoose = require("mongoose");
 
-const express = require("express");
 const app = express();
-const cors = require("cors");
-const mongoose = require("mongoose");
 
 const mongoUrl = config.MONGODB_URI;
 mongoose.connect(mongoUrl);
