@@ -6,6 +6,11 @@ interface BloggerWithBlogs {
   blogs: number;
 }
 
+interface BloggerWithLikes {
+  author: string;
+  likes: number;
+}
+
 const dummy = (blogs: Blog[]): number => {
   return 1;
 };
@@ -36,4 +41,19 @@ const mostBlogs = (blogs: Blog[]): BloggerWithBlogs | null => {
     .maxBy("blogs");
 };
 
-export default { dummy, totalLikes, favoriteBlog, mostBlogs };
+const mostLikes = (blogs: Blog[]): BloggerWithLikes | null => {
+  if (blogs.length === 0) {
+    return null;
+  }
+
+  return _(blogs)
+    .groupBy("author")
+    .mapValues((blogList) => _(blogList).map("likes").sum())
+    .toPairs()
+    .map((pair) => {
+      return { author: pair[0], likes: pair[1] };
+    })
+    .maxBy("likes");
+};
+
+export default { dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes };
