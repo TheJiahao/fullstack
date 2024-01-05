@@ -27,18 +27,13 @@ const mostBlogs = (blogs: Blog[]): BloggerWithBlogs | null => {
     return null;
   }
 
-  const authors = blogs.map((blog) => blog.author);
-  const authorsByBlogs = _.countBy(blogs, "author");
-
-  const authorWithMostBlogs = _.maxBy(
-    authors,
-    (author) => authorsByBlogs[author]
-  );
-
-  return {
-    author: authorWithMostBlogs,
-    blogs: authorsByBlogs[authorWithMostBlogs],
-  };
+  return _(blogs)
+    .countBy("author")
+    .toPairs()
+    .map((pair) => {
+      return { author: pair[0], blogs: pair[1] };
+    })
+    .maxBy("blogs");
 };
 
 export default { dummy, totalLikes, favoriteBlog, mostBlogs };
