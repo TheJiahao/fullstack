@@ -1,4 +1,5 @@
 import config = require("./utils/config");
+import logger = require("./utils/logger");
 
 const express = require("express");
 const app = express();
@@ -35,5 +36,5 @@ app.post("/api/blogs", (request, response) => {
 });
 
 app.listen(config.PORT, () => {
-  console.log(`Server running on port ${config.PORT}`);
+  logger.info(`Server running on port ${config.PORT}`);
 });
