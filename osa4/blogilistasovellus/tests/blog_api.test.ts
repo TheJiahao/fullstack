@@ -125,17 +125,11 @@ describe("deletion of blogs", () => {
   });
 
   test("succeeds when deleting existing blog", async () => {
-    const blogToDelete = (await getAllBlogs())[0];
+    const blogToDelete = (await helper.getAllBlogs())[0];
     await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
 
-    const blogs = await getAllBlogs();
+    const blogs = await helper.getAllBlogs();
 
     expect(blogs).toHaveLength(helper.initialBlogs.length - 1);
   });
 });
-
-const getAllBlogs = async () => {
-  const response = await api.get("/api/blogs");
-
-  return response.body;
-};

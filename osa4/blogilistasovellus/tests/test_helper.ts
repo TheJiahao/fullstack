@@ -1,4 +1,5 @@
 import Blog from "../interfaces/blog";
+import blogModel from "../models/blog";
 
 const initialBlogs: Blog[] = [
   {
@@ -15,4 +16,8 @@ const initialBlogs: Blog[] = [
   },
 ];
 
-export default { initialBlogs };
+const getAllBlogs = async () => {
+  return blogModel.find({});
+};
+
+export default { initialBlogs, getAllBlogs };
