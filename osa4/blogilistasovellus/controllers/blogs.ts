@@ -3,10 +3,10 @@ import blogModel = require("../models/blog");
 
 const blogRouter = express.Router();
 
-blogRouter.get("/", (request, response) => {
-  blogModel.find({}).then((blogs) => {
-    response.json(blogs);
-  });
+blogRouter.get("/", async (request, response) => {
+  const blogs = await blogModel.find({});
+
+  response.json(blogs);
 });
 
 blogRouter.post("/", (request, response) => {
