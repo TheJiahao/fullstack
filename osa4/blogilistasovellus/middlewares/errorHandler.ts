@@ -4,7 +4,7 @@ import logger from "../utils/logger";
 const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
   logger.error(error);
 
-  if (error.name == "TypeError") {
+  if (error.name == "ValidationError") {
     response.status(400).send(error.message).end();
   }
 
