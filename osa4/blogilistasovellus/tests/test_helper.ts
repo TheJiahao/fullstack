@@ -17,7 +17,7 @@ const getInitialBlogs: Blog[] = [
 ];
 
 const getNonExistingId = async () => {
-  const blog = new blogModel({ author: "", title: "", url: "", likes: 0 });
+  const blog = new blogModel({ author: "dasd", title: "asda", url: "asdas", likes: 0 });
   await blog.save();
 
   await blogModel.findByIdAndDelete(blog.id);
