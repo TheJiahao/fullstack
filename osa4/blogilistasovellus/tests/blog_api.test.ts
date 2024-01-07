@@ -7,7 +7,16 @@ import Blog from "../interfaces/blog";
 
 const api = supertest(app);
 
-describe("app", () => {
+afterAll(async () => {
+  await mongoose.connection.close();
+});
+
+describe("getting blogs", () => {
+  beforeEach(async () => {
+    await blog.deleteMany({});
+    await blog.insertMany(helper.initialBlogs);
+  });
+
   test("returns blogs as json", async () => {
     await api
       .get("/api/blogs")
@@ -19,6 +28,12 @@ describe("app", () => {
     const response = await api.get("/api/blogs");
 
     expect(response.body).toHaveLength(helper.initialBlogs.length);
+  });
+});
+
+describe("addition of blogs", () => {
+  beforeEach(async () => {
+    await blog.deleteMany({});
   });
 
   test("returns blogs that has id as only identifier", async () => {
@@ -46,7 +61,7 @@ describe("app", () => {
 
     const response = await api.get("/api/blogs");
 
-    expect(response.body).toHaveLength(helper.initialBlogs.length + 1);
+    expect(response.body).toHaveLength(1);
   });
 
   test("a blog is added correctly", async () => {
@@ -86,7 +101,7 @@ describe("app", () => {
     await api.post("/api/blogs").send(newBlog).expect(400);
 
     const response = await api.get("/api/blogs");
-    expect(response.body).toHaveLength(helper.initialBlogs.length);
+    expect(response.body).toHaveLength(0);
   });
 
   test("adding a blog without url fails", async () => {
@@ -99,15 +114,6 @@ describe("app", () => {
     await api.post("/api/blogs").send(newBlog).expect(400);
 
     const response = await api.get("/api/blogs");
-    expect(response.body).toHaveLength(helper.initialBlogs.length);
-  });
-
-  beforeEach(async () => {
-    await blog.deleteMany({});
-    await blog.insertMany(helper.initialBlogs);
-  });
-
-  afterAll(async () => {
-    await mongoose.connection.close();
+    expect(response.body).toHaveLength(0);
   });
 });
