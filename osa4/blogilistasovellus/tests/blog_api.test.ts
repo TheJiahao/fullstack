@@ -20,6 +20,15 @@ describe("app", () => {
     expect(response.body).toHaveLength(helper.initialBlogs.length);
   });
 
+  test("returns blogs that has id as only identifier", async () => {
+    const response = await api.get("/api/blogs");
+
+    for (const blog of response.body) {
+      expect(blog.id).toBeDefined();
+      expect(blog._id).toBeUndefined();
+    }
+  });
+
   beforeEach(async () => {
     await blog.deleteMany({});
     await blog.insertMany(helper.initialBlogs);
