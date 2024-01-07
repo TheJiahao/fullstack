@@ -117,3 +117,25 @@ describe("addition of blogs", () => {
     expect(response.body).toHaveLength(0);
   });
 });
+
+describe("deletion of blogs", () => {
+  beforeEach(async () => {
+    await blog.deleteMany({});
+    await blog.insertMany(helper.initialBlogs);
+  });
+
+  test("succeeds when deleting existing blog", async () => {
+    const blogToDelete = (await getAllBlogs())[0];
+    await api.delete(`/api/blogs/${blogToDelete.id}`).expect(204);
+
+    const blogs = await getAllBlogs();
+
+    expect(blogs).toHaveLength(helper.initialBlogs.length - 1);
+  });
+});
+
+const getAllBlogs = async () => {
+  const response = await api.get("/api/blogs");
+
+  return response.body;
+};
