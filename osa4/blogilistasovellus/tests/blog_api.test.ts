@@ -132,4 +132,13 @@ describe("deletion of blogs", () => {
 
     expect(blogs).toHaveLength(helper.getInitialBlogs.length - 1);
   });
+
+  test("succeeds when deleting non-existent blog", async () => {
+    const id = await helper.getNonExistingId();
+
+    await api.delete(`/api/blogs/${id}`).expect(204);
+
+    const blogs = await helper.getAllBlogs();
+    expect(blogs).toHaveLength(helper.getInitialBlogs.length);
+  });
 });
