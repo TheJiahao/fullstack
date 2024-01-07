@@ -3,6 +3,7 @@ import blogRouter = require("./controllers/blogs");
 import express = require("express");
 import cors = require("cors");
 import mongoose = require("mongoose");
+import errorHandler from "./middlewares/errorHandler";
 
 const app = express();
 
@@ -12,5 +13,6 @@ mongoose.connect(mongoUrl);
 app.use(cors());
 app.use(express.json());
 app.use("/api/blogs", blogRouter);
+app.use(errorHandler);
 
 export = app;
