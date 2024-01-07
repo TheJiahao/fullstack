@@ -64,6 +64,18 @@ describe("app", () => {
     expect(response.body).toContainEqual(newBlog);
   });
 
+  test("adding a blog without likes sets likes to 0", async () => {
+    const newBlog = {
+      title: "How to become a half-stack developer",
+      author: "Quarter-stack Developer",
+      url: "halfstackopen.com",
+    };
+
+    const response = await api.post("/api/blogs").send(newBlog);
+
+    expect(response.body.likes).toBe(0);
+  });
+
   beforeEach(async () => {
     await blog.deleteMany({});
     await blog.insertMany(helper.initialBlogs);
