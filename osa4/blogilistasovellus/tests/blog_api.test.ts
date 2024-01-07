@@ -14,7 +14,7 @@ afterAll(async () => {
 describe("getting blogs", () => {
   beforeEach(async () => {
     await blog.deleteMany({});
-    await blog.insertMany(helper.initialBlogs);
+    await blog.insertMany(helper.getInitialBlogs);
   });
 
   test("returns blogs as json", async () => {
@@ -27,7 +27,7 @@ describe("getting blogs", () => {
   test("returns correct amount of blogs", async () => {
     const response = await api.get("/api/blogs");
 
-    expect(response.body).toHaveLength(helper.initialBlogs.length);
+    expect(response.body).toHaveLength(helper.getInitialBlogs.length);
   });
 });
 
@@ -121,7 +121,7 @@ describe("addition of blogs", () => {
 describe("deletion of blogs", () => {
   beforeEach(async () => {
     await blog.deleteMany({});
-    await blog.insertMany(helper.initialBlogs);
+    await blog.insertMany(helper.getInitialBlogs);
   });
 
   test("succeeds when deleting existing blog", async () => {
@@ -130,6 +130,6 @@ describe("deletion of blogs", () => {
 
     const blogs = await helper.getAllBlogs();
 
-    expect(blogs).toHaveLength(helper.initialBlogs.length - 1);
+    expect(blogs).toHaveLength(helper.getInitialBlogs.length - 1);
   });
 });

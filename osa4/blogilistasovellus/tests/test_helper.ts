@@ -1,7 +1,7 @@
 import Blog from "../interfaces/blog";
 import blogModel from "../models/blog";
 
-const initialBlogs: Blog[] = [
+const getInitialBlogs: Blog[] = [
   {
     author: "Jaska Jokunen",
     title: "How to make a fusion power plant at home",
@@ -20,4 +20,4 @@ const getAllBlogs = async () => {
   return blogModel.find({});
 };
 
-export default { initialBlogs, getAllBlogs };
+export default { getInitialBlogs, getAllBlogs };
