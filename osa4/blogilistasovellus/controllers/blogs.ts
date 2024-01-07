@@ -10,7 +10,9 @@ blogRouter.get("/", async (request, response) => {
 });
 
 blogRouter.post("/", async (request, response) => {
-  const blog = new blogModel(request.body);
+  const body = request.body;
+
+  const blog = new blogModel({ ...body, likes: body.likes || 0 });
   const returnedBlog = await blog.save();
 
   response.status(201).json(returnedBlog);
