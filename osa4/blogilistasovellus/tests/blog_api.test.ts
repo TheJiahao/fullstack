@@ -142,3 +142,39 @@ describe("deletion of blogs", () => {
     expect(blogs).toHaveLength(helper.getInitialBlogs.length);
   });
 });
+
+describe("updating blogs", () => {
+  beforeEach(async () => {
+    await blog.deleteMany({});
+    await blog.insertMany(helper.getInitialBlogs);
+  });
+
+  test("succeeds when updating existing blog", async () => {
+    const id = (await helper.getAllBlogs())[0].id;
+
+    const updatedBlog = {
+      title: "Updated blog",
+      author: "New author",
+      url: "url",
+      likes: 1000,
+    };
+
+    await api.put(`/api/blogs/${id}`).send(updatedBlog).expect(200);
+  });
+
+  test("updates blog when updating existing blog", async () => {
+    const id = (await helper.getAllBlogs())[0].id;
+
+    const updatedBlog = {
+      title: "Updated blog",
+      author: "New author",
+      url: "url",
+      likes: 1000,
+    };
+
+    const response = await api.put(`/api/blogs/${id}`).send(updatedBlog);
+    const returnedBlog = response.body;
+    delete returnedBlog.id;
+
+    expect(returnedBlog).toEqual(updatedBlog);
+  });
