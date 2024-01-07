@@ -1,5 +1,6 @@
 import express = require("express");
 import blogModel = require("../models/blog");
+require("express-async-errors");
 
 const blogRouter = express.Router();
 
