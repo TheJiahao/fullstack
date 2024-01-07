@@ -76,6 +76,32 @@ describe("app", () => {
     expect(response.body.likes).toBe(0);
   });
 
+  test("adding a blog without title fails", async () => {
+    const newBlog = {
+      author: "Quarter-stack Developer",
+      url: "halfstackopen.com",
+      likes: 100,
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+
+    const response = await api.get("/api/blogs");
+    expect(response.body).toHaveLength(helper.initialBlogs.length);
+  });
+
+  test("adding a blog without url fails", async () => {
+    const newBlog = {
+      title: "How to become a half-stack developer",
+      author: "Quarter-stack Developer",
+      likes: 100,
+    };
+
+    await api.post("/api/blogs").send(newBlog).expect(400);
+
+    const response = await api.get("/api/blogs");
+    expect(response.body).toHaveLength(helper.initialBlogs.length);
+  });
+
   beforeEach(async () => {
     await blog.deleteMany({});
     await blog.insertMany(helper.initialBlogs);
