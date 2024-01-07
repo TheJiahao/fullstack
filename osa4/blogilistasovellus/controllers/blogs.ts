@@ -4,6 +4,10 @@ require("express-async-errors");
 
 const blogRouter = express.Router();
 
+class BlogNotFoundError extends Error {
+  name: string = "BlogNotFoundError";
+}
+
 blogRouter.get("/", async (request, response) => {
   const blogs = await blogModel.find({});
 
@@ -36,6 +40,10 @@ blogRouter.put("/:id", async (request, response) => {
       new: true,
     }
   );
+
+  if (!updatedBlog) {
+    throw new BlogNotFoundError("Blog not found");
+  }
 
   response.json(updatedBlog);
 });

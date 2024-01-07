@@ -178,3 +178,17 @@ describe("updating blogs", () => {
 
     expect(returnedBlog).toEqual(updatedBlog);
   });
+
+  test("fails when blog does not exist", async () => {
+    const id = await helper.getNonExistingId();
+
+    const updatedBlog = {
+      title: "Updated blog",
+      author: "New author",
+      url: "url",
+      likes: 1000,
+    };
+
+    await api.put(`/api/blogs/${id}`).send(updatedBlog).expect(404);
+  });
+});
