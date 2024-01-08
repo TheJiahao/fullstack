@@ -29,4 +29,16 @@ describe("adding user", () => {
       .expect(201)
       .expect("Content-Type", /application\/json/);
   });
+
+  test("fails with too short username", async () => {
+    const user = {
+      username: "co",
+      name: "Cool User",
+      password: "aiosjaiasds12312o",
+    };
+
+    const response = await api.post(helper.baseRoute).send(user).expect(400);
+
+    expect(response.body.error).toMatch(/minimum allowed length \(3\)/);
+  });
 });
