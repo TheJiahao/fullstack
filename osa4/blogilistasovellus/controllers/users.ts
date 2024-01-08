@@ -5,8 +5,16 @@ require("express-async-errors");
 
 const userRouter = express.Router();
 
+class InvalidPasswordError extends Error {
+  name: string = "InvalidPasswordError";
+}
+
 userRouter.post("/", async (request, response) => {
   const { username, name, password } = request.body;
+
+  if (!(password && password.length >= 3)) {
+    throw new InvalidPasswordError("minimum length of password is 3");
+  }
 
   const saltRounds = 10;
   const passwordHash = await bcrypt.hash(password, saltRounds);

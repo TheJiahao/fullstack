@@ -51,4 +51,29 @@ describe("adding user", () => {
     expect(response.body.error).toMatch(/username[\s\S]*unique/);
     expect(await helper.getAllUsers()).toHaveLength(helper.initialUsers.length);
   });
+
+  test("fails with no password", async () => {
+    const user = {
+      username: "validusername",
+      name: "Valid Name",
+    };
+
+    const response = await api.post(helper.baseRoute).send(user).expect(400);
+
+    expect(response.body.error).toMatch(/minimum[\s\S]*password[\s\S]*3/);
+    expect(await helper.getAllUsers()).toHaveLength(helper.initialUsers.length);
+  });
+
+  test("fails with too short password", async () => {
+    const user = {
+      username: "validusername",
+      name: "Valid Name",
+      password: "aa"
+    };
+
+    const response = await api.post(helper.baseRoute).send(user).expect(400);
+
+    expect(response.body.error).toMatch(/minimum[\s\S]*password[\s\S]*3/);
+    expect(await helper.getAllUsers()).toHaveLength(helper.initialUsers.length);
+  });
 });

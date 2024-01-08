@@ -4,7 +4,10 @@ import logger from "../utils/logger";
 const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
   logger.error(error);
 
-  if (error.name === "ValidationError") {
+  if (
+    error.name === "ValidationError" ||
+    error.name === "InvalidPasswordError"
+  ) {
     response.status(400).send({ error: error.message }).end();
   } else if (error.name === "BlogNotFoundError") {
     response.status(404).send({ error: error.message }).end();
