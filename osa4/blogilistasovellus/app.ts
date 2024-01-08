@@ -1,10 +1,10 @@
 import config = require("./utils/config");
 import blogRouter = require("./controllers/blogs");
 import userRouter from "./controllers/users";
+import errorHandler from "./middlewares/errorHandler";
 import express = require("express");
 import cors = require("cors");
 import mongoose = require("mongoose");
-import errorHandler from "./middlewares/errorHandler";
 
 const app = express();
 
