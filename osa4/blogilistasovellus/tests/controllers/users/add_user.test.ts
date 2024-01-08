@@ -24,7 +24,7 @@ describe("adding user", () => {
     };
 
     await api
-      .post("/api/users")
+      .post(helper.baseRoute)
       .send(user)
       .expect(201)
       .expect("Content-Type", /application\/json/);

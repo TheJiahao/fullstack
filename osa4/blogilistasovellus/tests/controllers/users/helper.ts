@@ -3,4 +3,6 @@ const initialUsers = [
   { username: "user1", name: "Nimi", password: "123456" },
 ];
 
-export default { initialUsers };
+const baseRoute = "/api/users";
+
+export default { initialUsers, baseRoute };
