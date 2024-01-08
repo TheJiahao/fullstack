@@ -6,7 +6,7 @@
   "scripts": {
     "start-pwsh": "cross-env NODE_ENV=production @powershell Remove-Item build -Recurse -Force -WarningAction SilentlyContinue && tsc && node build/index.js",
     "start": "cross-env NODE_ENV=production  rm -rf build && tsc && node build/index.js",
-    "test": "cross-env NODE_ENV=test jest --verbose",
+    "test": "cross-env NODE_ENV=test jest --verbose --runInBand",
     "dev": "cross-env NODE_ENV=development tsc-watch --onSuccess \"node build/index.js\"",
     "dev-4.1": "tsc-watch --onSuccess \"nodemon build/index.js\"",
     "lint": "eslint ."
