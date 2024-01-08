@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import express from "express";
 import User from "../models/user";
+require("express-async-errors");
 
 const userRouter = express.Router();
 
