@@ -1,4 +1,4 @@
-import listHelper from "../utils/list_helper";
+import listHelper from "../../../utils/list_helper";
 
 describe("most blogs", () => {
   test("is null when no bloggers exist", () => {

@@ -1,9 +1,9 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
-import app from "../../app";
-import blog from "../../models/blog";
+import app from "../../../app";
+import blog from "../../../models/blog";
 import helper from "./helper";
-import Blog from "../../interfaces/blog";
+import Blog from "../../../interfaces/blog";
 
 const api = supertest(app);
 

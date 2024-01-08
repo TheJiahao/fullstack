@@ -1,4 +1,4 @@
-import listHelper from "../utils/list_helper";
+import listHelper from "../../../utils/list_helper";
 
 describe("total likes", () => {
   test("of empty list is zero", () => {

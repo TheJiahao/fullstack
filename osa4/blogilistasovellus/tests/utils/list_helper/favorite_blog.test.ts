@@ -1,4 +1,4 @@
-import listHelper from "../utils/list_helper";
+import listHelper from "../../../utils/list_helper";
 
 describe("favorite blog", () => {
   test("is null with empty blogs", () => {

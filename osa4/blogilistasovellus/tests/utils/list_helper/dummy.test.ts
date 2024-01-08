@@ -1,4 +1,4 @@
-import listHelper from "../utils/list_helper";
+import listHelper from "../../../utils/list_helper";
 
 test("dummy returns one", () => {
   const blogs = [];
