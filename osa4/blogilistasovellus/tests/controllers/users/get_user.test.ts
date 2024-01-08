@@ -24,4 +24,23 @@ describe("getting users", () => {
     const response = await api.get(helper.baseRoute);
     expect(response.body).toHaveLength(helper.initialUsers.length);
   });
+
+  test("does not return password or hash", async () => {
+    const response = await api.get(helper.baseRoute);
+
+    for (const user of response.body) {
+      expect(user.password).toBeUndefined();
+      expect(user.passwordHash).toBeUndefined();
+    }
+  });
+
+  test("return users with username, name and id", async () => {
+    const response = await api.get(helper.baseRoute);
+
+    for (const user of response.body) {
+      expect(user).toHaveProperty("username");
+      expect(user).toHaveProperty("name");
+      expect(user).toHaveProperty("id");
+    }
+  });
 });
