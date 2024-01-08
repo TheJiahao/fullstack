@@ -41,4 +41,12 @@ describe("adding user", () => {
 
     expect(response.body.error).toMatch(/minimum allowed length \(3\)/);
   });
+
+  test("fails with existing username", async () => {
+    const user = helper.initialUsers[0];
+
+    const response = await api.post(helper.baseRoute).send(user).expect(400);
+
+    expect(response.body.error).toMatch(/username[\s\S]*unique/);
+  });
 });
