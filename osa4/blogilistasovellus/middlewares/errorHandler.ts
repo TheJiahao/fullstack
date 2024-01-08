@@ -4,15 +4,16 @@ import logger from "../utils/logger";
 const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
   logger.error(error);
 
-  if (
-    error.name === "ValidationError" ||
-    error.name === "InvalidPasswordError"
-  ) {
-    response.status(400).send({ error: error.message }).end();
-  } else if (error.name === "BlogNotFoundError") {
-    response.status(404).send({ error: error.message }).end();
-  } else {
-    response.status(500).send({ error: error.message }).end();
+  switch (error.name) {
+    case "ValidationError":
+    case "InvalidPasswordError":
+      response.status(400).send({ error: error.message }).end();
+      break;
+    case "BlogNotFoundError":
+      response.status(404).send({ error: error.message }).end();
+      break;
+    default:
+      response.status(500).send({ error: error.message }).end();
   }
 
   next(error);
