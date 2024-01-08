@@ -134,7 +134,7 @@ describe("deletion of blogs", () => {
   });
 
   test("succeeds when deleting non-existent blog", async () => {
-    const id = await helper.getNonExistingId();
+    const id = await helper.getNonExistingBlogId();
 
     await api.delete(`/api/blogs/${id}`).expect(204);
 
@@ -180,7 +180,7 @@ describe("updating blogs", () => {
   });
 
   test("fails when blog does not exist", async () => {
-    const id = await helper.getNonExistingId();
+    const id = await helper.getNonExistingBlogId();
 
     const updatedBlog = {
       title: "Updated blog",

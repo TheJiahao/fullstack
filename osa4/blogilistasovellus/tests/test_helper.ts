@@ -16,8 +16,13 @@ const getInitialBlogs: Blog[] = [
   },
 ];
 
-const getNonExistingId = async () => {
-  const blog = new blogModel({ author: "dasd", title: "asda", url: "asdas", likes: 0 });
+const getNonExistingBlogId = async () => {
+  const blog = new blogModel({
+    author: "dasd",
+    title: "asda",
+    url: "asdas",
+    likes: 0,
+  });
   await blog.save();
 
   await blogModel.findByIdAndDelete(blog.id);
@@ -29,4 +34,4 @@ const getAllBlogs = async () => {
   return blogModel.find({});
 };
 
-export default { getInitialBlogs, getAllBlogs, getNonExistingId };
+export default { getInitialBlogs, getAllBlogs, getNonExistingBlogId };
