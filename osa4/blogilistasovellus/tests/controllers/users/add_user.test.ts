@@ -40,6 +40,7 @@ describe("adding user", () => {
     const response = await api.post(helper.baseRoute).send(user).expect(400);
 
     expect(response.body.error).toMatch(/minimum allowed length \(3\)/);
+    expect(await helper.getAllUsers()).toHaveLength(helper.initialUsers.length);
   });
 
   test("fails with existing username", async () => {
@@ -48,5 +49,6 @@ describe("adding user", () => {
     const response = await api.post(helper.baseRoute).send(user).expect(400);
 
     expect(response.body.error).toMatch(/username[\s\S]*unique/);
+    expect(await helper.getAllUsers()).toHaveLength(helper.initialUsers.length);
   });
 });
