@@ -16,8 +16,9 @@ afterAll(async () => {
 describe("deletion of blogs", () => {
   beforeEach(async () => {
     await User.deleteMany({});
-    await userHelper.addInitialUsers(api);
     await Blog.deleteMany({});
+
+    await userHelper.addInitialUsers(api);
 
     const { username } = userHelper.initialUsers[0];
     const userId = (await User.findOne({ username })).id;
