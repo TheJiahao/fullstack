@@ -1,5 +1,6 @@
 import express = require("express");
 import blogModel = require("../models/blog");
+import User from "../models/user";
 require("express-async-errors");
 
 const blogRouter = express.Router();
@@ -17,8 +18,16 @@ blogRouter.get("/", async (request, response) => {
 blogRouter.post("/", async (request, response) => {
   const body = request.body;
 
-  const blog = new blogModel({ ...body, likes: body.likes || 0 });
+  const user = await User.findOne({});
+
+  const blog = new blogModel({
+    ...body,
+    likes: body.likes || 0,
+    user: user._id,
+  });
   const returnedBlog = await blog.save();
+  user.blogs = user.blogs.concat(returnedBlog._id);
+  await user.save();
 
   response.status(201).json(returnedBlog);
 });
