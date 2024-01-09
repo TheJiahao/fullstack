@@ -1,11 +1,11 @@
 import express = require("express");
 import blogModel = require("../models/blog");
-import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
-import User from "../models/user";
-import { BlogNotFoundError, InvalidCredentialsError } from "../utils/error";
-import config = require("../utils/config");
+import { JsonWebTokenError } from "jsonwebtoken";
 import tokenExtractor from "../middlewares/token_extractor";
 import userExtractor from "../middlewares/user_extractor";
+import User from "../models/user";
+import { BlogNotFoundError, InvalidCredentialsError } from "../utils/error";
+
 require("express-async-errors");
 
 const blogRouter = express.Router();
