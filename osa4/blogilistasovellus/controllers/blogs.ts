@@ -10,7 +10,9 @@ class BlogNotFoundError extends Error {
 }
 
 blogRouter.get("/", async (request, response) => {
-  const blogs = await blogModel.find({});
+  const blogs = await blogModel
+    .find({})
+    .populate("user", { username: 1, name: 1 });
 
   response.json(blogs);
 });
