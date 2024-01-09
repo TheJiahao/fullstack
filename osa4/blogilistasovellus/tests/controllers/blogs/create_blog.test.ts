@@ -5,6 +5,7 @@ import Blog from "../../../models/blog";
 import blogHelper from "../blog_helper";
 import User from "../../../models/user";
 import userHelper from "../user_helper";
+import loginHelper from "../login_helper";
 
 const api = supertest(app);
 
@@ -38,7 +39,9 @@ describe("addition of blogs", () => {
     }
   });
 
-  test("a valid blog can be added", async () => {
+  test("a valid blog with token can be added", async () => {
+    const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
+
     const newBlog = {
       title: "How to become a half-stack developer",
       author: "Quarter-stack Developer",
@@ -49,21 +52,27 @@ describe("addition of blogs", () => {
     await api
       .post("/api/blogs")
       .send(newBlog)
+      .set("Authorization", `Bearer ${token}`)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
     const response = await api.get("/api/blogs");
 
-    expect(response.body).toHaveLength(1);
+    expect(response.body).toHaveLength(blogHelper.initialBlogs.length + 1);
   });
 
   test("a blog is added correctly", async () => {
-    let response = await api.post("/api/blogs").send({
-      title: "How to become a half-stack developer",
-      author: "Quarter-stack Developer",
-      url: "halfstackopen.com",
-      likes: 100,
-    });
+    const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
+
+    let response = await api
+      .post("/api/blogs")
+      .set("Authorization", `Bearer ${token}`)
+      .send({
+        title: "How to become a half-stack developer",
+        author: "Quarter-stack Developer",
+        url: "halfstackopen.com",
+        likes: 100,
+      });
 
     const newBlog = response.body;
 
@@ -73,40 +82,57 @@ describe("addition of blogs", () => {
   });
 
   test("adding a blog without likes sets likes to 0", async () => {
+    const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
+
     const newBlog = {
       title: "How to become a half-stack developer",
       author: "Quarter-stack Developer",
       url: "halfstackopen.com",
     };
 
-    const response = await api.post("/api/blogs").send(newBlog);
+    const response = await api
+      .post("/api/blogs")
+      .set("Authorization", `Bearer ${token}`)
+      .send(newBlog);
 
     expect(response.body.likes).toBe(0);
   });
 
   test("adding a blog without title fails", async () => {
+    const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
+
     const newBlog = {
       author: "Quarter-stack Developer",
       url: "halfstackopen.com",
       likes: 100,
     };
 
-    await api.post("/api/blogs").send(newBlog).expect(400);
+    await api
+      .post("/api/blogs")
+      .set("Authorization", `Bearer ${token}`)
+      .send(newBlog)
+      .expect(400);
 
     const response = await api.get("/api/blogs");
-    expect(response.body).toHaveLength(0);
+    expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
   });
 
   test("adding a blog without url fails", async () => {
+    const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
+
     const newBlog = {
       title: "How to become a half-stack developer",
       author: "Quarter-stack Developer",
       likes: 100,
     };
 
-    await api.post("/api/blogs").send(newBlog).expect(400);
+    await api
+      .post("/api/blogs")
+      .set("Authorization", `Bearer ${token}`)
+      .send(newBlog)
+      .expect(400);
 
     const response = await api.get("/api/blogs");
-    expect(response.body).toHaveLength(0);
+    expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
   });
 });
