@@ -1,5 +1,6 @@
 import config = require("./utils/config");
 import blogRouter = require("./controllers/blogs");
+import loginRouter from "./controllers/login";
 import userRouter from "./controllers/users";
 import errorHandler from "./middlewares/errorHandler";
 import express = require("express");
@@ -15,6 +16,7 @@ app.use(cors());
 app.use(express.json());
 app.use("/api/blogs", blogRouter);
 app.use("/api/users", userRouter);
+app.use("/api/login", loginRouter);
 app.use(errorHandler);
 
 export = app;
