@@ -2,7 +2,7 @@ import express = require("express");
 import blogModel = require("../models/blog");
 import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import User from "../models/user";
-import { BlogNotFoundError } from "../utils/error";
+import { BlogNotFoundError, InvalidCredentialsError } from "../utils/error";
 import config = require("../utils/config");
 require("express-async-errors");
 
@@ -42,6 +42,14 @@ blogRouter.post("/", async (request, response) => {
 });
 
 blogRouter.delete("/:id", async (request, response) => {
+  const decodedToken = jwt.verify(request.token, config.SECRET) as JwtPayload;
+
+  const blog = await blogModel.findById(request.params.id);
+
+  if (decodedToken.id !== blog.user.toString()) {
+    throw new InvalidCredentialsError("deletion not permitted");
+  }
+
   await blogModel.findByIdAndDelete(request.params.id);
 
   response.status(204).end();
