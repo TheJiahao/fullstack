@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../../../app";
 import User from "../../../models/user";
-import helper from "./helper";
+import helper from "../user_helper";
 
 const api = supertest(app);
 

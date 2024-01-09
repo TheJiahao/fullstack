@@ -1,4 +1,4 @@
-import User from "../../../models/user";
+import User from "../../models/user";
 
 const initialUsers = [
   { username: "user1", name: "Etunimi Sukunimi", password: "1234" },

@@ -1,5 +1,5 @@
-import Blog from "../../../interfaces/blog";
-import blogModel from "../../../models/blog";
+import Blog from "../../interfaces/blog";
+import blogModel from "../../models/blog";
 
 const initialBlogs: Blog[] = [
   {
