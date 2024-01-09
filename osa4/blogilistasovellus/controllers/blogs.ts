@@ -4,6 +4,8 @@ import jwt, { JsonWebTokenError, JwtPayload } from "jsonwebtoken";
 import User from "../models/user";
 import { BlogNotFoundError, InvalidCredentialsError } from "../utils/error";
 import config = require("../utils/config");
+import tokenExtractor from "../middlewares/token_extractor";
+import userExtractor from "../middlewares/user_extractor";
 require("express-async-errors");
 
 const blogRouter = express.Router();
@@ -16,38 +18,48 @@ blogRouter.get("/", async (request, response) => {
   response.json(blogs);
 });
 
-blogRouter.post("/", async (request, response) => {
-  if (!request.user.id) {
-    throw new JsonWebTokenError("invalid token");
+blogRouter.post(
+  "/",
+  tokenExtractor,
+  userExtractor,
+  async (request, response) => {
+    if (!request.user.id) {
+      throw new JsonWebTokenError("invalid token");
+    }
+
+    const user = await User.findById(request.user.id);
+
+    const body = request.body;
+    const blog = new blogModel({
+      ...body,
+      likes: body.likes || 0,
+      user: user._id,
+    });
+    const returnedBlog = await blog.save();
+
+    user.blogs = user.blogs.concat(returnedBlog._id);
+    await user.save();
+
+    response.status(201).json(returnedBlog);
   }
+);
 
-  const user = await User.findById(request.user.id);
+blogRouter.delete(
+  "/:id",
+  tokenExtractor,
+  userExtractor,
+  async (request, response) => {
+    const blog = await blogModel.findById(request.params.id);
 
-  const body = request.body;
-  const blog = new blogModel({
-    ...body,
-    likes: body.likes || 0,
-    user: user._id,
-  });
-  const returnedBlog = await blog.save();
+    if (request.user.id !== blog.user.toString()) {
+      throw new InvalidCredentialsError("deletion not permitted");
+    }
 
-  user.blogs = user.blogs.concat(returnedBlog._id);
-  await user.save();
+    await blogModel.findByIdAndDelete(request.params.id);
 
-  response.status(201).json(returnedBlog);
-});
-
-blogRouter.delete("/:id", async (request, response) => {
-  const blog = await blogModel.findById(request.params.id);
-
-  if (request.user.id !== blog.user.toString()) {
-    throw new InvalidCredentialsError("deletion not permitted");
+    response.status(204).end();
   }
-
-  await blogModel.findByIdAndDelete(request.params.id);
-
-  response.status(204).end();
-});
+);
 
 blogRouter.put("/:id", async (request, response) => {
   const blog = request.body;
