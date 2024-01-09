@@ -5,6 +5,10 @@ import User from "../models/user";
 import config from "../utils/config";
 require("express-async-errors");
 
+class InvalidCredentialsError extends Error {
+  name: string = "InvalidCredentialsError";
+}
+
 const loginRouter = express.Router();
 
 loginRouter.post("/", async (request, response) => {
@@ -12,7 +16,15 @@ loginRouter.post("/", async (request, response) => {
 
   const user = await User.findOne({ username });
 
-  await bcrypt.compare(password, user.passwordHash);
+  if (
+    !(
+      user &&
+      user.passwordHash &&
+      (await bcrypt.compare(password, user.passwordHash))
+    )
+  ) {
+    throw new InvalidCredentialsError("invalid username or password");
+  }
 
   const token = jwt.sign(
     { username: user.username, id: user.id },

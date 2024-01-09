@@ -12,6 +12,9 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
     case "BlogNotFoundError":
       response.status(404).send({ error: error.message }).end();
       break;
+    case "InvalidCredentialsError":
+      response.status(401).send({ error: error.message }).end();
+      break;
     default:
       response.status(500).send({ error: error.message }).end();
   }
