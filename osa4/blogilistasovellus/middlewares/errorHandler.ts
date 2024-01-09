@@ -4,20 +4,17 @@ import logger from "../utils/logger";
 const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
   logger.error(error);
 
-  switch (error.name) {
-    case "ValidationError":
-    case "InvalidPasswordError":
-      response.status(400).send({ error: error.message }).end();
-      break;
-    case "BlogNotFoundError":
-      response.status(404).send({ error: error.message }).end();
-      break;
-    case "InvalidCredentialsError":
-      response.status(401).send({ error: error.message }).end();
-      break;
-    default:
-      response.status(500).send({ error: error.message }).end();
-  }
+  const statusCodes = new Map([
+    ["ValidationError", 400],
+    ["InvalidPasswordError", 400],
+    ["BlogNotFoundError", 404],
+    ["InvalidCredentialsError", 401],
+  ]);
+
+  response
+    .status(statusCodes.get(error.name) || 500)
+    .send({ error: error.message })
+    .end();
 
   next(error);
 };
