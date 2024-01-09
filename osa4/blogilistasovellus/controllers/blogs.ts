@@ -17,16 +17,13 @@ blogRouter.get("/", async (request, response) => {
 });
 
 blogRouter.post("/", async (request, response) => {
-  const body = request.body;
-
-  const id = request.user.id;
-
-  if (!id) {
+  if (!request.user.id) {
     throw new JsonWebTokenError("invalid token");
   }
 
-  const user = await User.findById(id);
+  const user = await User.findById(request.user.id);
 
+  const body = request.body;
   const blog = new blogModel({
     ...body,
     likes: body.likes || 0,
