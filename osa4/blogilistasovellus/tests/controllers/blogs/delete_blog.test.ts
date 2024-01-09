@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../../../app";
-import blog from "../../../models/blog";
+import Blog from "../../../models/blog";
 import helper from "./helper";
 
 const api = supertest(app);
@@ -12,8 +12,8 @@ afterAll(async () => {
 
 describe("deletion of blogs", () => {
   beforeEach(async () => {
-    await blog.deleteMany({});
-    await blog.insertMany(helper.initialBlogs);
+    await Blog.deleteMany({});
+    await Blog.insertMany(helper.initialBlogs);
   });
 
   test("succeeds when deleting existing blog", async () => {
