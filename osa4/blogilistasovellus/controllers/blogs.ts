@@ -51,11 +51,13 @@ blogRouter.delete(
   async (request, response) => {
     const blog = await blogModel.findById(request.params.id);
 
-    if (request.user.id !== blog.user.toString()) {
-      throw new InvalidCredentialsError("deletion not permitted");
-    }
+    if (blog) {
+      if (request.user.id !== blog.user.toString()) {
+        throw new InvalidCredentialsError("deletion not permitted");
+      }
 
-    await blogModel.findByIdAndDelete(request.params.id);
+      await blogModel.findByIdAndDelete(request.params.id);
+    }
 
     response.status(204).end();
   }
