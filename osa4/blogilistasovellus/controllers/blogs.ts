@@ -18,9 +18,8 @@ blogRouter.get("/", async (request, response) => {
 
 blogRouter.post("/", async (request, response) => {
   const body = request.body;
-  const decodedToken = jwt.verify(request.token, config.SECRET) as JwtPayload;
 
-  const id = decodedToken.id;
+  const id = request.user.id;
 
   if (!id) {
     throw new JsonWebTokenError("invalid token");
@@ -42,11 +41,9 @@ blogRouter.post("/", async (request, response) => {
 });
 
 blogRouter.delete("/:id", async (request, response) => {
-  const decodedToken = jwt.verify(request.token, config.SECRET) as JwtPayload;
-
   const blog = await blogModel.findById(request.params.id);
 
-  if (decodedToken.id !== blog.user.toString()) {
+  if (request.user.id !== blog.user.toString()) {
     throw new InvalidCredentialsError("deletion not permitted");
   }
 
