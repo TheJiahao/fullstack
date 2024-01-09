@@ -135,4 +135,18 @@ describe("addition of blogs", () => {
     const response = await api.get(blogHelper.baseRoute);
     expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
   });
+
+  test("adding a blog without token fails", async () => {
+    const newBlog = {
+      title: "How to become a half-stack developer",
+      author: "Quarter-stack Developer",
+      url: "halfstackopen.com",
+      likes: 100,
+    };
+
+    await api.post(blogHelper.baseRoute).send(newBlog).expect(401);
+
+    const response = await api.get(blogHelper.baseRoute);
+    expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
+  });
 });
