@@ -2,6 +2,9 @@ import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../../../app";
 import Blog from "../../../models/blog";
+import blogHelper from "../blog_helper";
+import User from "../../../models/user";
+import userHelper from "../user_helper";
 
 const api = supertest(app);
 
@@ -11,7 +14,19 @@ afterAll(async () => {
 
 describe("addition of blogs", () => {
   beforeEach(async () => {
+    await User.deleteMany({});
     await Blog.deleteMany({});
+
+    await userHelper.addInitialUsers(api);
+
+    const { username } = userHelper.initialUsers[0];
+    const userId = (await User.findOne({ username })).id;
+
+    await Blog.insertMany(
+      blogHelper.initialBlogs.map((blog) => {
+        return { ...blog, user: userId };
+      })
+    );
   });
 
   test("returns blogs that has id as only identifier", async () => {
