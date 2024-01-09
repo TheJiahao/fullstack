@@ -1,8 +1,7 @@
 import mongoose from "mongoose";
 import supertest from "supertest";
 import app from "../../../app";
-import Blog from "../../../interfaces/blog";
-import blog from "../../../models/blog";
+import Blog from "../../../models/blog";
 
 const api = supertest(app);
 
@@ -12,7 +11,7 @@ afterAll(async () => {
 
 describe("addition of blogs", () => {
   beforeEach(async () => {
-    await blog.deleteMany({});
+    await Blog.deleteMany({});
   });
 
   test("returns blogs that has id as only identifier", async () => {
@@ -25,7 +24,7 @@ describe("addition of blogs", () => {
   });
 
   test("a valid blog can be added", async () => {
-    const newBlog: Blog = {
+    const newBlog = {
       title: "How to become a half-stack developer",
       author: "Quarter-stack Developer",
       url: "halfstackopen.com",
