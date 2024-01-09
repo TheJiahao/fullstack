@@ -3,11 +3,8 @@ import bcrypt from "bcrypt";
 import express from "express";
 import User from "../models/user";
 import config from "../utils/config";
+import { InvalidCredentialsError } from "../utils/error";
 require("express-async-errors");
-
-class InvalidCredentialsError extends Error {
-  name: string = "InvalidCredentialsError";
-}
 
 const loginRouter = express.Router();
 

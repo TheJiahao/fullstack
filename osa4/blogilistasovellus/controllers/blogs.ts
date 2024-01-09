@@ -1,13 +1,10 @@
 import express = require("express");
 import blogModel = require("../models/blog");
 import User from "../models/user";
+import { BlogNotFoundError } from "../utils/error";
 require("express-async-errors");
 
 const blogRouter = express.Router();
-
-class BlogNotFoundError extends Error {
-  name: string = "BlogNotFoundError";
-}
 
 blogRouter.get("/", async (request, response) => {
   const blogs = await blogModel

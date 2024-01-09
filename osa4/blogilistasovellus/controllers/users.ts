@@ -1,13 +1,10 @@
 import bcrypt from "bcrypt";
 import express from "express";
 import User from "../models/user";
+import { InvalidPasswordError } from "../utils/error";
 require("express-async-errors");
 
 const userRouter = express.Router();
-
-class InvalidPasswordError extends Error {
-  name: string = "InvalidPasswordError";
-}
 
 userRouter.post("/", async (request, response) => {
   const { username, name, password } = request.body;
