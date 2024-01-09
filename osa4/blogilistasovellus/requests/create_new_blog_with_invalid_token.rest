@@ -1,6 +1,6 @@
 POST http://localhost:3003/api/blogs
 Content-Type: application/json
-Authorization: Bearer {{$dotenv TEST_TOKEN}}
+Authorization: Bearer abc
 
 {
     "author": "Jaska Jokunen",

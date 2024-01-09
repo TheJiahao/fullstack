@@ -9,6 +9,7 @@ const errorHandler: ErrorRequestHandler = (error, request, response, next) => {
     ["InvalidPasswordError", 400],
     ["BlogNotFoundError", 404],
     ["InvalidCredentialsError", 401],
+    ["JsonWebTokenError", 401],
   ]);
 
   response
