@@ -2,7 +2,7 @@ import config = require("./utils/config");
 import blogRouter = require("./controllers/blogs");
 import loginRouter from "./controllers/login";
 import userRouter from "./controllers/users";
-import errorHandler from "./middlewares/errorHandler";
+import errorHandler from "./middlewares/error_handler";
 import tokenExtractor from "./middlewares/token_extractor";
 import express = require("express");
 import cors = require("cors");
