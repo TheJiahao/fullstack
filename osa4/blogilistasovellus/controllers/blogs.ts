@@ -8,16 +8,6 @@ require("express-async-errors");
 
 const blogRouter = express.Router();
 
-const getToken = (request: express.Request) => {
-  const authorization = request.get("authorization");
-
-  if (!authorization || !authorization.startsWith("Bearer ")) {
-    return null;
-  }
-
-  return authorization.replace("Bearer ", "");
-};
-
 blogRouter.get("/", async (request, response) => {
   const blogs = await blogModel
     .find({})
@@ -28,10 +18,7 @@ blogRouter.get("/", async (request, response) => {
 
 blogRouter.post("/", async (request, response) => {
   const body = request.body;
-  const decodedToken = jwt.verify(
-    getToken(request),
-    config.SECRET
-  ) as JwtPayload;
+  const decodedToken = jwt.verify(request.token, config.SECRET) as JwtPayload;
   console.log(decodedToken);
 
   const id = decodedToken.id;
