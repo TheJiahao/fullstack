@@ -31,7 +31,7 @@ describe("addition of blogs", () => {
   });
 
   test("returns blogs that has id as only identifier", async () => {
-    const response = await api.get("/api/blogs");
+    const response = await api.get(blogHelper.baseRoute);
 
     for (const blog of response.body) {
       expect(blog.id).toBeDefined();
@@ -50,13 +50,13 @@ describe("addition of blogs", () => {
     };
 
     await api
-      .post("/api/blogs")
+      .post(blogHelper.baseRoute)
       .send(newBlog)
       .set("Authorization", `Bearer ${token}`)
       .expect(201)
       .expect("Content-Type", /application\/json/);
 
-    const response = await api.get("/api/blogs");
+    const response = await api.get(blogHelper.baseRoute);
 
     expect(response.body).toHaveLength(blogHelper.initialBlogs.length + 1);
   });
@@ -65,7 +65,7 @@ describe("addition of blogs", () => {
     const token = await loginHelper.getToken(api, userHelper.initialUsers[0]);
 
     let response = await api
-      .post("/api/blogs")
+      .post(blogHelper.baseRoute)
       .set("Authorization", `Bearer ${token}`)
       .send({
         title: "How to become a half-stack developer",
@@ -76,7 +76,7 @@ describe("addition of blogs", () => {
 
     const newBlog = response.body;
 
-    response = await api.get("/api/blogs");
+    response = await api.get(blogHelper.baseRoute);
 
     expect(response.body).toContainEqual(newBlog);
   });
@@ -91,7 +91,7 @@ describe("addition of blogs", () => {
     };
 
     const response = await api
-      .post("/api/blogs")
+      .post(blogHelper.baseRoute)
       .set("Authorization", `Bearer ${token}`)
       .send(newBlog);
 
@@ -108,12 +108,12 @@ describe("addition of blogs", () => {
     };
 
     await api
-      .post("/api/blogs")
+      .post(blogHelper.baseRoute)
       .set("Authorization", `Bearer ${token}`)
       .send(newBlog)
       .expect(400);
 
-    const response = await api.get("/api/blogs");
+    const response = await api.get(blogHelper.baseRoute);
     expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
   });
 
@@ -127,12 +127,12 @@ describe("addition of blogs", () => {
     };
 
     await api
-      .post("/api/blogs")
+      .post(blogHelper.baseRoute)
       .set("Authorization", `Bearer ${token}`)
       .send(newBlog)
       .expect(400);
 
-    const response = await api.get("/api/blogs");
+    const response = await api.get(blogHelper.baseRoute);
     expect(response.body).toHaveLength(blogHelper.initialBlogs.length);
   });
 });

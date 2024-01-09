@@ -1,6 +1,8 @@
 import Blog from "../../interfaces/blog";
 import blogModel from "../../models/blog";
 
+const baseRoute = "/api/blogs";
+
 const initialBlogs: Blog[] = [
   {
     author: "Jaska Jokunen",
@@ -34,4 +36,4 @@ const getAllBlogs = async () => {
   return blogModel.find({});
 };
 
-export default { initialBlogs, getAllBlogs, getNonExistingBlogId };
+export default { baseRoute, initialBlogs, getAllBlogs, getNonExistingBlogId };
