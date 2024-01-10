@@ -4,6 +4,7 @@ import LoginForm from "./components/LoginForm";
 import blogService from "./services/blogs";
 import User from "./interfaces/user";
 import loginHandler from "./handlers/login_handler";
+import BlogList from "./components/BlogList";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
@@ -31,10 +32,7 @@ const App = () => {
         )}
       />
 
-      <h2>blogs</h2>
-      {blogs.map((blog) => (
-        <Blog key={blog.id} blog={blog} />
-      ))}
+      <BlogList blogs={blogs} />
     </div>
   );
 };
