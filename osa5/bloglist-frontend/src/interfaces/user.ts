@@ -1,7 +1,7 @@
 interface User {
   username: string;
   password: string;
-  token?: string;
+  token: string;
 }
 
 export default User;
