@@ -5,6 +5,7 @@ import LoginForm from "./components/LoginForm";
 import loginHandler from "./handlers/login_handler";
 import User from "./interfaces/user";
 import blogService from "./services/blogs";
+import UserInfo from "./components/UserInfo";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
@@ -34,7 +35,12 @@ const App = () => {
         />
       )}
 
-      {user && <BlogList blogs={blogs} />}
+      {user && (
+        <>
+          <UserInfo username={user.username} />
+          <BlogList blogs={blogs} />
+        </>
+      )}
     </div>
   );
 };
