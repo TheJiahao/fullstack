@@ -9,8 +9,8 @@ interface BlogProps {
 const Blog = ({ blog }: { blog: BlogProps }) => (
   <div>
     {blog.title} {blog.author}
-  </div>  
-)
+  </div>
+);
 
 export type { BlogProps };
-export default Blog
+export default Blog;
