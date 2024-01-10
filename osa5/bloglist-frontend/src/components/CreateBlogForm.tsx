@@ -25,6 +25,9 @@ const CreateBlogForm = ({
           author,
           url,
           blogs,
+          setTitle,
+          setAuthor,
+          setUrl,
           setBlogs,
           handleNotification
         )}

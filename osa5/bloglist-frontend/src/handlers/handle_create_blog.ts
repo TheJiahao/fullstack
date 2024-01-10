@@ -9,20 +9,25 @@ const handleCreateBlog = (
   author: string,
   url: string,
   blogs: BlogProps[],
+  setTitle: Dispatch<SetStateAction<string>>,
+  setAuthor: Dispatch<SetStateAction<string>>,
+  setUrl: Dispatch<SetStateAction<string>>,
   setBlogs: Dispatch<SetStateAction<BlogProps[]>>,
   handleNotification: notificationHandler
 ) => {
   return async (event: FormEvent) => {
     event.preventDefault();
 
-    console.log("")
-
     const blog = await blogService.create(title, author, url);
     handleNotification(`Added new blog ${blog.title} by ${blog.author}`);
-    logger.info("Returned blog", blog);
+    logger.info("Added blog", blog);
 
     setBlogs(blogs.concat(blog));
     logger.info("Updated blog list");
+
+    setTitle("");
+    setAuthor("");
+    setUrl("");
   };
 };
 
