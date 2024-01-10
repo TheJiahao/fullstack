@@ -2,7 +2,7 @@ import { Dispatch, SetStateAction } from "react";
 import User from "../interfaces/user";
 import logger from "../utils/logger";
 
-const logoutHandler =
+const handleLogout =
   (setUser: Dispatch<SetStateAction<User | null>>) => () => {
     setUser(null);
     logger.info("Logged out");
@@ -11,4 +11,4 @@ const logoutHandler =
     logger.info("Cleared local storage");
   };
 
-export default logoutHandler;
+export default handleLogout;
