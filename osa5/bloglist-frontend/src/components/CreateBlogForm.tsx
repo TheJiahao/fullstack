@@ -1,6 +1,14 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import { BlogProps } from "./Blog";
+import handleCreateBlog from "../handlers/handle_create_blog";
 
-const CreateBlogForm = () => {
+const CreateBlogForm = ({
+  blogs,
+  setBlogs,
+}: {
+  blogs: BlogProps[];
+  setBlogs: Dispatch<SetStateAction<BlogProps[]>>;
+}) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [url, setUrl] = useState("");
@@ -8,7 +16,7 @@ const CreateBlogForm = () => {
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleCreateBlog(title, author, url, blogs, setBlogs)}>
         <div>
           title:{" "}
           <input
