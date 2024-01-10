@@ -6,6 +6,7 @@ import loginHandler from "./handlers/login_handler";
 import User from "./interfaces/user";
 import blogService from "./services/blogs";
 import UserInfo from "./components/UserInfo";
+import logoutHandler from "./handlers/logout_handler";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
@@ -47,7 +48,10 @@ const App = () => {
       {user && (
         <>
           <h2>blogs</h2>
-          <UserInfo username={user.username} />
+          <UserInfo
+            username={user.username}
+            logoutHandler={logoutHandler(setUser)}
+          />
 
           <BlogList blogs={blogs} />
         </>
