@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
+import { BlogProps } from "./components/Blog";
 import BlogList from "./components/BlogList";
+import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
 import UserInfo from "./components/UserInfo";
 import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
-import CreateBlogForm from "./components/CreateBlogForm";
-import { BlogProps } from "./components/Blog";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
