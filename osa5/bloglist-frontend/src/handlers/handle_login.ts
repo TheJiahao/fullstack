@@ -3,13 +3,15 @@ import User from "../interfaces/user";
 import blogService from "../services/blog_service";
 import loginService from "../services/login_service";
 import logger from "../utils/logger";
+import { notificationHandler } from "./handle_notification";
 
 const handleLogin = (
   username: string,
   password: string,
   setUsername: Dispatch<SetStateAction<string>>,
   setPassword: Dispatch<SetStateAction<string>>,
-  setUser: Dispatch<SetStateAction<User | null>>
+  setUser: Dispatch<SetStateAction<User | null>>,
+  handleNotification: notificationHandler
 ) => {
   return async (event: FormEvent) => {
     event.preventDefault();
@@ -26,7 +28,10 @@ const handleLogin = (
       setUsername("");
       setPassword("");
     } catch (error) {
-      logger.error(error instanceof Error ? error.message : error);
+      const message = "Invalid credentials";
+
+      logger.error(message);
+      handleNotification(message);
     }
   };
 };

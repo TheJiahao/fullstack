@@ -8,6 +8,7 @@ import UserInfo from "./components/UserInfo";
 import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
+import handleNotification from "./handlers/handle_notification";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -32,7 +33,12 @@ const App = () => {
   return (
     <div>
       <Notification message={message} />
-      {!user && <LoginForm setUser={setUser} />}
+      {!user && (
+        <LoginForm
+          setUser={setUser}
+          handleNotification={handleNotification(setMessage)}
+        />
+      )}
 
       {user && (
         <>
