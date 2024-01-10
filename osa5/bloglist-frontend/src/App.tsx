@@ -3,6 +3,7 @@ import Blog, { BlogProps } from "./components/Blog";
 import LoginForm from "./components/LoginForm";
 import blogService from "./services/blogs";
 import User from "./interfaces/user";
+import loginHandler from "./handlers/login_handler";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
@@ -21,7 +22,13 @@ const App = () => {
         password={password}
         setUsername={setUsername}
         setPassword={setPassword}
-        handleLogin={() => {}}
+        handleLogin={loginHandler(
+          username,
+          password,
+          setUsername,
+          setPassword,
+          setUser
+        )}
       />
 
       <h2>blogs</h2>
