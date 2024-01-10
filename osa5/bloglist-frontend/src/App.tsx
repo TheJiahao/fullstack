@@ -5,6 +5,7 @@ import UserInfo from "./components/UserInfo";
 import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
+import CreateBlogForm from "./components/CreateBlogForm";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -31,7 +32,7 @@ const App = () => {
             username={user.username}
             logoutHandler={handleLogout(setUser)}
           />
-
+          <CreateBlogForm />
           <BlogList />
         </>
       )}
