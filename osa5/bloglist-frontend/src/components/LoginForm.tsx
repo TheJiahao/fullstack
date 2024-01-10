@@ -1,22 +1,27 @@
-import { Dispatch, FormEventHandler, SetStateAction } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
+import handleLogin from "../handlers/handle_login";
+import User from "../interfaces/user";
 
 const LoginForm = ({
-  username,
-  password,
-  setUsername,
-  setPassword,
-  handleLogin,
+  setUser,
 }: {
-  username: string;
-  password: string;
-  setUsername: Dispatch<SetStateAction<string>>;
-  setPassword: Dispatch<SetStateAction<string>>;
-  handleLogin: FormEventHandler;
+  setUser: Dispatch<SetStateAction<User | null>>;
 }) => {
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleLogin}>
+      <form
+        onSubmit={handleLogin(
+          username,
+          password,
+          setUsername,
+          setPassword,
+          setUser
+        )}
+      >
         <div>
           username{" "}
           <input
