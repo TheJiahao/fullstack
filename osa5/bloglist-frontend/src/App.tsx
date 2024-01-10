@@ -2,12 +2,7 @@ import { useEffect, useState } from "react";
 import Blog, { BlogProps } from "./components/Blog";
 import LoginForm from "./components/LoginForm";
 import blogService from "./services/blogs";
-
-interface User {
-  username: string;
-  password: string;
-  token?: string;
-}
+import User from "./interfaces/user";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
