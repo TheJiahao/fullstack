@@ -37,7 +37,9 @@ const App = () => {
 
       {user && (
         <>
+          <h2>blogs</h2>
           <UserInfo username={user.username} />
+
           <BlogList blogs={blogs} />
         </>
       )}
