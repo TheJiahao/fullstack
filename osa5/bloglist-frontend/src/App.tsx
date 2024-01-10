@@ -47,7 +47,11 @@ const App = () => {
             username={user.username}
             logoutHandler={handleLogout(setUser)}
           />
-          <CreateBlogForm blogs={blogs} setBlogs={setBlogs} />
+          <CreateBlogForm
+            blogs={blogs}
+            setBlogs={setBlogs}
+            handleNotification={handleNotification(setMessage)}
+          />
           <BlogList blogs={blogs} />
         </>
       )}
