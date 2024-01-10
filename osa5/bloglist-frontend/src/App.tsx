@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import Blog, { BlogProps } from "./components/Blog";
+import { BlogProps } from "./components/Blog";
 import LoginForm from "./components/LoginForm";
 import blogService from "./services/blogs";
 import User from "./interfaces/user";
@@ -18,21 +18,23 @@ const App = () => {
 
   return (
     <div>
-      <LoginForm
-        username={username}
-        password={password}
-        setUsername={setUsername}
-        setPassword={setPassword}
-        handleLogin={loginHandler(
-          username,
-          password,
-          setUsername,
-          setPassword,
-          setUser
-        )}
-      />
+      {!user && (
+        <LoginForm
+          username={username}
+          password={password}
+          setUsername={setUsername}
+          setPassword={setPassword}
+          handleLogin={loginHandler(
+            username,
+            password,
+            setUsername,
+            setPassword,
+            setUser
+          )}
+        />
+      )}
 
-      <BlogList blogs={blogs} />
+      {user && <BlogList blogs={blogs} />}
     </div>
   );
 };
