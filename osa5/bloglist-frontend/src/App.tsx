@@ -6,7 +6,7 @@ import UserInfo from "./components/UserInfo";
 import loginHandler from "./handlers/login_handler";
 import logoutHandler from "./handlers/logout_handler";
 import User from "./interfaces/user";
-import blogService from "./services/blogs";
+import blogService from "./services/blog_service";
 
 const App = () => {
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
