@@ -6,9 +6,15 @@ import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
 import CreateBlogForm from "./components/CreateBlogForm";
+import { BlogProps } from "./components/Blog";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
+  const [blogs, setBlogs] = useState<BlogProps[]>([]);
+
+  useEffect(() => {
+    blogService.getAll().then((blogs) => setBlogs(blogs));
+  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -33,7 +39,7 @@ const App = () => {
             logoutHandler={handleLogout(setUser)}
           />
           <CreateBlogForm />
-          <BlogList />
+          <BlogList blogs={blogs} />
         </>
       )}
     </div>
