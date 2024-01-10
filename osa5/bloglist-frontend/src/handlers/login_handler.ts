@@ -16,6 +16,8 @@ const loginHandler = (
     try {
       const user = await loginService.login(username, password);
       logger.info("Logged in", user);
+      window.localStorage.setItem("loggedUser", JSON.stringify(user));
+      logger.info("Saved user to local storage");
 
       setUser(user);
       setUsername("");
