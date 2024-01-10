@@ -1,4 +1,4 @@
-import { FormEventHandler } from "react";
+import { Dispatch, FormEventHandler, SetStateAction } from "react";
 
 const LoginForm = ({
   username,
@@ -9,8 +9,8 @@ const LoginForm = ({
 }: {
   username: string;
   password: string;
-  setUsername: React.Dispatch<React.SetStateAction<string>>;
-  setPassword: React.Dispatch<React.SetStateAction<string>>;
+  setUsername: Dispatch<SetStateAction<string>>;
+  setPassword: Dispatch<SetStateAction<string>>;
   handleLogin: FormEventHandler;
 }) => {
   return (

@@ -1,4 +1,4 @@
-import { FormEvent } from "react";
+import { Dispatch, FormEvent, SetStateAction } from "react";
 import User from "../interfaces/user";
 import loginService from "../services/login_service";
 import logger from "../utils/logger";
@@ -6,9 +6,9 @@ import logger from "../utils/logger";
 const loginHandler = (
   username: string,
   password: string,
-  setUsername: React.Dispatch<React.SetStateAction<string>>,
-  setPassword: React.Dispatch<React.SetStateAction<string>>,
-  setUser: React.Dispatch<React.SetStateAction<User | null>>
+  setUsername: Dispatch<SetStateAction<string>>,
+  setPassword: Dispatch<SetStateAction<string>>,
+  setUser: Dispatch<SetStateAction<User | null>>
 ) => {
   return async (event: FormEvent) => {
     event.preventDefault();
