@@ -1,14 +1,14 @@
 import { MouseEventHandler } from "react";
 
 const UserInfo = ({
-  username,
+  name,
   logoutHandler,
 }: {
-  username: string;
+  name: string;
   logoutHandler: MouseEventHandler;
 }) => (
   <div>
-    {username} logged in
+    {name} logged in
     <button onClick={logoutHandler}>logout</button>
   </div>
 );

@@ -44,7 +44,7 @@ const App = () => {
         <>
           <h2>blogs</h2>
           <UserInfo
-            username={user.username}
+            name={user.name}
             logoutHandler={handleLogout(setUser)}
           />
           <CreateBlogForm
