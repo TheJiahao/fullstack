@@ -1,4 +1,4 @@
-import { Dispatch, SetStateAction, useState } from "react";
+import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
 import { BlogProps } from "./Blog";
 import handleCreateBlog from "../handlers/handle_create_blog";
 import { notificationHandler } from "../handlers/handle_notification";
@@ -7,10 +7,12 @@ const CreateBlogForm = ({
   blogs,
   setBlogs,
   handleNotification,
+  visibilityRef,
 }: {
   blogs: BlogProps[];
   setBlogs: Dispatch<SetStateAction<BlogProps[]>>;
   handleNotification: notificationHandler;
+  visibilityRef: MutableRefObject<{ toggleVisibility: () => void }>;
 }) => {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -29,7 +31,8 @@ const CreateBlogForm = ({
           setAuthor,
           setUrl,
           setBlogs,
-          handleNotification
+          handleNotification,
+          visibilityRef
         )}
       >
         <div>

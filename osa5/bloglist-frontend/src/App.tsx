@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { BlogProps } from "./components/Blog";
 import BlogList from "./components/BlogList";
 import CreateBlogForm from "./components/CreateBlogForm";
@@ -15,6 +15,8 @@ const App = () => {
   const [user, setUser] = useState<User | null>(null);
   const [blogs, setBlogs] = useState<BlogProps[]>([]);
   const [message, setMessage] = useState<string | null>(null);
+
+  const createBlogFormRef = useRef({ toggleVisibility: () => {} });
 
   useEffect(() => {
     blogService.getAll().then((blogs) => setBlogs(blogs));
@@ -46,11 +48,12 @@ const App = () => {
           <h2>blogs</h2>
           <UserInfo name={user.name} logoutHandler={handleLogout(setUser)} />
 
-          <Toggable buttonLabel="new blog">
+          <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
             <CreateBlogForm
               blogs={blogs}
               setBlogs={setBlogs}
               handleNotification={handleNotification(setMessage)}
+              visibilityRef={createBlogFormRef}
             />
           </Toggable>
 

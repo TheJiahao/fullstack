@@ -1,4 +1,4 @@
-import { Dispatch, FormEvent, SetStateAction } from "react";
+import { Dispatch, FormEvent, MutableRefObject, SetStateAction } from "react";
 import { BlogProps } from "../components/Blog";
 import blogService from "../services/blog_service";
 import logger from "../utils/logger";
@@ -13,7 +13,8 @@ const handleCreateBlog = (
   setAuthor: Dispatch<SetStateAction<string>>,
   setUrl: Dispatch<SetStateAction<string>>,
   setBlogs: Dispatch<SetStateAction<BlogProps[]>>,
-  handleNotification: notificationHandler
+  handleNotification: notificationHandler,
+  visibilityRef: MutableRefObject<{ toggleVisibility: () => void }>
 ) => {
   return async (event: FormEvent) => {
     event.preventDefault();
@@ -28,6 +29,13 @@ const handleCreateBlog = (
     setTitle("");
     setAuthor("");
     setUrl("");
+
+    if (!visibilityRef.current) {
+      logger.error("Toggle ref not initialized");
+      return;
+    }
+
+    visibilityRef.current.toggleVisibility();
   };
 };
 
