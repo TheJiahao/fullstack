@@ -1,5 +1,7 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import User from "../interfaces/user";
+import blogService from "../services/blog_service";
+import logger from "../utils/logger";
 
 interface BlogProps {
   id: string;
@@ -10,7 +12,15 @@ interface BlogProps {
   user: User;
 }
 
-const Blog = ({ blog }: { blog: BlogProps }) => {
+const Blog = ({
+  blog,
+  blogs,
+  setBlogs,
+}: {
+  blog: BlogProps;
+  blogs: BlogProps[];
+  setBlogs: Dispatch<SetStateAction<BlogProps[]>>;
+}) => {
   const [visible, setVisible] = useState(false);
 
   const showWhenVisible = { display: visible ? "" : "none" };
@@ -24,6 +34,17 @@ const Blog = ({ blog }: { blog: BlogProps }) => {
     marginBottom: 5,
   };
 
+  const handleLike = async () => {
+    const newBlog = { ...blog, likes: blog.likes + 1 };
+
+    await blogService.update(newBlog);
+    logger.info("Updated blog", newBlog);
+
+    setBlogs(
+      blogs.filter((currentBlog) => currentBlog.id !== blog.id).concat(newBlog)
+    );
+  };
+
   return (
     <div style={blogStyle}>
       {blog.title} {blog.author}{" "}
@@ -31,7 +52,7 @@ const Blog = ({ blog }: { blog: BlogProps }) => {
       <div style={showWhenVisible}>
         <a href={blog.url}>{blog.url}</a>
         <br />
-        likes {blog.likes} <button>like</button>
+        likes {blog.likes} <button onClick={handleLike}>like</button>
         <br />
         {blog.user.name}
       </div>
