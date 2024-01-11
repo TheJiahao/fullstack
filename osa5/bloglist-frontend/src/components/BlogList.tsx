@@ -1,6 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
 import Blog, { BlogProps } from "./Blog";
-import User from "../interfaces/user";
 
 const BlogList = ({
   blogs,
