@@ -1,6 +1,7 @@
+import PropTypes from "prop-types";
 import {
-  ReactNode,
   ForwardedRef,
+  ReactNode,
   forwardRef,
   useImperativeHandle,
   useState,
@@ -37,5 +38,9 @@ const Toggable = forwardRef(
     );
   }
 );
+
+Toggable.propTypes = {
+  buttonLabel: PropTypes.string.isRequired,
+};
 
 export default Toggable;
