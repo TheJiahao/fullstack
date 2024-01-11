@@ -41,8 +41,12 @@ const Blog = ({
     logger.info("Updated blog", newBlog);
 
     setBlogs(
-      blogs.filter((currentBlog) => currentBlog.id !== blog.id).concat(newBlog)
+      blogs
+        .filter((currentBlog) => currentBlog.id !== blog.id)
+        .concat(newBlog)
+        .sort((a, b) => b.likes - a.likes)
     );
+  };
   };
 
   return (

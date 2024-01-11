@@ -24,7 +24,7 @@ const App = () => {
       .then((blogs: BlogProps[]) =>
         setBlogs(blogs.sort((a, b) => b.likes - a.likes))
       );
-  }, [blogs]);
+  }, []);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
