@@ -19,8 +19,12 @@ const App = () => {
   const createBlogFormRef = useRef({ toggleVisibility: () => {} });
 
   useEffect(() => {
-    blogService.getAll().then((blogs) => setBlogs(blogs));
-  }, []);
+    blogService
+      .getAll()
+      .then((blogs: BlogProps[]) =>
+        setBlogs(blogs.sort((a, b) => b.likes - a.likes))
+      );
+  }, [blogs]);
 
   useEffect(() => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
