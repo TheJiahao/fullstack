@@ -9,6 +9,7 @@ import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
 import handleNotification from "./handlers/handle_notification";
+import Toggable from "./components/Toggable";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -43,15 +44,16 @@ const App = () => {
       {user && (
         <>
           <h2>blogs</h2>
-          <UserInfo
-            name={user.name}
-            logoutHandler={handleLogout(setUser)}
-          />
-          <CreateBlogForm
-            blogs={blogs}
-            setBlogs={setBlogs}
-            handleNotification={handleNotification(setMessage)}
-          />
+          <UserInfo name={user.name} logoutHandler={handleLogout(setUser)} />
+
+          <Toggable buttonLabel="new blog">
+            <CreateBlogForm
+              blogs={blogs}
+              setBlogs={setBlogs}
+              handleNotification={handleNotification(setMessage)}
+            />
+          </Toggable>
+
           <BlogList blogs={blogs} />
         </>
       )}
