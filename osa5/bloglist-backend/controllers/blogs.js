@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Blog = require("../models/blog");
+const logger = require("../utils/logger");
 
 const { userExtractor } = require("../utils/middleware");
 
@@ -26,7 +27,12 @@ router.post("/", userExtractor, async (request, response) => {
 
   blog.user = user._id;
 
-  const createdBlog = await blog.save();
+  const createdBlog = await (await blog.save()).populate("user", {
+    username: 1,
+    name: 1,
+  });
+
+  logger.info("Created blog", createdBlog);
 
   user.blogs = user.blogs.concat(createdBlog._id);
   await user.save();
