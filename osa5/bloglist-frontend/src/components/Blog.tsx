@@ -16,10 +16,12 @@ const Blog = ({
   blog,
   blogs,
   setBlogs,
+  username,
 }: {
   blog: BlogProps;
   blogs: BlogProps[];
   setBlogs: Dispatch<SetStateAction<BlogProps[]>>;
+  username: string;
 }) => {
   const [visible, setVisible] = useState(false);
 
@@ -74,7 +76,9 @@ const Blog = ({
         <br />
         {blog.user.name}
         <br />
-        <button onClick={handleDelete}>delete</button>
+        {username === blog.user.username && (
+          <button onClick={handleDelete}>delete</button>
+        )}
       </div>
     </div>
   );

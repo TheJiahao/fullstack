@@ -61,7 +61,7 @@ const App = () => {
             />
           </Toggable>
 
-          <BlogList blogs={blogs} setBlogs={setBlogs} />
+          <BlogList blogs={blogs} setBlogs={setBlogs} username={user.username} />
         </>
       )}
     </div>
