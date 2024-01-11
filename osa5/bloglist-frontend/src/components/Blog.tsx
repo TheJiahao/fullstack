@@ -47,6 +47,20 @@ const Blog = ({
         .sort((a, b) => b.likes - a.likes)
     );
   };
+
+  const handleDelete = async () => {
+    if (!window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+      return;
+    }
+
+    await blogService.remove(blog.id);
+    logger.info("Deleted blog", blog.id);
+
+    setBlogs(
+      blogs
+        .filter((currentBlog) => currentBlog.id !== blog.id)
+        .sort((a, b) => b.likes - a.likes)
+    );
   };
 
   return (
@@ -59,6 +73,8 @@ const Blog = ({
         likes {blog.likes} <button onClick={handleLike}>like</button>
         <br />
         {blog.user.name}
+        <br />
+        <button onClick={handleDelete}>delete</button>
       </div>
     </div>
   );
