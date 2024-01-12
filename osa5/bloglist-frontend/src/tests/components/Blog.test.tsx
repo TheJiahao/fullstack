@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { render, screen } from "@testing-library/react";
 import Blog, { BlogProps } from "../../components/Blog";
+import userEvent from "@testing-library/user-event";
 
 const blog: BlogProps = {
   id: "testblog",
@@ -9,7 +10,7 @@ const blog: BlogProps = {
   url: "www.example.com",
   likes: 100,
   user: {
-    name: "User",
+    name: "Firstname Lastname",
     username: "username",
     password: "password",
     token: "12312asdasd",
@@ -31,4 +32,24 @@ test("renders only title and author by default", () => {
     screen.getByText("A blog title Author of the blog", { exact: false })
   ).toBeDefined();
   expect(detail).toHaveStyle("display: none");
+});
+
+test("details are shown after clicking show button", async () => {
+  render(
+    <Blog
+      blog={blog}
+      username="testusername"
+      handleDelete={() => {}}
+      handleLike={() => {}}
+    />
+  );
+
+  const showButton = screen.getByText("view");
+
+  const user = userEvent.setup();
+  await user.click(showButton);
+
+  [blog.url, blog.likes, blog.user.name]
+    .map((field) => screen.getByText(field, { exact: false }))
+    .forEach((field) => expect(field).not.toHaveStyle("display: none"));
 });
