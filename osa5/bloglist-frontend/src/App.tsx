@@ -6,7 +6,7 @@ import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import Toggable from "./components/Toggable";
 import UserInfo from "./components/UserInfo";
-import handleCreateBlog from "./handlers/handle_create_blog";
+import createBlog from "./handlers/handle_create_blog";
 import handleLogout from "./handlers/handle_logout";
 import handleNotification from "./handlers/handle_notification";
 import User from "./interfaces/user";
@@ -55,7 +55,7 @@ const App = () => {
 
           <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
             <CreateBlogForm
-              handleCreateBlog={handleCreateBlog(
+              createBlog={createBlog(
                 blogs,
                 setBlogs,
                 handleNotification(setMessage),

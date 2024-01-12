@@ -1,5 +1,4 @@
-import { useState } from "react";
-import { CreateBlogHandler } from "../handlers/handle_create_blog";
+import { FormEvent, useState } from "react";
 
 interface NewBlog {
   title: string;
@@ -7,21 +6,28 @@ interface NewBlog {
   url: string;
 }
 
-const CreateBlogForm = ({
-  handleCreateBlog,
-}: {
-  handleCreateBlog: CreateBlogHandler;
-}) => {
+interface BlogCreator {
+  (newBlog: NewBlog): Promise<void>;
+}
+
+const CreateBlogForm = ({ createBlog }: { createBlog: BlogCreator }) => {
   const [newBlog, setNewBlog] = useState<NewBlog>({
     title: "",
     author: "",
     url: "",
   });
 
+  const handleCreateBlog = async (event: FormEvent) => {
+    event.preventDefault();
+
+    await createBlog(newBlog);
+    setNewBlog({ title: "", author: "", url: "" });
+  };
+
   return (
     <div>
       <h2>create new</h2>
-      <form onSubmit={handleCreateBlog(newBlog, setNewBlog)}>
+      <form onSubmit={handleCreateBlog}>
         <div>
           title:{" "}
           <input
