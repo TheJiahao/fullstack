@@ -1,5 +1,6 @@
 import axios, { AxiosRequestConfig } from "axios";
 import { BlogProps } from "../components/Blog";
+import { NewBlog } from "../components/CreateBlogForm";
 const baseUrl = "/api/blogs";
 
 let token: string | null = null;
@@ -13,18 +14,14 @@ const getAll = () => {
   return request.then((response) => response.data);
 };
 
-const create = async (
-  title: string,
-  author: string,
-  url: string
-): Promise<BlogProps> => {
+const create = async (newBlog: NewBlog): Promise<BlogProps> => {
   const config: AxiosRequestConfig = {
     headers: {
       Authorization: token,
     },
   };
 
-  const response = await axios.post(baseUrl, { title, author, url }, config);
+  const response = await axios.post(baseUrl, newBlog, config);
 
   return response.data;
 };

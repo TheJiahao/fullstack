@@ -1,62 +1,55 @@
-import { Dispatch, MutableRefObject, SetStateAction, useState } from "react";
-import { BlogProps } from "./Blog";
-import handleCreateBlog from "../handlers/handle_create_blog";
-import { notificationHandler } from "../handlers/handle_notification";
+import { useState } from "react";
+import { CreateBlogHandler } from "../handlers/handle_create_blog";
+
+interface NewBlog {
+  title: string;
+  author: string;
+  url: string;
+}
 
 const CreateBlogForm = ({
-  blogs,
-  setBlogs,
-  handleNotification,
-  visibilityRef,
+  handleCreateBlog,
 }: {
-  blogs: BlogProps[];
-  setBlogs: Dispatch<SetStateAction<BlogProps[]>>;
-  handleNotification: notificationHandler;
-  visibilityRef: MutableRefObject<{ toggleVisibility: () => void }>;
+  handleCreateBlog: CreateBlogHandler;
 }) => {
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [url, setUrl] = useState("");
+  const [newBlog, setNewBlog] = useState<NewBlog>({
+    title: "",
+    author: "",
+    url: "",
+  });
 
   return (
     <div>
       <h2>create new</h2>
-      <form
-        onSubmit={handleCreateBlog(
-          title,
-          author,
-          url,
-          blogs,
-          setTitle,
-          setAuthor,
-          setUrl,
-          setBlogs,
-          handleNotification,
-          visibilityRef
-        )}
-      >
+      <form onSubmit={handleCreateBlog(newBlog, setNewBlog)}>
         <div>
           title:{" "}
           <input
             type="text"
-            value={title}
-            onChange={({ target }) => setTitle(target.value)}
+            value={newBlog.title}
+            onChange={({ target }) =>
+              setNewBlog({ ...newBlog, title: target.value })
+            }
           />
-        </div>{" "}
+        </div>
         <div>
           author:{" "}
           <input
             type="text"
-            value={author}
-            onChange={({ target }) => setAuthor(target.value)}
+            value={newBlog.author}
+            onChange={({ target }) =>
+              setNewBlog({ ...newBlog, author: target.value })
+            }
           />
-        </div>{" "}
+        </div>
         <div>
           url:{" "}
           <input
             type="text"
-            value={url}
-            onChange={({ target }) => setUrl(target.value)}
+            value={newBlog.url}
+            onChange={({ target }) =>
+              setNewBlog({ ...newBlog, url: target.value })
+            }
           />
         </div>
         <button type="submit">create</button>
@@ -65,4 +58,5 @@ const CreateBlogForm = ({
   );
 };
 
+export type { NewBlog };
 export default CreateBlogForm;

@@ -10,6 +10,7 @@ import User from "./interfaces/user";
 import blogService from "./services/blog_service";
 import handleNotification from "./handlers/handle_notification";
 import Toggable from "./components/Toggable";
+import handleCreateBlog from "./handlers/handle_create_blog";
 
 const App = () => {
   const [user, setUser] = useState<User | null>(null);
@@ -54,14 +55,20 @@ const App = () => {
 
           <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
             <CreateBlogForm
-              blogs={blogs}
-              setBlogs={setBlogs}
-              handleNotification={handleNotification(setMessage)}
-              visibilityRef={createBlogFormRef}
+              handleCreateBlog={handleCreateBlog(
+                blogs,
+                setBlogs,
+                handleNotification(setMessage),
+                createBlogFormRef
+              )}
             />
           </Toggable>
 
-          <BlogList blogs={blogs} setBlogs={setBlogs} username={user.username} />
+          <BlogList
+            blogs={blogs}
+            setBlogs={setBlogs}
+            username={user.username}
+          />
         </>
       )}
     </div>
