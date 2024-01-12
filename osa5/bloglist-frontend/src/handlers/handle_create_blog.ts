@@ -6,10 +6,10 @@ import {
   SetStateAction,
 } from "react";
 import { BlogProps } from "../components/Blog";
+import { NewBlog } from "../components/CreateBlogForm";
 import blogService from "../services/blog_service";
 import logger from "../utils/logger";
 import { notificationHandler } from "./handle_notification";
-import { NewBlog } from "../components/CreateBlogForm";
 interface CreateBlogHandler {
   (
     newBlog: NewBlog,
