@@ -18,7 +18,12 @@ const blog: BlogProps = {
 
 test("renders only title and author by default", () => {
   const { container } = render(
-    <Blog blog={blog} blogs={[]} setBlogs={() => {}} username="testusername" />
+    <Blog
+      blog={blog}
+      username="testusername"
+      handleDelete={() => {}}
+      handleLike={() => {}}
+    />
   );
   const detail = container.querySelector("#blog-detail");
 
