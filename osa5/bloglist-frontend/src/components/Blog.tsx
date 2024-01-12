@@ -69,7 +69,7 @@ const Blog = ({
     <div style={blogStyle}>
       {blog.title} {blog.author}{" "}
       <button onClick={() => setVisible(!visible)}>{buttonLabel}</button>
-      <div style={showWhenVisible}>
+      <div style={showWhenVisible} id="blog-detail">
         <a href={blog.url}>{blog.url}</a>
         <br />
         likes {blog.likes} <button onClick={handleLike}>like</button>
