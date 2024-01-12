@@ -53,3 +53,24 @@ test("details are shown after clicking show button", async () => {
     .map((field) => screen.getByText(field, { exact: false }))
     .forEach((field) => expect(field).not.toHaveStyle("display: none"));
 });
+
+test("handleLike is called twice when like button is clicked twice", async () => {
+  const handleLikeMock = jest.fn();
+
+  render(
+    <Blog
+      blog={blog}
+      username="testusername"
+      handleDelete={() => {}}
+      handleLike={handleLikeMock}
+    />
+  );
+
+  const likeButton = screen.getByText("like");
+
+  const user = userEvent.setup();
+  await user.click(likeButton);
+  await user.click(likeButton);
+
+  expect(handleLikeMock.mock.calls).toHaveLength(2);
+});
