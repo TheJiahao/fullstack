@@ -36,18 +36,23 @@ const Blog = ({
 
   return (
     <div style={blogStyle}>
-      {blog.title} {blog.author}{" "}
-      <button onClick={() => setVisible(!visible)}>{buttonLabel}</button>
+      <div>
+        {blog.title} {blog.author}{" "}
+        <button onClick={() => setVisible(!visible)}>{buttonLabel}</button>
+      </div>
       <div style={showWhenVisible} id="blog-detail">
-        <a href={blog.url}>{blog.url}</a>
-        <br />
-        likes {blog.likes} <button onClick={handleLike}>like</button>
-        <br />
-        {blog.user.name}
-        <br />
-        {username === blog.user.username && (
-          <button onClick={handleDelete}>delete</button>
-        )}
+        <div>
+          <a href={blog.url}>{blog.url}</a>
+        </div>
+        <div>
+          likes {blog.likes} <button onClick={handleLike}>like</button>
+        </div>
+        <div>{blog.user.name}</div>
+        <div>
+          {username === blog.user.username && (
+            <button onClick={handleDelete}>delete</button>
+          )}
+        </div>
       </div>
     </div>
   );
