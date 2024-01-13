@@ -95,5 +95,42 @@ describe("Blog app", function () {
         cy.should("not.contain", ".blog .delete-blog-button");
       });
     });
+
+    describe("With multiple blog created", function () {
+      beforeEach(function () {
+        const blogs = [
+          {
+            title: "Blog with the second most likes",
+            author: "Better",
+            url: "saop23kd1.aopskda1231s",
+            likes: 2,
+          },
+          {
+            title: "Blog with the least likes",
+            author: "Good",
+            url: "saop23kd1.aoas",
+            likes: 1,
+          },
+          {
+            title: "Blog with the most likes",
+            author: "the Best",
+            url: "saopkdas.aopskdas",
+            likes: 3,
+          },
+        ];
+
+        blogs.forEach((blog) => {
+          cy.createBlog(blog);
+        });
+      });
+
+      it("Blogs are initially sorted by likes", function () {
+        cy.get(".blog").eq(0).should("contain", "Blog with the most likes");
+        cy.get(".blog")
+          .eq(1)
+          .should("contain", "Blog with the second most likes");
+        cy.get(".blog").eq(2).should("contain", "Blog with the least likes");
+      });
+    });
   });
 });
