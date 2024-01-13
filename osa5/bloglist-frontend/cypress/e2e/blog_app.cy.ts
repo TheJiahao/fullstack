@@ -59,24 +59,26 @@ describe("Blog app", function () {
       cy.get(".blog").contains(blog.title);
     });
 
-    it("A blog can be liked", function () {
-      cy.createBlog(blog);
+    describe("With one blog created", function () {
+      this.beforeEach(function () {
+        cy.createBlog(blog);
+      });
 
-      cy.get(".blog .blog-detail-button").click();
+      it("Blog can be liked", function () {
+        cy.get(".blog .blog-detail-button").click();
 
-      cy.contains("likes").parent().as("likeField");
-      cy.get("@likeField").find(".like-button").click();
+        cy.contains("likes").parent().as("likeField");
+        cy.get("@likeField").find(".like-button").click();
 
-      cy.get("@likeField").contains("likes 1");
-    });
+        cy.get("@likeField").contains("likes 1");
+      });
 
-    it("A blog can be deleted", function () {
-      cy.createBlog(blog);
+      it("Blog can be deleted", function () {
+        cy.get(".blog .blog-detail-button").click();
 
-      cy.get(".blog .blog-detail-button").click();
-
-      cy.get(".blog .delete-blog-button").click();
-      cy.should("not.contain", blog.title);
+        cy.get(".blog .delete-blog-button").click();
+        cy.should("not.contain", blog.title);
+      });
     });
   });
 });
