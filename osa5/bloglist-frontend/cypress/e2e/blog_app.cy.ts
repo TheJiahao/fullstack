@@ -41,25 +41,25 @@ describe("Blog app", function () {
       cy.login(user);
     });
 
+    const blog = {
+      title: "A new blog",
+      author: "The author",
+      url: "example.com",
+    };
+
     it("A blog can be created", function () {
       cy.contains("new blog").click();
 
-      cy.get("#title-input").type("A new blog");
-      cy.get("#author-input").type("The author");
-      cy.get("#url-input").type("example.com");
+      cy.get("#title-input").type(blog.title);
+      cy.get("#author-input").type(blog.author);
+      cy.get("#url-input").type(blog.url);
 
       cy.get("#create-button").click();
 
-      cy.get(".blog").contains("A new blog");
+      cy.get(".blog").contains(blog.title);
     });
 
     it("A blog can be liked", function () {
-      const blog = {
-        title: "A new blog",
-        author: "The author",
-        url: "example.com",
-      };
-
       cy.createBlog(blog);
 
       cy.get(".blog .blog-detail-button").click();
