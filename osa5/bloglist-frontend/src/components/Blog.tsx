@@ -40,7 +40,7 @@ const Blog = ({
         {blog.title} {blog.author}{" "}
         <button className="blog-detail-button" onClick={() => setVisible(!visible)}>{buttonLabel}</button>
       </div>
-      <div style={showWhenVisible} id="blog-detail">
+      <div style={showWhenVisible} className="blog-detail">
         <div>
           <a href={blog.url}>{blog.url}</a>
         </div>

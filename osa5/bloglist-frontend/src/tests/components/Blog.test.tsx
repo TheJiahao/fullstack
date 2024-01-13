@@ -26,7 +26,7 @@ test("renders only title and author by default", () => {
       handleLike={() => {}}
     />
   );
-  const detail = container.querySelector("#blog-detail");
+  const detail = container.querySelector(".blog-detail");
 
   expect(
     screen.getByText("A blog title Author of the blog", { exact: false })
