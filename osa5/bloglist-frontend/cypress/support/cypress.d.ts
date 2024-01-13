@@ -11,10 +11,12 @@ declare namespace Cypress {
       title,
       author,
       url,
+      likes,
     }: {
       title: string;
       author: string;
       url: string;
+      likes?: number;
     }): Chainable;
   }
 }
