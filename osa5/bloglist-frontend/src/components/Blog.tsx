@@ -38,14 +38,14 @@ const Blog = ({
     <div className="blog" style={blogStyle}>
       <div>
         {blog.title} {blog.author}{" "}
-        <button onClick={() => setVisible(!visible)}>{buttonLabel}</button>
+        <button className="blog-detail-button" onClick={() => setVisible(!visible)}>{buttonLabel}</button>
       </div>
       <div style={showWhenVisible} id="blog-detail">
         <div>
           <a href={blog.url}>{blog.url}</a>
         </div>
         <div>
-          likes {blog.likes} <button onClick={handleLike}>like</button>
+          likes {blog.likes} <button className="like-button" onClick={handleLike}>like</button>
         </div>
         <div>{blog.user.name}</div>
         <div>

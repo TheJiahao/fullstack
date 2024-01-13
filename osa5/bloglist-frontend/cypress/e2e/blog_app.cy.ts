@@ -52,5 +52,22 @@ describe("Blog app", function () {
 
       cy.get(".blog").contains("A new blog");
     });
+
+    it("A blog can be liked", function () {
+      const blog = {
+        title: "A new blog",
+        author: "The author",
+        url: "example.com",
+      };
+
+      cy.createBlog(blog);
+
+      cy.get(".blog .blog-detail-button").click();
+
+      cy.contains("likes").parent().as("likeField");
+      cy.get("@likeField").find(".like-button").click();
+
+      cy.get("@likeField").contains("likes 1");
+    });
   });
 });
