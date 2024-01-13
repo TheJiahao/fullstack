@@ -86,6 +86,14 @@ describe("Blog app", function () {
         cy.get(".blog .delete-blog-button").click();
         cy.should("not.contain", blog.title);
       });
+
+      it("Delete button is not visible to another user", function () {
+        cy.get("#logout-button").click();
+        cy.login(user2);
+
+        cy.get(".blog .blog-detail-button").click();
+        cy.should("not.contain", ".blog .delete-blog-button");
+      });
     });
   });
 });

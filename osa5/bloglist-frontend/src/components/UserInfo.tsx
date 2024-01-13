@@ -9,7 +9,9 @@ const UserInfo = ({
 }) => (
   <div>
     {name} logged in
-    <button onClick={logoutHandler}>logout</button>
+    <button id="logout-button" onClick={logoutHandler}>
+      logout
+    </button>
   </div>
 );
 
