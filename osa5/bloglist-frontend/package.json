@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "jest",
+    "test:e2e": "cypress run",
     "cypress:open": "cypress open"
   },
   "dependencies": {
