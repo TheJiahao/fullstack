@@ -96,14 +96,14 @@ describe("Blog app", function () {
       });
     });
 
-    describe("With multiple blog created", function () {
+    describe("With multiple blogs created", function () {
       beforeEach(function () {
         const blogs = [
           {
             title: "Blog with the second most likes",
             author: "Better",
             url: "saop23kd1.aopskda1231s",
-            likes: 2,
+            likes: 3,
           },
           {
             title: "Blog with the least likes",
@@ -115,7 +115,7 @@ describe("Blog app", function () {
             title: "Blog with the most likes",
             author: "the Best",
             url: "saopkdas.aopskdas",
-            likes: 3,
+            likes: 5,
           },
         ];
 
@@ -125,6 +125,40 @@ describe("Blog app", function () {
       });
 
       it("Blogs are initially sorted by likes", function () {
+        cy.get(".blog").eq(0).should("contain", "Blog with the most likes");
+        cy.get(".blog")
+          .eq(1)
+          .should("contain", "Blog with the second most likes");
+        cy.get(".blog").eq(2).should("contain", "Blog with the least likes");
+      });
+
+      it("The order of blogs is updated after order by likes changes", function () {
+        cy.get(".blog").eq(2).as("leastLikesBlog");
+        cy.get("@leastLikesBlog").find(".blog-detail-button").click();
+        cy.get("@leastLikesBlog").find(".like-button").click().click().click();
+
+        cy.get(".blog").eq(1).should("contain", "Blog with the least likes");
+
+        cy.get(".blog").eq(1).find(".like-button").click().click();
+
+        cy.get(".blog").eq(0).should("contain", "Blog with the least likes");
+      });
+
+      it("The order of blogs is same when order by likes does not change", function () {
+        cy.get(".blog").eq(2).as("leastLikesBlog");
+        cy.get("@leastLikesBlog").find(".blog-detail-button").click();
+        cy.get("@leastLikesBlog").find(".like-button").click();
+
+        cy.get(".blog").eq(0).should("contain", "Blog with the most likes");
+        cy.get(".blog")
+          .eq(1)
+          .should("contain", "Blog with the second most likes");
+        cy.get(".blog").eq(2).should("contain", "Blog with the least likes");
+
+        cy.get(".blog").eq(1).as("secondMostLikesBlog");
+        cy.get("@secondMostLikesBlog").find(".blog-detail-button").click();
+        cy.get("@secondMostLikesBlog").find(".like-button").click();
+
         cy.get(".blog").eq(0).should("contain", "Blog with the most likes");
         cy.get(".blog")
           .eq(1)
