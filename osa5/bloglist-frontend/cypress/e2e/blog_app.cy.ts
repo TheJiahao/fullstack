@@ -69,5 +69,14 @@ describe("Blog app", function () {
 
       cy.get("@likeField").contains("likes 1");
     });
+
+    it("A blog can be deleted", function () {
+      cy.createBlog(blog);
+
+      cy.get(".blog .blog-detail-button").click();
+
+      cy.get(".blog .delete-blog-button").click();
+      cy.should("not.contain", blog.title);
+    });
   });
 });
