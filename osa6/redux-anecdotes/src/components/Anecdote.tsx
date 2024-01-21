@@ -1,20 +1,24 @@
+import { MouseEventHandler } from "react";
+
 export interface AnecdoteProps {
     id: string;
     content: string;
     votes: number;
 }
 
-const vote = (id: number) => {
-    console.log("vote", id);
-};
-
-const Anecdote = ({ anecdote }: { anecdote: AnecdoteProps }) => {
+const Anecdote = ({
+    anecdote,
+    handleVote,
+}: {
+    anecdote: AnecdoteProps;
+    handleVote: MouseEventHandler<HTMLButtonElement>;
+}) => {
     return (
         <>
             <div>{anecdote.content}</div>
             <div>
                 has {anecdote.votes}
-                <button onClick={() => vote(anecdote.id)}>vote</button>
+                <button onClick={handleVote}>vote</button>
             </div>
         </>
     );

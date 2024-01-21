@@ -1,15 +1,24 @@
 import { useDispatch, useSelector } from "react-redux";
-import Anecdote from "./Anecdote";
+import Anecdote, { AnecdoteProps } from "./Anecdote";
 
 const AnecdoteList = () => {
-    const anecdotes = useSelector((state) => state);
+    const anecdotes: AnecdoteProps[] = useSelector((state) => state);
     const dispatch = useDispatch();
+
+    const handleVote = (id: number) => () => {
+        dispatch({ type: "VOTE", payload: { id } });
+        console.log("Voted", id);
+    };
 
     return (
         <div>
             <h2>Anecdotes</h2>
             {anecdotes.map((anecdote) => (
-                <Anecdote key={anecdote.id} anecdote={anecdote} />
+                <Anecdote
+                    key={anecdote.id}
+                    anecdote={anecdote}
+                    handleVote={handleVote(anecdote.id)}
+                />
             ))}
         </div>
     );
