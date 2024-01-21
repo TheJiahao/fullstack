@@ -1,5 +1,5 @@
 export interface AnecdoteProps {
-    id: number;
+    id: string;
     content: string;
     votes: number;
 }
