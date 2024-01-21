@@ -1,3 +1,5 @@
+import { Action } from "redux";
+
 const anecdotesAtStart = [
     "If it hurts, do it more often",
     "Adding manpower to a late software project makes it later!",
@@ -9,7 +11,7 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
-const asObject = (anecdote) => {
+const asObject = (anecdote: string) => {
     return {
         content: anecdote,
         id: getId(),
@@ -19,7 +21,7 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const reducer = (state = initialState, action) => {
+const reducer = (state = initialState, action: Action) => {
     console.log("state now: ", state);
     console.log("action", action);
 
