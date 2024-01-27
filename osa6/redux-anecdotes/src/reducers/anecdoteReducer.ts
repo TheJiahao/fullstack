@@ -52,4 +52,11 @@ const reducer = (
     }
 };
 
+export const createAnecdote = (content: string) => {
+    return {
+        type: "NEW_ANECDOTE",
+        payload: asObject(content),
+    };
+};
+
 export default reducer;
