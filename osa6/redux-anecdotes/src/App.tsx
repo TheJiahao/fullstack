@@ -1,16 +1,13 @@
+import AnecdoteForm from "./components/AnecdoteForm";
 import AnecdoteList from "./components/AnecdoteList";
 
 const App = () => {
+    const addAnecdote = () => {};
+
     return (
         <div>
             <AnecdoteList />
-            <h2>create new</h2>
-            <form>
-                <div>
-                    <input />
-                </div>
-                <button>create</button>
-            </form>
+            <AnecdoteForm addAnecdote={addAnecdote} />
         </div>
     );
 };
