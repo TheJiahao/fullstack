@@ -12,7 +12,7 @@ const anecdotesAtStart = [
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
-const asObject = (anecdote: string) => {
+const asObject = (anecdote: string): AnecdoteProps => {
     return {
         content: anecdote,
         id: getId(),
@@ -24,7 +24,7 @@ const initialState = anecdotesAtStart.map(asObject);
 
 const reducer = (
     state: AnecdoteProps[] = initialState,
-    action: PayloadAction<{ id: string }>
+    action: PayloadAction<{ id: string } | AnecdoteProps>
 ) => {
     console.log("state now: ", state);
     console.log("action", action);
@@ -45,6 +45,13 @@ const reducer = (
             return state.map((anecdote) =>
                 anecdote.id === id ? changedAnecdote : anecdote
             );
+        }
+
+        case "NEW_ANECDOTE": {
+            const anecdote = action.payload;
+            console.log("anecdote to be added", anecdote)
+
+            return state.concat(anecdote);
         }
 
         default:

@@ -1,12 +1,18 @@
-const AnecdoteForm = ({ addAnecdote }) => {
+import { FormEventHandler } from "react";
+
+const AnecdoteForm = ({
+    addAnecdote,
+}: {
+    addAnecdote: FormEventHandler<HTMLFormElement>;
+}) => {
     return (
         <div>
             <h2>create new</h2>
-            <form>
+            <form onSubmit={addAnecdote}>
                 <div>
-                    <input />
+                    <input name="anecdote" />
                 </div>
-                <button>create</button>
+                <button type="submit">create</button>
             </form>
         </div>
     );
