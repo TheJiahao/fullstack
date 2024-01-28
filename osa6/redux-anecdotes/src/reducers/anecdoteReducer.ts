@@ -29,6 +29,8 @@ const reducer = (
     console.log("state now: ", state);
     console.log("action", action);
 
+    let newState = state;
+
     switch (action.type) {
         case "VOTE": {
             const id = action.payload.id;
@@ -42,21 +44,24 @@ const reducer = (
                 votes: anecdoteToChange.votes + 1,
             };
 
-            return state.map((anecdote) =>
+            newState = state.map((anecdote) =>
                 anecdote.id === id ? changedAnecdote : anecdote
             );
+
+            break;
         }
 
         case "NEW_ANECDOTE": {
             const anecdote = action.payload;
-            console.log("anecdote to be added", anecdote)
+            console.log("anecdote to be added", anecdote);
 
-            return state.concat(anecdote);
+            newState = state.concat(anecdote);
+
+            break;
         }
-
-        default:
-            return state;
     }
+
+    return newState.sort((a, b) => b.votes - a.votes);
 };
 
 export const createAnecdote = (content: string) => {
