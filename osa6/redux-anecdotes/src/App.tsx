@@ -4,8 +4,9 @@ import AnecdoteList from "./components/AnecdoteList";
 const App = () => {
     return (
         <div>
-            <AnecdoteList />
+            <h2>Anecdotes</h2>
             <AnecdoteForm />
+            <AnecdoteList />
         </div>
     );
 };
