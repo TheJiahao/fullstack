@@ -4,7 +4,13 @@ import Anecdote, { AnecdoteProps } from "./Anecdote";
 
 const AnecdoteList = () => {
     const anecdotes: AnecdoteProps[] = useSelector(
-        (state: { anecdotes: AnecdoteProps[] }) => state.anecdotes
+        ({
+            anecdotes,
+            filter,
+        }: {
+            anecdotes: AnecdoteProps[];
+            filter: string;
+        }) => anecdotes.filter((anecdote) => anecdote.content.includes(filter))
     );
     const dispatch = useDispatch();
 

@@ -1,6 +1,14 @@
+import { FormEvent } from "react";
+import { useDispatch } from "react-redux";
+import { changeFilter } from "../reducers/filterReducer";
+
 const Filter = () => {
+    const dispatch = useDispatch();
+
     const handleChange = (event: FormEvent) => {
-        // input-kentän arvo muuttujassa event.target.value
+        const filter = event.target.value;
+
+        dispatch(changeFilter(filter));
     };
     const style = {
         marginBottom: 10,
