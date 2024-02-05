@@ -22,7 +22,7 @@ const asObject = (anecdote: string): AnecdoteProps => {
 
 const initialState = anecdotesAtStart.map(asObject);
 
-const reducer = (
+const anecdoteReducer = (
     state: AnecdoteProps[] = initialState,
     action: PayloadAction<{ id: string } | AnecdoteProps>
 ) => {
@@ -75,4 +75,4 @@ export const voteAnecdote = (id: string) => {
     return { type: "VOTE", payload: { id } };
 };
 
-export default reducer;
+export default anecdoteReducer;
