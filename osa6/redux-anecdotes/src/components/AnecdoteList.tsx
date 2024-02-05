@@ -10,7 +10,12 @@ const AnecdoteList = () => {
         }: {
             anecdotes: AnecdoteProps[];
             filter: string;
-        }) => anecdotes.filter((anecdote) => anecdote.content.includes(filter))
+        }) =>
+            anecdotes.filter((anecdote) => {
+                const content = anecdote.content.toLowerCase();
+
+                return content.includes(filter.toLowerCase());
+            })
     );
     const dispatch = useDispatch();
 
