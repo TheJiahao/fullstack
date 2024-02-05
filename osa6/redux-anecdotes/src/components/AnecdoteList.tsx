@@ -4,7 +4,7 @@ import Anecdote, { AnecdoteProps } from "./Anecdote";
 
 const AnecdoteList = () => {
     const anecdotes: AnecdoteProps[] = useSelector(
-        (state: AnecdoteProps[]) => state
+        (state: { anecdotes: AnecdoteProps[] }) => state.anecdotes
     );
     const dispatch = useDispatch();
 
