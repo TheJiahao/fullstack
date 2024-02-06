@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Action, PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const notificationSlice = createSlice({
     name: "notification",
@@ -7,8 +7,11 @@ const notificationSlice = createSlice({
         setNotification(state: string, action: PayloadAction<string>) {
             return action.payload;
         },
+        resetNotification() {
+            return "";
+        },
     },
 });
 
-export const { setNotification } = notificationSlice.actions;
+export const { setNotification, resetNotification } = notificationSlice.actions;
 export default notificationSlice.reducer;
