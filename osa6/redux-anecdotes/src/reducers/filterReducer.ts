@@ -1,24 +1,17 @@
-import { PayloadAction } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-const filterReducer = (state: string = "", action: PayloadAction<string>) => {
-    console.log("state now: ", state);
-    console.log("action", action);
+const filterSlice = createSlice({
+    name: "filter",
+    initialState: "",
+    reducers: {
+        changeFilter(state: string, action: PayloadAction<string>) {
+            console.log("state now: ", state);
+            console.log("action", action);
 
-    switch (action.type) {
-        case "SET_FILTER":
             return action.payload;
+        },
+    },
+});
 
-        default:
-            return state;
-    }
-};
-
-const changeFilter = (filter: string): PayloadAction<string> => {
-    return {
-        type: "SET_FILTER",
-        payload: filter,
-    };
-};
-
-export { changeFilter };
-export default filterReducer;
+export const { changeFilter } = filterSlice.actions;
+export default filterSlice.reducer;
