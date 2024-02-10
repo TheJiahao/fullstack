@@ -36,13 +36,13 @@ const anecdoteSlice = createSlice({
             );
             return newState.sort((a, b) => b.votes - a.votes);
         },
-        createAnecdote(state, action: PayloadAction<string>) {
-            let newState = state;
+        createAnecdote(state, action: PayloadAction<AnecdoteProps>) {
             const anecdote = action.payload;
             console.log("anecdote to be added", anecdote);
 
-            newState = state.concat(asObject(anecdote));
-            return newState.sort((a, b) => b.votes - a.votes);
+            state.push(action.payload);
+
+            return state.sort((a, b) => b.votes - a.votes);
         },
         setAnecdotes(state, action: PayloadAction<AnecdoteProps[]>) {
             return action.payload;
