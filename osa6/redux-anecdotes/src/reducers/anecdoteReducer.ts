@@ -31,6 +31,8 @@ const voteAnecdote = createAsyncThunk(
     }
 );
 
+const sortByVotes = (a: AnecdoteProps, b: AnecdoteProps) => b.votes - a.votes;
+
 const anecdoteSlice = createSlice({
     name: "anecdotes",
     initialState: new Array<AnecdoteProps>(),
@@ -44,7 +46,7 @@ const anecdoteSlice = createSlice({
                 const anecdote = action.payload;
                 console.log("anecdote to be added", anecdote);
 
-                return state.concat(anecdote).sort((a, b) => b.votes - a.votes);
+                return state.concat(anecdote).sort(sortByVotes);
             })
             .addCase(voteAnecdote.fulfilled, (state, action) => {
                 const changedAnecdote = action.payload;
@@ -55,7 +57,7 @@ const anecdoteSlice = createSlice({
                             ? changedAnecdote
                             : anecdote
                     )
-                    .sort((a, b) => b.votes - a.votes);
+                    .sort(sortByVotes);
             });
     },
 });
