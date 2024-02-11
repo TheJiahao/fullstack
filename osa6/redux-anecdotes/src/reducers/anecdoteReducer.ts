@@ -2,16 +2,6 @@ import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AnecdoteProps } from "../components/Anecdote";
 import anecdoteService from "../services/anecdoteService";
 
-const getId = () => (100000 * Math.random()).toFixed(0);
-
-const asObject = (anecdote: string): AnecdoteProps => {
-    return {
-        content: anecdote,
-        id: getId(),
-        votes: 0,
-    };
-};
-
 const initializeAnecdotes = createAsyncThunk(
     "anecdotes/initializeAnecdotes",
     async () => {
@@ -49,9 +39,6 @@ const anecdoteSlice = createSlice({
             );
             return newState.sort((a, b) => b.votes - a.votes);
         },
-        setAnecdotes(state, action: PayloadAction<AnecdoteProps[]>) {
-            return action.payload;
-        },
     },
     extraReducers: (builder) => {
         builder
@@ -67,6 +54,6 @@ const anecdoteSlice = createSlice({
     },
 });
 
-export const { voteAnecdote, setAnecdotes } = anecdoteSlice.actions;
+export const { voteAnecdote } = anecdoteSlice.actions;
 export { initializeAnecdotes, createAnecdote };
 export default anecdoteSlice.reducer;
