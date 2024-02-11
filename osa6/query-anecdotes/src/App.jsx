@@ -11,8 +11,15 @@ const App = () => {
     const result = useQuery({
         queryKey: ["anecdotes"],
         queryFn: getAnecdotes,
+        retry: 1,
     });
     console.log(JSON.parse(JSON.stringify(result)));
+
+    if (result.isError) {
+        return (
+            <div>anecdote service not available due to problems in server</div>
+        );
+    }
 
     if (result.isLoading) {
         return <div>loading data...</div>;
