@@ -1,5 +1,6 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AnecdoteProps } from "../components/Anecdote";
+import anecdoteService from "../services/anecdoteService";
 
 const getId = () => (100000 * Math.random()).toFixed(0);
 
@@ -10,6 +11,13 @@ const asObject = (anecdote: string): AnecdoteProps => {
         votes: 0,
     };
 };
+
+const initializeAnecdotes = createAsyncThunk(
+    "anecdotes/initializeAnecdotes",
+    async () => {
+        return await anecdoteService.getAllAnecdotes();
+    }
+);
 
 const anecdoteSlice = createSlice({
     name: "anecdotes",
@@ -48,8 +56,15 @@ const anecdoteSlice = createSlice({
             return action.payload;
         },
     },
+    extraReducers: (builder) => {
+        builder.addCase(initializeAnecdotes.fulfilled, (state, action) => {
+            return action.payload;
+        });
+    },
 });
 
 export const { createAnecdote, voteAnecdote, setAnecdotes } =
     anecdoteSlice.actions;
+
+export { initializeAnecdotes };
 export default anecdoteSlice.reducer;
