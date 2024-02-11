@@ -5,7 +5,7 @@ import { RootState } from "../store";
 
 const initializeAnecdotes = createAsyncThunk(
     "anecdotes/initializeAnecdotes",
-    async () => {
+    async (): Promise<AnecdoteProps[]> => {
         return await anecdoteService.getAllAnecdotes();
     }
 );
@@ -40,7 +40,7 @@ const anecdoteSlice = createSlice({
     extraReducers: (builder) => {
         builder
             .addCase(initializeAnecdotes.fulfilled, (state, action) => {
-                return action.payload;
+                return action.payload.sort(sortByVotes);
             })
             .addCase(createAnecdote.fulfilled, (state, action) => {
                 const anecdote = action.payload;
