@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from "@reduxjs/toolkit";
+import { Dispatch, PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 const notificationSlice = createSlice({
     name: "notification",
@@ -13,5 +13,13 @@ const notificationSlice = createSlice({
     },
 });
 
-export const { setNotification, resetNotification } = notificationSlice.actions;
+const setNotification = (notification: string, time: number = 5) => {
+    return (dispatch: Dispatch) => {
+        dispatch(notificationSlice.actions.setNotification(notification));
+        setTimeout(() => dispatch(resetNotification()), time * 1000);
+    };
+};
+
+export const { resetNotification } = notificationSlice.actions;
+export { setNotification };
 export default notificationSlice.reducer;

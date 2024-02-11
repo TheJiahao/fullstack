@@ -1,7 +1,7 @@
 import { FormEvent } from "react";
 import { useAppDispatch } from "../hooks";
 import { createAnecdote } from "../reducers/anecdoteReducer";
-import { showNotification } from "../services/notificationService";
+import { setNotification } from "../reducers/notificationReducer";
 
 const AnecdoteForm = () => {
     const dispatch = useAppDispatch();
@@ -12,7 +12,7 @@ const AnecdoteForm = () => {
         event.target.anecdote.value = "";
 
         dispatch(createAnecdote(content));
-        showNotification(`Added anecdote "${content}"`);
+        dispatch(setNotification(`Added anecdote "${content}"`, 5));
     };
 
     return (
