@@ -19,6 +19,11 @@ const initializeAnecdotes = createAsyncThunk(
     }
 );
 
+const createAnecdote = createAsyncThunk(
+    "anecdotes/createAnecdote",
+    async (content: string) => await anecdoteService.createAnecdote(content)
+);
+
 const anecdoteSlice = createSlice({
     name: "anecdotes",
     initialState: new Array<AnecdoteProps>(),
@@ -44,27 +49,24 @@ const anecdoteSlice = createSlice({
             );
             return newState.sort((a, b) => b.votes - a.votes);
         },
-        createAnecdote(state, action: PayloadAction<AnecdoteProps>) {
-            const anecdote = action.payload;
-            console.log("anecdote to be added", anecdote);
-
-            state.push(action.payload);
-
-            return state.sort((a, b) => b.votes - a.votes);
-        },
         setAnecdotes(state, action: PayloadAction<AnecdoteProps[]>) {
             return action.payload;
         },
     },
     extraReducers: (builder) => {
-        builder.addCase(initializeAnecdotes.fulfilled, (state, action) => {
-            return action.payload;
-        });
+        builder
+            .addCase(initializeAnecdotes.fulfilled, (state, action) => {
+                return action.payload;
+            })
+            .addCase(createAnecdote.fulfilled, (state, action) => {
+                const anecdote = action.payload;
+                console.log("anecdote to be added", anecdote);
+
+                return state.concat(anecdote).sort((a, b) => b.votes - a.votes);
+            });
     },
 });
 
-export const { createAnecdote, voteAnecdote, setAnecdotes } =
-    anecdoteSlice.actions;
-
-export { initializeAnecdotes };
+export const { voteAnecdote, setAnecdotes } = anecdoteSlice.actions;
+export { initializeAnecdotes, createAnecdote };
 export default anecdoteSlice.reducer;
