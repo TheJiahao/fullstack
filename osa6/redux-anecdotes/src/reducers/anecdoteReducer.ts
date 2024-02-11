@@ -1,6 +1,7 @@
-import { PayloadAction, createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { AnecdoteProps } from "../components/Anecdote";
 import anecdoteService from "../services/anecdoteService";
+import { RootState } from "../store";
 
 const initializeAnecdotes = createAsyncThunk(
     "anecdotes/initializeAnecdotes",
@@ -14,32 +15,26 @@ const createAnecdote = createAsyncThunk(
     async (content: string) => await anecdoteService.createAnecdote(content)
 );
 
+const voteAnecdote = createAsyncThunk(
+    "anecdotes/voteAnecdote",
+    async (id: string, thunkApi) => {
+        const { anecdotes } = thunkApi.getState() as RootState;
+
+        const anecdote = anecdotes.find(
+            (anecdote) => anecdote.id === id
+        ) as AnecdoteProps;
+
+        return await anecdoteService.updateAnecdote({
+            ...anecdote,
+            votes: anecdote.votes + 1,
+        });
+    }
+);
+
 const anecdoteSlice = createSlice({
     name: "anecdotes",
     initialState: new Array<AnecdoteProps>(),
-    reducers: {
-        voteAnecdote(state: AnecdoteProps[], action: PayloadAction<string>) {
-            console.log("state now: ", state);
-            console.log("action", action);
-
-            let newState = state;
-            const id = action.payload;
-
-            const anecdoteToChange = state.find(
-                (anecdote) => anecdote.id === id
-            ) as AnecdoteProps;
-
-            const changedAnecdote = {
-                ...anecdoteToChange,
-                votes: anecdoteToChange.votes + 1,
-            };
-
-            newState = state.map((anecdote) =>
-                anecdote.id === id ? changedAnecdote : anecdote
-            );
-            return newState.sort((a, b) => b.votes - a.votes);
-        },
-    },
+    reducers: {},
     extraReducers: (builder) => {
         builder
             .addCase(initializeAnecdotes.fulfilled, (state, action) => {
@@ -50,10 +45,20 @@ const anecdoteSlice = createSlice({
                 console.log("anecdote to be added", anecdote);
 
                 return state.concat(anecdote).sort((a, b) => b.votes - a.votes);
+            })
+            .addCase(voteAnecdote.fulfilled, (state, action) => {
+                const changedAnecdote = action.payload;
+
+                return state
+                    .map((anecdote) =>
+                        anecdote.id === changedAnecdote.id
+                            ? changedAnecdote
+                            : anecdote
+                    )
+                    .sort((a, b) => b.votes - a.votes);
             });
     },
 });
 
-export const { voteAnecdote } = anecdoteSlice.actions;
-export { initializeAnecdotes, createAnecdote };
+export { createAnecdote, initializeAnecdotes, voteAnecdote };
 export default anecdoteSlice.reducer;
