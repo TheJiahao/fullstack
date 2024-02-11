@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
-import { voteAnecdote } from "../reducers/anecdoteReducer";
-import Anecdote, { AnecdoteProps } from "./Anecdote";
-import { showNotification } from "../services/notificationService";
 import { useAppDispatch } from "../hooks";
+import { voteAnecdote } from "../reducers/anecdoteReducer";
+import { showNotification } from "../services/notificationService";
+import Anecdote, { AnecdoteProps } from "./Anecdote";
 
 const AnecdoteList = () => {
     const anecdotes: AnecdoteProps[] = useSelector(
