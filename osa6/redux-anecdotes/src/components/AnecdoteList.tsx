@@ -1,7 +1,8 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { voteAnecdote } from "../reducers/anecdoteReducer";
 import Anecdote, { AnecdoteProps } from "./Anecdote";
 import { showNotification } from "../services/notificationService";
+import { useAppDispatch } from "../hooks";
 
 const AnecdoteList = () => {
     const anecdotes: AnecdoteProps[] = useSelector(
@@ -18,7 +19,7 @@ const AnecdoteList = () => {
                 return content.includes(filter.toLowerCase());
             })
     );
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const handleVote = (anecdote: AnecdoteProps) => () => {
         dispatch(voteAnecdote(anecdote.id));
