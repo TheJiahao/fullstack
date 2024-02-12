@@ -1,8 +1,10 @@
 import { useQueryClient, useMutation } from "@tanstack/react-query";
 import { createAnecdote } from "../requests";
+import { useNotificationDispatch } from "../NotificationContext";
 
 const AnecdoteForm = () => {
     const queryClient = useQueryClient();
+    const notificationDispatch = useNotificationDispatch();
 
     const newAnecdoteMutation = useMutation({
         mutationFn: createAnecdote,
@@ -19,6 +21,18 @@ const AnecdoteForm = () => {
 
         newAnecdoteMutation.mutate({ content, votes: 0 });
         console.log("new anecdote added", content);
+
+        notificationDispatch({
+            type: "SET_NOTIFICATION",
+            payload: `added "${content}"`,
+        });
+
+        setTimeout(() => {
+            notificationDispatch({
+                type: "SET_NOTIFICATION",
+                payload: "",
+            });
+        }, 5000);
     };
 
     return (

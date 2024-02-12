@@ -1,4 +1,4 @@
-import { ReactNode, createContext, useReducer } from "react";
+import { ReactNode, createContext, useContext, useReducer } from "react";
 
 const notificationReducer = (
     state: string,
@@ -15,6 +15,14 @@ const notificationReducer = (
 
 const NotificationContext = createContext(new Array());
 
+const useNotificationValue = () => {
+    return useContext(NotificationContext)[0];
+};
+
+const useNotificationDispatch = () => {
+    return useContext(NotificationContext)[1];
+};
+
 const NotificationContextProvider = ({ children }: { children: ReactNode }) => {
     const [notification, notificationDispatch] = useReducer(
         notificationReducer,
@@ -30,5 +38,9 @@ const NotificationContextProvider = ({ children }: { children: ReactNode }) => {
     );
 };
 
-export { NotificationContextProvider };
+export {
+    NotificationContextProvider,
+    useNotificationDispatch,
+    useNotificationValue,
+};
 export default NotificationContext;
