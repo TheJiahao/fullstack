@@ -1,17 +1,5 @@
 import { useState } from 'react'
-
-const Menu = () => {
-  const padding = {
-    paddingRight: 5
-  }
-  return (
-    <div>
-      <a href='#' style={padding}>anecdotes</a>
-      <a href='#' style={padding}>create new</a>
-      <a href='#' style={padding}>about</a>
-    </div>
-  )
-}
+import Menu from './components/Menu'
 
 const AnecdoteList = ({ anecdotes }) => (
   <div>
