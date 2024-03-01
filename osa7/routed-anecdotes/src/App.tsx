@@ -4,7 +4,8 @@ import About from "./components/About";
 import AnecdoteList from "./components/AnecdoteList";
 import Footer from "./components/Footer";
 import CreateNew from "./components/CreateNew";
-import { AnecdoteProps } from "./components/Anecdote";
+import { Route, Routes, useMatch } from "react-router-dom";
+import Anecdote, { AnecdoteProps } from "./components/Anecdote";
 
 const App = () => {
     const [anecdotes, setAnecdotes] = useState<Array<AnecdoteProps>>([
@@ -25,6 +26,7 @@ const App = () => {
     ]);
 
     const [notification, setNotification] = useState("");
+    const match = useMatch("/anecdotes/:id");
 
     const addNew = (anecdote: AnecdoteProps) => {
         anecdote.id = Math.round(Math.random() * 10000);
@@ -44,6 +46,8 @@ const App = () => {
         setAnecdotes(anecdotes.map((a) => (a.id === id ? voted : a)));
     };
 
+    const anecdote = match ? anecdoteById(Number(match.params.id)) : undefined;
+
     return (
         <div>
             <h1>Software anecdotes</h1>
@@ -55,6 +59,10 @@ const App = () => {
                 />
                 <Route path="/about" element={<About />} />
                 <Route path="/create" element={<CreateNew addNew={addNew} />} />
+                <Route
+                    path="/anecdotes/:id"
+                    element={<Anecdote anecdote={anecdote} />}
+                />
             </Routes>
             <Footer />
         </div>
