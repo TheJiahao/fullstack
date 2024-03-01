@@ -4,10 +4,10 @@ import About from "./components/About";
 import AnecdoteList from "./components/AnecdoteList";
 import Footer from "./components/Footer";
 import CreateNew from "./components/CreateNew";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { AnecdoteProps } from "./components/Anecdote";
 
 const App = () => {
-    const [anecdotes, setAnecdotes] = useState([
+    const [anecdotes, setAnecdotes] = useState<Array<AnecdoteProps>>([
         {
             content: "If it hurts, do it more often",
             author: "Jez Humble",
@@ -26,14 +26,14 @@ const App = () => {
 
     const [notification, setNotification] = useState("");
 
-    const addNew = (anecdote) => {
+    const addNew = (anecdote: AnecdoteProps) => {
         anecdote.id = Math.round(Math.random() * 10000);
         setAnecdotes(anecdotes.concat(anecdote));
     };
 
-    const anecdoteById = (id) => anecdotes.find((a) => a.id === id);
+    const anecdoteById = (id: number) => anecdotes.find((a) => a.id === id);
 
-    const vote = (id) => {
+    const vote = (id: number) => {
         const anecdote = anecdoteById(id);
 
         const voted = {
