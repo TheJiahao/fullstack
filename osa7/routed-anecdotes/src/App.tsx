@@ -1,77 +1,9 @@
 import { useState } from "react";
 import Menu from "./components/Menu";
 import About from "./components/About";
-
-const AnecdoteList = ({ anecdotes }) => (
-    <div>
-        <h2>Anecdotes</h2>
-        <ul>
-            {anecdotes.map((anecdote) => (
-                <li key={anecdote.id}>{anecdote.content}</li>
-            ))}
-        </ul>
-    </div>
-);
-
-const Footer = () => (
-    <div>
-        Anecdote app for{" "}
-        <a href="https://fullstackopen.com/">Full Stack Open</a>. See{" "}
-        <a href="https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js">
-            https://github.com/fullstack-hy2020/routed-anecdotes/blob/master/src/App.js
-        </a>{" "}
-        for the source code.
-    </div>
-);
-
-const CreateNew = (props) => {
-    const [content, setContent] = useState("");
-    const [author, setAuthor] = useState("");
-    const [info, setInfo] = useState("");
-
-    const handleSubmit = (e) => {
-        e.preventDefault();
-        props.addNew({
-            content,
-            author,
-            info,
-            votes: 0,
-        });
-    };
-
-    return (
-        <div>
-            <h2>create a new anecdote</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    content
-                    <input
-                        name="content"
-                        value={content}
-                        onChange={(e) => setContent(e.target.value)}
-                    />
-                </div>
-                <div>
-                    author
-                    <input
-                        name="author"
-                        value={author}
-                        onChange={(e) => setAuthor(e.target.value)}
-                    />
-                </div>
-                <div>
-                    url for more info
-                    <input
-                        name="info"
-                        value={info}
-                        onChange={(e) => setInfo(e.target.value)}
-                    />
-                </div>
-                <button>create</button>
-            </form>
-        </div>
-    );
-};
+import AnecdoteList from "./components/AnecdoteList";
+import Footer from "./components/Footer";
+import CreateNew from "./components/CreateNew";
 
 const App = () => {
     const [anecdotes, setAnecdotes] = useState([
