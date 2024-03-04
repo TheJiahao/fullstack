@@ -24,8 +24,11 @@ const useResource = (baseUrl) => {
         });
     }, [baseUrl]);
 
-    const create = (resource) => {
-        // ...
+    const create = async (resource) => {
+        const response = await axios.post(baseUrl, resource);
+
+        const newResources = resources.concat(response.data);
+        setResources(newResources);
     };
 
     const service = {
