@@ -37,6 +37,7 @@ const CreateNew = (props) => {
                     url for more info
                     <input name="info" {...info} />
                 </div>
+                <button type="submit">create</button>
                 <input type="reset" value="reset" onClick={handleReset} />
             </form>
         </div>
