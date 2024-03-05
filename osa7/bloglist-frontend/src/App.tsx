@@ -8,7 +8,6 @@ import Toggable from "./components/Toggable";
 import UserInfo from "./components/UserInfo";
 import createBlog from "./handlers/handle_create_blog";
 import handleLogout from "./handlers/handle_logout";
-import handleNotification from "./handlers/handle_notification";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
 
@@ -41,12 +40,7 @@ const App = () => {
     return (
         <div>
             <Notification />
-            {!user && (
-                <LoginForm
-                    setUser={setUser}
-                    handleNotification={handleNotification(setMessage)}
-                />
-            )}
+            {!user && <LoginForm setUser={setUser} />}
 
             {user && (
                 <>
