@@ -9,9 +9,9 @@ const setToken = (newToken: string): void => {
     token = `Bearer ${newToken}`;
 };
 
-const getAll = () => {
-    const request = axios.get(baseUrl);
-    return request.then((response) => response.data);
+const getAll = async (): Promise<BlogProps[]> => {
+    const response = await axios.get(baseUrl);
+    return response.data;
 };
 
 const create = async (newBlog: NewBlog): Promise<BlogProps> => {
