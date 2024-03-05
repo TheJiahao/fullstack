@@ -6,7 +6,6 @@ import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import Toggable from "./components/Toggable";
 import UserInfo from "./components/UserInfo";
-import createBlog from "./handlers/handle_create_blog";
 import handleLogout from "./handlers/handle_logout";
 import User from "./interfaces/user";
 import blogService from "./services/blog_service";
@@ -50,13 +49,7 @@ const App = () => {
                     />
 
                     <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
-                        <CreateBlogForm
-                            createBlog={createBlog(
-                                blogs,
-                                setBlogs,
-                                createBlogFormRef,
-                            )}
-                        />
+                        <CreateBlogForm />
                     </Toggable>
 
                     <BlogList

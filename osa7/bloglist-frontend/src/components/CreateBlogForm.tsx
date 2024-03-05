@@ -1,6 +1,7 @@
 import { FormEvent, useState } from "react";
 import { useAppDispatch } from "../hooks";
 import { setNotification } from "../reducers/notificationReducer";
+import { createBlog } from "../reducers/blogReducer";
 
 interface NewBlog {
     title: string;
@@ -8,11 +9,7 @@ interface NewBlog {
     url: string;
 }
 
-interface BlogCreator {
-    (newBlog: NewBlog): Promise<void>;
-}
-
-const CreateBlogForm = ({ createBlog }: { createBlog: BlogCreator }) => {
+const CreateBlogForm = () => {
     const [newBlog, setNewBlog] = useState<NewBlog>({
         title: "",
         author: "",
@@ -23,7 +20,8 @@ const CreateBlogForm = ({ createBlog }: { createBlog: BlogCreator }) => {
     const handleCreateBlog = async (event: FormEvent) => {
         event.preventDefault();
 
-        await createBlog(newBlog);
+        dispatch(createBlog(newBlog));
+
         dispatch(
             setNotification(
                 `Added new blog ${newBlog.title} by ${newBlog.author}`,
