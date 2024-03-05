@@ -26,7 +26,7 @@ const create = async (newBlog: NewBlog): Promise<BlogProps> => {
     return response.data;
 };
 
-const update = async (blog: BlogProps) => {
+const update = async (blog: BlogProps): Promise<BlogProps> => {
     const response = await axios.put(`${baseUrl}/${blog.id}`, blog);
 
     return response.data;
