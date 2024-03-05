@@ -1,22 +1,22 @@
 module.exports = {
-  root: true,
-  env: { browser: true, es2020: true, "cypress/globals": true },
-  extends: [
-    "eslint:recommended",
-    "plugin:@typescript-eslint/recommended",
-    "plugin:react-hooks/recommended",
-  ],
-  ignorePatterns: ["dist", ".eslintrc.cjs"],
-  parserOptions: { ecmaVersion: "latest", sourceType: "module" },
-  settings: { react: { version: "18.2" } },
-  plugins: ["react-refresh", "jest", "cypress"],
-  rules: {
-    "react-refresh/only-export-components": [
-      "warn",
-      { allowConstantExport: true },
+    root: true,
+    env: { browser: true, es2020: true, "cypress/globals": true },
+    extends: [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:react-hooks/recommended",
     ],
-    "react/prop-types": 0,
-    "jest/no-disabled-tests": "warn",
-    "@typescript-eslint/no-explicit-any": 0,
-  },
+    ignorePatterns: ["dist", ".eslintrc.cjs"],
+    parserOptions: { ecmaVersion: "latest", sourceType: "module" },
+    settings: { react: { version: "18.2" } },
+    plugins: ["react-refresh", "jest", "cypress"],
+    rules: {
+        "react-refresh/only-export-components": [
+            "warn",
+            { allowConstantExport: true },
+        ],
+        "react/prop-types": 0,
+        "jest/no-disabled-tests": "warn",
+        "@typescript-eslint/no-explicit-any": 0,
+    },
 };

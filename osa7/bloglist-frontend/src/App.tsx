@@ -13,66 +13,69 @@ import User from "./interfaces/user";
 import blogService from "./services/blog_service";
 
 const App = () => {
-  const [user, setUser] = useState<User | null>(null);
-  const [blogs, setBlogs] = useState<BlogProps[]>([]);
-  const [message, setMessage] = useState<string | null>(null);
+    const [user, setUser] = useState<User | null>(null);
+    const [blogs, setBlogs] = useState<BlogProps[]>([]);
+    const [message, setMessage] = useState<string | null>(null);
 
-  const createBlogFormRef = useRef({ toggleVisibility: () => {} });
+    const createBlogFormRef = useRef({ toggleVisibility: () => {} });
 
-  useEffect(() => {
-    blogService
-      .getAll()
-      .then((blogs: BlogProps[]) =>
-        setBlogs(blogs.sort((a, b) => b.likes - a.likes))
-      );
-  }, []);
+    useEffect(() => {
+        blogService
+            .getAll()
+            .then((blogs: BlogProps[]) =>
+                setBlogs(blogs.sort((a, b) => b.likes - a.likes)),
+            );
+    }, []);
 
-  useEffect(() => {
-    const loggedUserJSON = window.localStorage.getItem("loggedUser");
+    useEffect(() => {
+        const loggedUserJSON = window.localStorage.getItem("loggedUser");
 
-    if (loggedUserJSON) {
-      const user = JSON.parse(loggedUserJSON);
+        if (loggedUserJSON) {
+            const user = JSON.parse(loggedUserJSON);
 
-      setUser(user);
-      blogService.setToken(user.token);
-    }
-  }, []);
+            setUser(user);
+            blogService.setToken(user.token);
+        }
+    }, []);
 
-  return (
-    <div>
-      <Notification message={message} />
-      {!user && (
-        <LoginForm
-          setUser={setUser}
-          handleNotification={handleNotification(setMessage)}
-        />
-      )}
+    return (
+        <div>
+            <Notification message={message} />
+            {!user && (
+                <LoginForm
+                    setUser={setUser}
+                    handleNotification={handleNotification(setMessage)}
+                />
+            )}
 
-      {user && (
-        <>
-          <h2>blogs</h2>
-          <UserInfo name={user.name} logoutHandler={handleLogout(setUser)} />
+            {user && (
+                <>
+                    <h2>blogs</h2>
+                    <UserInfo
+                        name={user.name}
+                        logoutHandler={handleLogout(setUser)}
+                    />
 
-          <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
-            <CreateBlogForm
-              createBlog={createBlog(
-                blogs,
-                setBlogs,
-                handleNotification(setMessage),
-                createBlogFormRef
-              )}
-            />
-          </Toggable>
+                    <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
+                        <CreateBlogForm
+                            createBlog={createBlog(
+                                blogs,
+                                setBlogs,
+                                handleNotification(setMessage),
+                                createBlogFormRef,
+                            )}
+                        />
+                    </Toggable>
 
-          <BlogList
-            blogs={blogs}
-            setBlogs={setBlogs}
-            username={user.username}
-          />
-        </>
-      )}
-    </div>
-  );
+                    <BlogList
+                        blogs={blogs}
+                        setBlogs={setBlogs}
+                        username={user.username}
+                    />
+                </>
+            )}
+        </div>
+    );
 };
 
 export default App;

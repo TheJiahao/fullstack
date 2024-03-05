@@ -6,27 +6,27 @@ import logger from "../utils/logger";
 import { notificationHandler } from "./handle_notification";
 
 const createBlog =
-  (
-    blogs: BlogProps[],
-    setBlogs: Dispatch<SetStateAction<BlogProps[]>>,
-    handleNotification: notificationHandler,
-    visibilityRef: MutableRefObject<{ toggleVisibility: VoidFunction }>
-  ) =>
-  async (newBlog: NewBlog) => {
-    const blog = await blogService.create(newBlog);
-    handleNotification(`Added new blog ${blog.title} by ${blog.author}`);
-    logger.info("Added blog", blog);
+    (
+        blogs: BlogProps[],
+        setBlogs: Dispatch<SetStateAction<BlogProps[]>>,
+        handleNotification: notificationHandler,
+        visibilityRef: MutableRefObject<{ toggleVisibility: VoidFunction }>,
+    ) =>
+    async (newBlog: NewBlog) => {
+        const blog = await blogService.create(newBlog);
+        handleNotification(`Added new blog ${blog.title} by ${blog.author}`);
+        logger.info("Added blog", blog);
 
-    setBlogs(blogs.concat(blog));
-    logger.info("Updated blog list");
+        setBlogs(blogs.concat(blog));
+        logger.info("Updated blog list");
 
-    if (!visibilityRef.current) {
-      logger.error("Toggle ref not initialized");
-      return;
-    }
+        if (!visibilityRef.current) {
+            logger.error("Toggle ref not initialized");
+            return;
+        }
 
-    visibilityRef.current.toggleVisibility();
-  };
+        visibilityRef.current.toggleVisibility();
+    };
 
 export type { createBlog };
 export default createBlog;
