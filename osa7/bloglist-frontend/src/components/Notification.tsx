@@ -1,15 +1,13 @@
-import PropTypes from "prop-types";
+import { useAppSelector } from "../hooks";
 
-const Notification = ({ message }: { message: string | null }) => {
+const Notification = () => {
+    const message = useAppSelector((state) => state.notification);
+
     if (!message) {
         return null;
     }
 
     return <div>{message}</div>;
-};
-
-Notification.propTypes = {
-    message: PropTypes.string,
 };
 
 export default Notification;

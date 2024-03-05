@@ -40,7 +40,7 @@ const App = () => {
 
     return (
         <div>
-            <Notification message={message} />
+            <Notification />
             {!user && (
                 <LoginForm
                     setUser={setUser}
@@ -61,7 +61,6 @@ const App = () => {
                             createBlog={createBlog(
                                 blogs,
                                 setBlogs,
-                                handleNotification(setMessage),
                                 createBlogFormRef,
                             )}
                         />
