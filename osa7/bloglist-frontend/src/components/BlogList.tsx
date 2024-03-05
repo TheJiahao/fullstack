@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { deleteBlog } from "../reducers/blogReducer";
-import blogService from "../services/blog_service";
+import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import logger from "../utils/logger";
 import Blog, { BlogProps } from "./Blog";
 
@@ -9,11 +8,9 @@ const BlogList = ({ username }: { username: string }) => {
 
     const dispatch = useAppDispatch();
 
-    const handleLike = (blog: BlogProps) => async () => {
-        const newBlog = { ...blog, likes: blog.likes + 1 };
-
-        await blogService.update(newBlog);
-        logger.info("Updated blog", newBlog);
+    const handleLike = (id: string) => async () => {
+        dispatch(likeBlog(id));
+        logger.info("Liked blog", id);
     };
 
     const handleDelete = (blog: BlogProps) => async () => {
@@ -33,7 +30,7 @@ const BlogList = ({ username }: { username: string }) => {
                     blog={blog}
                     username={username}
                     handleDelete={handleDelete(blog)}
-                    handleLike={handleLike(blog)}
+                    handleLike={handleLike(blog.id)}
                 />
             ))}
         </div>

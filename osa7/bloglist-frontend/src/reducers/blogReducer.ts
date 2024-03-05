@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BlogProps } from "../components/Blog";
 import { NewBlog } from "../components/CreateBlogForm";
 import blogService from "../services/blog_service";
+import { RootState } from "../store";
 
 const sortByLikes = (a: BlogProps, b: BlogProps) => b.likes - a.likes;
 
@@ -20,6 +21,22 @@ const deleteBlog = createAsyncThunk(
     async (id: string) => await blogService.remove(id),
 );
 
+const likeBlog = createAsyncThunk(
+    "blogs/likeBlog",
+    async (id: string, thunkAPI) => {
+        const blog = (thunkAPI.getState() as RootState).blogs.find(
+            (blog) => blog.id === id,
+        ) as BlogProps;
+
+        const newBlog = await blogService.update({
+            ...blog,
+            likes: blog.likes + 1,
+        });
+
+        return newBlog;
+    },
+);
+
 const blogSlice = createSlice({
     name: "blogs",
     initialState: new Array<BlogProps>(),
@@ -36,9 +53,16 @@ const blogSlice = createSlice({
             .addCase(deleteBlog.fulfilled, (state, action) => {
                 const id = action.payload;
                 return state.filter((blog) => blog.id !== id).sort(sortByLikes);
+            })
+            .addCase(likeBlog.fulfilled, (state, action) => {
+                const newBlog = action.payload;
+
+                return state
+                    .map((blog) => (blog.id === newBlog.id ? newBlog : blog))
+                    .sort(sortByLikes);
             });
     },
 });
 
-export { createBlog, deleteBlog, initializeBlogs };
+export { createBlog, deleteBlog, initializeBlogs, likeBlog };
 export default blogSlice.reducer;
