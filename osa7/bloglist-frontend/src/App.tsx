@@ -14,7 +14,6 @@ import blogService from "./services/blog_service";
 const App = () => {
     const [user, setUser] = useState<User | null>(null);
     const [blogs, setBlogs] = useState<BlogProps[]>([]);
-    const [message, setMessage] = useState<string | null>(null);
 
     const createBlogFormRef = useRef({ toggleVisibility: () => {} });
 
