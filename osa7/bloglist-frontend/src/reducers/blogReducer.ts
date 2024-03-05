@@ -15,6 +15,11 @@ const createBlog = createAsyncThunk(
     async (newBlog: NewBlog) => await blogService.create(newBlog),
 );
 
+const deleteBlog = createAsyncThunk(
+    "blogs/deleteBlog",
+    async (id: string) => await blogService.remove(id),
+);
+
 const blogSlice = createSlice({
     name: "blogs",
     initialState: new Array<BlogProps>(),
@@ -27,9 +32,13 @@ const blogSlice = createSlice({
             .addCase(createBlog.fulfilled, (state, action) => {
                 state.push(action.payload);
                 state.sort(sortByLikes);
+            })
+            .addCase(deleteBlog.fulfilled, (state, action) => {
+                const id = action.payload;
+                return state.filter((blog) => blog.id !== id).sort(sortByLikes);
             });
     },
 });
 
-export { createBlog, initializeBlogs };
+export { createBlog, deleteBlog, initializeBlogs };
 export default blogSlice.reducer;

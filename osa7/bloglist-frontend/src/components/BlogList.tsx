@@ -1,10 +1,13 @@
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { deleteBlog } from "../reducers/blogReducer";
 import blogService from "../services/blog_service";
 import logger from "../utils/logger";
 import Blog, { BlogProps } from "./Blog";
 
 const BlogList = ({ username }: { username: string }) => {
     const blogs = useAppSelector((state) => state.blogs);
+
+    const dispatch = useAppDispatch();
 
     const handleLike = (blog: BlogProps) => async () => {
         const newBlog = { ...blog, likes: blog.likes + 1 };
@@ -18,7 +21,7 @@ const BlogList = ({ username }: { username: string }) => {
             return;
         }
 
-        await blogService.remove(blog.id);
+        dispatch(deleteBlog(blog.id));
         logger.info("Deleted blog", blog.id);
     };
 
