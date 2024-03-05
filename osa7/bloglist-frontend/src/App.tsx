@@ -1,5 +1,4 @@
 import { useEffect, useRef, useState } from "react";
-import { BlogProps } from "./components/Blog";
 import BlogList from "./components/BlogList";
 import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
@@ -7,22 +6,20 @@ import Notification from "./components/Notification";
 import Toggable from "./components/Toggable";
 import UserInfo from "./components/UserInfo";
 import handleLogout from "./handlers/handle_logout";
+import { useAppDispatch } from "./hooks";
 import User from "./interfaces/user";
+import { initializeBlogs } from "./reducers/blogReducer";
 import blogService from "./services/blog_service";
 
 const App = () => {
     const [user, setUser] = useState<User | null>(null);
-    const [blogs, setBlogs] = useState<BlogProps[]>([]);
 
+    const dispatch = useAppDispatch();
     const createBlogFormRef = useRef({ toggleVisibility: () => {} });
 
     useEffect(() => {
-        blogService
-            .getAll()
-            .then((blogs: BlogProps[]) =>
-                setBlogs(blogs.sort((a, b) => b.likes - a.likes)),
-            );
-    }, []);
+        dispatch(initializeBlogs());
+    }, [dispatch]);
 
     useEffect(() => {
         const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -52,11 +49,7 @@ const App = () => {
                         <CreateBlogForm />
                     </Toggable>
 
-                    <BlogList
-                        blogs={blogs}
-                        setBlogs={setBlogs}
-                        username={user.username}
-                    />
+                    <BlogList username={user.username} />
                 </>
             )}
         </div>
