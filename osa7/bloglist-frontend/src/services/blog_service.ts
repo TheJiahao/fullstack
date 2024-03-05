@@ -32,16 +32,16 @@ const update = async (blog: BlogProps) => {
     return response.data;
 };
 
-const remove = async (id: string): Promise<BlogProps> => {
+const remove = async (id: string): Promise<string> => {
     const config: AxiosRequestConfig = {
         headers: {
             Authorization: token,
         },
     };
 
-    const response = await axios.delete(`${baseUrl}/${id}`, config);
+    await axios.delete(`${baseUrl}/${id}`, config);
 
-    return response.data;
+    return id;
 };
 
 export default { setToken, getAll, create, update, remove };
