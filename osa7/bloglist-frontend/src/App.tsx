@@ -1,16 +1,16 @@
 import { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
+import Blog from "./components/Blog";
 import BlogList from "./components/BlogList";
 import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
+import NavigationBar from "./components/NavigationBar";
 import Notification from "./components/Notification";
 import User from "./components/User";
 import UserTable from "./components/UserTable";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { initializeUsers } from "./reducers/userReducer";
-import Blog from "./components/Blog";
-import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
     const dispatch = useAppDispatch();
