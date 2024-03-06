@@ -2,7 +2,7 @@ import { FormEvent, useState } from "react";
 import { useAppDispatch } from "../hooks";
 import { setNotification } from "../reducers/notificationReducer";
 import { createBlog } from "../reducers/blogReducer";
-import Toggable from "./Toggable";
+import Togglable from "./Togglable";
 
 interface NewBlog {
     title: string;
@@ -33,7 +33,7 @@ const CreateBlogForm = () => {
     };
 
     return (
-        <Toggable buttonLabel="new blog">
+        <Togglable buttonLabel="new blog">
             <div>
                 <h2>create new</h2>
                 <form onSubmit={handleCreateBlog}>
@@ -75,7 +75,7 @@ const CreateBlogForm = () => {
                     </button>
                 </form>
             </div>
-        </Toggable>
+        </Togglable>
     );
 };
 

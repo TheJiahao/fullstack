@@ -7,7 +7,7 @@ import {
     useState,
 } from "react";
 
-const Toggable = forwardRef(
+const Togglable = forwardRef(
     (
         props: { buttonLabel: string; children: ReactNode },
         ref: ForwardedRef<unknown>,
@@ -41,8 +41,8 @@ const Toggable = forwardRef(
     },
 );
 
-Toggable.propTypes = {
+Togglable.propTypes = {
     buttonLabel: PropTypes.string.isRequired,
 };
 
-export default Toggable;
+export default Togglable;
