@@ -4,6 +4,7 @@ import useField from "../hooks/useField";
 import { createBlog } from "../reducers/blogReducer";
 import { setNotification } from "../reducers/notificationReducer";
 import Togglable from "./Togglable";
+import { Button, Form } from "react-bootstrap";
 
 interface NewBlog {
     title: string;
@@ -46,20 +47,26 @@ const CreateBlogForm = () => {
         <Togglable buttonLabel="new blog">
             <div>
                 <h2>create new</h2>
-                <form onSubmit={handleCreateBlog}>
-                    <div>
-                        title: <input id="title-input" {...title} />
-                    </div>
-                    <div>
-                        author: <input id="author-input" {...author} />
-                    </div>
-                    <div>
-                        url: <input id="url-input" {...url} />
-                    </div>
-                    <button id="create-button" type="submit">
+                <Form onSubmit={handleCreateBlog}>
+                    <Form.Group controlId="title-input">
+                        <Form.Label>title</Form.Label>
+                        <Form.Control {...title} />
+                    </Form.Group>
+
+                    <Form.Group controlId="author-input">
+                        <Form.Label>author</Form.Label>
+                        <Form.Control {...author} />
+                    </Form.Group>
+
+                    <Form.Group controlId="url-input">
+                        <Form.Label>url</Form.Label>
+                        <Form.Control {...url} />
+                    </Form.Group>
+
+                    <Button id="create-button" type="submit">
                         create
-                    </button>
-                </form>
+                    </Button>
+                </Form>
             </div>
         </Togglable>
     );
