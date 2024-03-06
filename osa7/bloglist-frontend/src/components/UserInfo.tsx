@@ -11,7 +11,7 @@ const UserInfo = () => {
 
     return (
         <div>
-            {name} logged in
+            <p>{name} logged in</p>
             <button id="logout-button" onClick={logoutHandler}>
                 logout
             </button>
