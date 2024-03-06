@@ -7,6 +7,7 @@ import UserInfo from "./components/UserInfo";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import UserTable from "./components/UserTable";
 import { initializeUsers } from "./reducers/userReducer";
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                                     </>
                                 }
                             />
+                            <Route path="users" element={<UserTable />} />
                         </Routes>
                     </>
                 ) : (
