@@ -91,9 +91,7 @@ router.post("/:id/comments", async (request, response) => {
 
     comment.blog = blogId;
 
-    const savedComment = await (
-        await comment.save()
-    ).populate("blog", { id: 1 });
+    const savedComment = await comment.save();
 
     const blog = await Blog.findById(blogId);
     blog.comments = blog.comments.concat(savedComment._id);
