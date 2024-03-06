@@ -45,7 +45,7 @@ const userSlice = createSlice({
         setUser(state, action: PayloadAction<User>) {
             return action.payload;
         },
-        logout(state) {
+        logout() {
             return null;
         },
     },
