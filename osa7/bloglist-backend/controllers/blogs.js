@@ -1,5 +1,6 @@
 const router = require("express").Router();
 const Blog = require("../models/blog");
+const Comment = require("../models/comment");
 const logger = require("../utils/logger");
 
 const { userExtractor } = require("../utils/middleware");
@@ -75,6 +76,22 @@ router.delete("/:id", userExtractor, async (request, response) => {
     await blog.remove();
 
     response.status(204).end();
+});
+
+router.post("/:id/comments", async (request, response) => {
+    const { content } = request.body;
+    const blogId = request.params.id;
+    const comment = new Comment({
+        content,
+    });
+
+    comment.blog = blogId;
+
+    const savedComment = await (
+        await comment.save()
+    ).populate("blog", { id: 1 });
+
+    response.status(201).json(savedComment);
 });
 
 module.exports = router;
