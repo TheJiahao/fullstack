@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import { logout } from "../reducers/loggedUserReducer";
 
@@ -14,9 +15,13 @@ const UserInfo = () => {
     return (
         <div style={style}>
             {name} logged in
-            <button id="logout-button" onClick={logoutHandler}>
+            <Button
+                variant="secondary"
+                id="logout-button"
+                onClick={logoutHandler}
+            >
                 logout
-            </button>
+            </Button>
         </div>
     );
 };
