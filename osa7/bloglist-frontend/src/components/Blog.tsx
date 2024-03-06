@@ -1,8 +1,10 @@
 import { useMatch } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
+import Comment from "../interfaces/comment";
 import User from "../interfaces/user";
 import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import logger from "../utils/logger";
+import CommentList from "./CommentList";
 
 interface BlogProps {
     id: string;
@@ -11,6 +13,7 @@ interface BlogProps {
     url: string;
     likes: number;
     user: User;
+    comments: Comment[];
 }
 
 const Blog = () => {
@@ -66,6 +69,8 @@ const Blog = () => {
                     delete
                 </button>
             )}
+
+            <CommentList comments={blog.comments} />
         </div>
     );
 };
