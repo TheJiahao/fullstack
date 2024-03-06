@@ -23,7 +23,7 @@ const App = () => {
     }, [dispatch]);
 
     return (
-        <div>
+        <div className="container">
             <NavigationBar />
             <Notification />
 
