@@ -1,14 +1,26 @@
 import { Link } from "react-router-dom";
 import UserInfo from "./UserInfo";
-import "../css/NavigationBar.css";
+
+import { Nav } from "react-bootstrap";
 
 const NavigationBar = () => {
     return (
-        <div id="navigation-bar">
-            <Link to="/">blogs</Link>
-            <Link to="/users">users</Link>
-            <UserInfo />
-        </div>
+        <Nav id="navigation-bar">
+            <Nav.Item>
+                <Nav.Link as={Link} to="/">
+                    blogs
+                </Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link as={Link} to="/users">
+                    users
+                </Nav.Link>
+            </Nav.Item>
+
+            <Nav.Item>
+                <UserInfo />
+            </Nav.Item>
+        </Nav>
     );
 };
 
