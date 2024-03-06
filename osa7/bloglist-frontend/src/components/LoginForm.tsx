@@ -8,21 +8,19 @@ const LoginForm = () => {
 
     const dispatch = useAppDispatch();
 
-    const handleLogin = () => {
-        return async (event: FormEvent) => {
-            event.preventDefault();
+    const handleLogin = async (event: FormEvent) => {
+        event.preventDefault();
 
-            dispatch(login({ username, password }));
+        dispatch(login({ username, password }));
 
-            setUsername("");
-            setPassword("");
-        };
+        setUsername("");
+        setPassword("");
     };
 
     return (
         <div>
             <h2>Login</h2>
-            <form onSubmit={handleLogin()}>
+            <form onSubmit={handleLogin}>
                 <div>
                     username{" "}
                     <input
