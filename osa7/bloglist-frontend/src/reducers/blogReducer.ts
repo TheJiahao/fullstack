@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { BlogProps } from "../components/Blog";
 import { NewBlog } from "../components/CreateBlogForm";
-import blogService from "../services/blog_service";
+import blogService from "../services/blogService";
 import { RootState } from "../store";
 
 const sortByLikes = (a: BlogProps, b: BlogProps) => b.likes - a.likes;

@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import User from "../interfaces/user";
-import blogService from "../services/blog_service";
-import loginService from "../services/login_service";
+import blogService from "../services/blogService";
+import loginService from "../services/loginService";
 import { setNotification } from "./notificationReducer";
 import logger from "../utils/logger";
 
