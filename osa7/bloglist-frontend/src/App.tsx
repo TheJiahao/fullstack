@@ -7,6 +7,7 @@ import UserInfo from "./components/UserInfo";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { initializeUsers } from "./reducers/userReducer";
 
 const App = () => {
     const user = useAppSelector((state) => state.loggedUser);
@@ -15,6 +16,7 @@ const App = () => {
 
     useEffect(() => {
         dispatch(initializeBlogs());
+        dispatch(initializeUsers());
     }, [dispatch]);
 
     return (
