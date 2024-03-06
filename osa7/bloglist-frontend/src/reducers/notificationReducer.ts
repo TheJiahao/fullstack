@@ -1,21 +1,28 @@
 import { Dispatch, PayloadAction, createSlice } from "@reduxjs/toolkit";
+import Notification from "../interfaces/notification";
+
+const initialState: Notification = { message: "" };
 
 const notificationSlice = createSlice({
     name: "notification",
-    initialState: "",
+    initialState,
     reducers: {
-        setNotification(state: string, action: PayloadAction<string>) {
+        setNotification(state, action: PayloadAction<Notification>) {
             return action.payload;
         },
         resetNotification() {
-            return "";
+            return initialState;
         },
     },
 });
 
-const setNotification = (notification: string, time: number = 5) => {
+const setNotification = (
+    message: string,
+    type: string = "success",
+    time: number = 5,
+) => {
     return (dispatch: Dispatch) => {
-        dispatch(notificationSlice.actions.setNotification(notification));
+        dispatch(notificationSlice.actions.setNotification({ message, type }));
         setTimeout(() => dispatch(resetNotification()), time * 1000);
     };
 };

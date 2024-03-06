@@ -37,7 +37,7 @@ const login = createAsyncThunk(
         } catch (error) {
             const message = "Invalid credentials";
 
-            thunkAPI.dispatch(setNotification(message));
+            thunkAPI.dispatch(setNotification(message, "warning"));
             logger.error(message);
         }
     },
