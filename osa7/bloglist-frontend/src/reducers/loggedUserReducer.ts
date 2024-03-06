@@ -33,7 +33,7 @@ const login = createAsyncThunk(
             thunkAPI.dispatch(setNotification("Logged in"));
             logger.info("Logged in", user.username);
 
-            return user;
+            thunkAPI.dispatch(setUser(user));
         } catch (error) {
             const message = "Invalid credentials";
 
@@ -43,7 +43,7 @@ const login = createAsyncThunk(
     },
 );
 
-const loggedUserSlice = createSlice({
+const userSlice = createSlice({
     name: "user",
     initialState: initializeUser,
     reducers: {
@@ -54,18 +54,8 @@ const loggedUserSlice = createSlice({
             return null;
         },
     },
-    extraReducers: (builder) =>
-        builder.addCase(login.fulfilled, (state, action) => {
-            const user = action.payload;
-
-            if (!user) {
-                return null;
-            }
-
-            return user;
-        }),
 });
 
-export default loggedUserSlice.reducer;
-export const { setUser, logout } = loggedUserSlice.actions;
+export default userSlice.reducer;
+export const { setUser, logout } = userSlice.actions;
 export { login };
