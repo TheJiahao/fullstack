@@ -21,9 +21,7 @@ const App = () => {
     return (
         <div>
             <Notification />
-            {!user && <LoginForm />}
-
-            {user && (
+            {user ? (
                 <>
                     <h2>blogs</h2>
                     <UserInfo />
@@ -34,6 +32,8 @@ const App = () => {
 
                     <BlogList />
                 </>
+            ) : (
+                <LoginForm />
             )}
         </div>
     );
