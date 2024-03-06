@@ -3,6 +3,8 @@ import { BlogProps } from "../components/Blog";
 import { NewBlog } from "../components/CreateBlogForm";
 import blogService from "../services/blogService";
 import { RootState } from "../store";
+import commentService from "../services/commentService";
+import Comment from "../interfaces/comment";
 
 const sortByLikes = (a: BlogProps, b: BlogProps) => b.likes - a.likes;
 
@@ -37,6 +39,12 @@ const likeBlog = createAsyncThunk(
     },
 );
 
+const commentBlog = createAsyncThunk(
+    "blogs/commentBlog",
+    async ({ blogId, comment }: { blogId: string; comment: Comment }) =>
+        await commentService.create(blogId, comment.content),
+);
+
 const blogSlice = createSlice({
     name: "blogs",
     initialState: new Array<BlogProps>(),
@@ -60,9 +68,17 @@ const blogSlice = createSlice({
                 return state
                     .map((blog) => (blog.id === newBlog.id ? newBlog : blog))
                     .sort(sortByLikes);
+            })
+            .addCase(commentBlog.fulfilled, (state, action) => {
+                const comment = action.payload;
+                const id = comment.blog;
+
+                const blog = state.find((blog) => blog.id === id) as BlogProps;
+
+                blog.comments.push(comment);
             });
     },
 });
 
-export { createBlog, deleteBlog, initializeBlogs, likeBlog };
+export { createBlog, deleteBlog, initializeBlogs, likeBlog, commentBlog };
 export default blogSlice.reducer;
