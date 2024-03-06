@@ -1,6 +1,6 @@
 import { ThunkAction, UnknownAction, configureStore } from "@reduxjs/toolkit";
-import notificationSlice from "./reducers/notificationReducer";
 import blogReducer from "./reducers/blogReducer";
+import notificationSlice from "./reducers/notificationReducer";
 
 export const store = configureStore({
     reducer: {
