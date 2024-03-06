@@ -11,9 +11,9 @@ import { initializeBlogs } from "./reducers/blogReducer";
 import { initializeUsers } from "./reducers/userReducer";
 
 const App = () => {
-    const user = useAppSelector((state) => state.loggedUser);
-
     const dispatch = useAppDispatch();
+
+    const user = useAppSelector((state) => state.loggedUser);
 
     useEffect(() => {
         dispatch(initializeBlogs());
