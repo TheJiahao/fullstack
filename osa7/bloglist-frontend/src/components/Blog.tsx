@@ -1,6 +1,8 @@
-import { MouseEventHandler, useState } from "react";
+import { useState } from "react";
 import User from "../interfaces/user";
-import { useAppSelector } from "../hooks";
+import { useAppDispatch, useAppSelector } from "../hooks";
+import { deleteBlog, likeBlog } from "../reducers/blogReducer";
+import logger from "../utils/logger";
 
 interface BlogProps {
     id: string;
@@ -11,17 +13,13 @@ interface BlogProps {
     user: User;
 }
 
-const Blog = ({
-    blog,
-    handleDelete,
-    handleLike,
-}: {
-    blog: BlogProps;
-    handleDelete: MouseEventHandler;
-    handleLike: MouseEventHandler;
-}) => {
+const Blog = ({ blog }: { blog: BlogProps }) => {
+    const dispatch = useAppDispatch();
+
     const [visible, setVisible] = useState(false);
-    const currentUsername = useAppSelector((state) => state.loggedUser?.username);
+    const currentUsername = useAppSelector(
+        (state) => state.loggedUser?.username,
+    );
 
     const showWhenVisible = { display: visible ? "" : "none" };
     const buttonLabel = visible ? "hide" : "view";
@@ -32,6 +30,20 @@ const Blog = ({
         border: "solid",
         borderWidth: 1,
         marginBottom: 5,
+    };
+
+    const handleLike = async () => {
+        dispatch(likeBlog(blog.id));
+        logger.info("Liked blog", blog.id);
+    };
+
+    const handleDelete = async () => {
+        if (!window.confirm(`Remove blog ${blog.title} by ${blog.author}`)) {
+            return;
+        }
+
+        dispatch(deleteBlog(blog.id));
+        logger.info("Deleted blog", blog.id);
     };
 
     return (
