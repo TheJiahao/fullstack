@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
+import { Route, Routes, useMatch } from "react-router-dom";
 import BlogList from "./components/BlogList";
 import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
@@ -24,29 +24,27 @@ const App = () => {
         <div>
             <Notification />
 
-            <Router>
-                {loggedUser ? (
-                    <>
-                        <h2>blogs</h2>
-                        <UserInfo />
+            {loggedUser ? (
+                <>
+                    <h2>blogs</h2>
+                    <UserInfo />
 
-                        <Routes>
-                            <Route
-                                path="/"
-                                element={
-                                    <>
-                                        <CreateBlogForm />
-                                        <BlogList />
-                                    </>
-                                }
-                            />
-                            <Route path="/users" element={<UserTable />} />
-                        </Routes>
-                    </>
-                ) : (
-                    <LoginForm />
-                )}
-            </Router>
+                    <Routes>
+                        <Route
+                            path="/"
+                            element={
+                                <>
+                                    <CreateBlogForm />
+                                    <BlogList />
+                                </>
+                            }
+                        />
+                        <Route path="/users" element={<UserTable />} />
+                    </Routes>
+                </>
+            ) : (
+                <LoginForm />
+            )}
         </div>
     );
 };
