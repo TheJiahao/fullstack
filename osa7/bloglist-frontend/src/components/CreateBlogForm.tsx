@@ -2,6 +2,7 @@ import { FormEvent, useState } from "react";
 import { useAppDispatch } from "../hooks";
 import { setNotification } from "../reducers/notificationReducer";
 import { createBlog } from "../reducers/blogReducer";
+import Toggable from "./Toggable";
 
 interface NewBlog {
     title: string;
@@ -32,47 +33,49 @@ const CreateBlogForm = () => {
     };
 
     return (
-        <div>
-            <h2>create new</h2>
-            <form onSubmit={handleCreateBlog}>
-                <div>
-                    title:{" "}
-                    <input
-                        id="title-input"
-                        type="text"
-                        value={newBlog.title}
-                        onChange={({ target }) =>
-                            setNewBlog({ ...newBlog, title: target.value })
-                        }
-                    />
-                </div>
-                <div>
-                    author:{" "}
-                    <input
-                        id="author-input"
-                        type="text"
-                        value={newBlog.author}
-                        onChange={({ target }) =>
-                            setNewBlog({ ...newBlog, author: target.value })
-                        }
-                    />
-                </div>
-                <div>
-                    url:{" "}
-                    <input
-                        id="url-input"
-                        type="text"
-                        value={newBlog.url}
-                        onChange={({ target }) =>
-                            setNewBlog({ ...newBlog, url: target.value })
-                        }
-                    />
-                </div>
-                <button id="create-button" type="submit">
-                    create
-                </button>
-            </form>
-        </div>
+        <Toggable buttonLabel="new blog">
+            <div>
+                <h2>create new</h2>
+                <form onSubmit={handleCreateBlog}>
+                    <div>
+                        title:{" "}
+                        <input
+                            id="title-input"
+                            type="text"
+                            value={newBlog.title}
+                            onChange={({ target }) =>
+                                setNewBlog({ ...newBlog, title: target.value })
+                            }
+                        />
+                    </div>
+                    <div>
+                        author:{" "}
+                        <input
+                            id="author-input"
+                            type="text"
+                            value={newBlog.author}
+                            onChange={({ target }) =>
+                                setNewBlog({ ...newBlog, author: target.value })
+                            }
+                        />
+                    </div>
+                    <div>
+                        url:{" "}
+                        <input
+                            id="url-input"
+                            type="text"
+                            value={newBlog.url}
+                            onChange={({ target }) =>
+                                setNewBlog({ ...newBlog, url: target.value })
+                            }
+                        />
+                    </div>
+                    <button id="create-button" type="submit">
+                        create
+                    </button>
+                </form>
+            </div>
+        </Toggable>
     );
 };
 
