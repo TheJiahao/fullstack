@@ -43,7 +43,7 @@ const login = createAsyncThunk(
     },
 );
 
-const userSlice = createSlice({
+const loggedUserSlice = createSlice({
     name: "user",
     initialState: initializeUser,
     reducers: {
@@ -66,6 +66,6 @@ const userSlice = createSlice({
         }),
 });
 
-export default userSlice.reducer;
-export const { setUser, logout } = userSlice.actions;
+export default loggedUserSlice.reducer;
+export const { setUser, logout } = loggedUserSlice.actions;
 export { login };

@@ -9,7 +9,7 @@ import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
 
 const App = () => {
-    const user = useAppSelector((state) => state.user);
+    const user = useAppSelector((state) => state.loggedUser);
 
     const dispatch = useAppDispatch();
     const createBlogFormRef = useRef({ toggleVisibility: () => {} });

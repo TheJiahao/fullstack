@@ -21,7 +21,7 @@ const Blog = ({
     handleLike: MouseEventHandler;
 }) => {
     const [visible, setVisible] = useState(false);
-    const currentUsername = useAppSelector((state) => state.user?.username);
+    const currentUsername = useAppSelector((state) => state.loggedUser?.username);
 
     const showWhenVisible = { display: visible ? "" : "none" };
     const buttonLabel = visible ? "hide" : "view";

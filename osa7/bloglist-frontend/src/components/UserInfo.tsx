@@ -1,8 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../hooks";
-import { logout } from "../reducers/userReducer";
+import { logout } from "../reducers/loggedUserReducer";
 
 const UserInfo = () => {
-    const name = useAppSelector((state) => state.user?.name);
+    const name = useAppSelector((state) => state.loggedUser?.name);
     const dispatch = useAppDispatch();
 
     const logoutHandler = () => {

@@ -1,6 +1,6 @@
 import { FormEvent, useState } from "react";
 import { useAppDispatch } from "../hooks";
-import { login } from "../reducers/userReducer";
+import { login } from "../reducers/loggedUserReducer";
 
 const LoginForm = () => {
     const [username, setUsername] = useState("");
