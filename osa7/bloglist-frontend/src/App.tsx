@@ -40,7 +40,7 @@ const App = () => {
                                     </>
                                 }
                             />
-                            <Route path="users" element={<UserTable />} />
+                            <Route path="/users" element={<UserTable />} />
                         </Routes>
                     </>
                 ) : (
