@@ -26,7 +26,7 @@ const App = () => {
             {user && (
                 <>
                     <h2>blogs</h2>
-                    <UserInfo name={user.name} />
+                    <UserInfo />
 
                     <Toggable buttonLabel="new blog" ref={createBlogFormRef}>
                         <CreateBlogForm />
