@@ -6,6 +6,7 @@ import {
     useImperativeHandle,
     useState,
 } from "react";
+import { Button } from "react-bootstrap";
 
 const Togglable = forwardRef(
     (
@@ -25,9 +26,9 @@ const Togglable = forwardRef(
         if (!visible) {
             return (
                 <div>
-                    <button onClick={toggleVisibility}>
+                    <Button variant="primary" onClick={toggleVisibility}>
                         {props.buttonLabel}
-                    </button>
+                    </Button>
                 </div>
             );
         }
@@ -35,7 +36,9 @@ const Togglable = forwardRef(
         return (
             <div>
                 {props.children}
-                <button onClick={toggleVisibility}>cancel</button>
+                <Button variant="secondary" onClick={toggleVisibility}>
+                    cancel
+                </Button>
             </div>
         );
     },
