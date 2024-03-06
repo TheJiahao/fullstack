@@ -46,31 +46,26 @@ const Blog = () => {
 
     return (
         <div>
+            <h2>
+                {blog.title} {blog.author}
+            </h2>
+
             <div>
-                {blog.title} {blog.author}{" "}
+                <a href={blog.url}>{blog.url}</a>
             </div>
-            <div className="blog-detail">
-                <div>
-                    <a href={blog.url}>{blog.url}</a>
-                </div>
-                <div>
-                    likes {blog.likes}{" "}
-                    <button className="like-button" onClick={handleLike}>
-                        like
-                    </button>
-                </div>
-                <div>{blog.user.name}</div>
-                <div>
-                    {currentUsername === blog.user.username && (
-                        <button
-                            className="delete-blog-button"
-                            onClick={handleDelete}
-                        >
-                            delete
-                        </button>
-                    )}
-                </div>
+            <div>
+                likes {blog.likes}{" "}
+                <button className="like-button" onClick={handleLike}>
+                    like
+                </button>
             </div>
+            <div>{blog.user.name}</div>
+
+            {currentUsername === blog.user.username && (
+                <button className="delete-blog-button" onClick={handleDelete}>
+                    delete
+                </button>
+            )}
         </div>
     );
 };
