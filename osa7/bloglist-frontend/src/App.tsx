@@ -6,6 +6,7 @@ import Notification from "./components/Notification";
 import UserInfo from "./components/UserInfo";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
+import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
 
 const App = () => {
     const user = useAppSelector((state) => state.loggedUser);
@@ -20,16 +21,28 @@ const App = () => {
         <div>
             <Notification />
 
-            {user ? (
-                <>
-                    <h2>blogs</h2>
-                    <UserInfo />
-                    <CreateBlogForm />
-                    <BlogList />
-                </>
-            ) : (
-                <LoginForm />
-            )}
+            <Router>
+                {user ? (
+                    <>
+                        <h2>blogs</h2>
+                        <UserInfo />
+
+                        <Routes>
+                            <Route
+                                path="/"
+                                element={
+                                    <>
+                                        <CreateBlogForm />
+                                        <BlogList />
+                                    </>
+                                }
+                            />
+                        </Routes>
+                    </>
+                ) : (
+                    <LoginForm />
+                )}
+            </Router>
         </div>
     );
 };
