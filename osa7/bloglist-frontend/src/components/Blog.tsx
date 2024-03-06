@@ -1,3 +1,4 @@
+import { Button } from "react-bootstrap";
 import { useMatch } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import Comment from "../interfaces/comment";
@@ -58,16 +59,16 @@ const Blog = () => {
             </div>
             <div>
                 likes {blog.likes}{" "}
-                <button className="like-button" onClick={handleLike}>
+                <Button variant="success" className="like-button" onClick={handleLike}>
                     like
-                </button>
+                </Button>
             </div>
             <div>{blog.user.name}</div>
 
             {currentUsername === blog.user.username && (
-                <button className="delete-blog-button" onClick={handleDelete}>
+                <Button variant="danger" className="delete-blog-button" onClick={handleDelete}>
                     delete
-                </button>
+                </Button>
             )}
 
             <CommentList comments={blog.comments} />
