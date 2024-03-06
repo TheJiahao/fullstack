@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { useAppSelector } from "../hooks";
 
 const UserTable = () => {
@@ -17,7 +18,9 @@ const UserTable = () => {
                         .toSorted((a, b) => b.blogs!.length - a.blogs!.length)
                         .map((user) => (
                             <tr key={user.username}>
-                                <td>{user.name}</td>
+                                <td>
+                                    <Link to={user.id!}>{user.name}</Link>
+                                </td>
                                 <td>{user.blogs?.length}</td>
                             </tr>
                         ))}

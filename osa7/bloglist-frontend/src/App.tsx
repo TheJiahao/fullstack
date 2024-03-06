@@ -1,9 +1,10 @@
 import { useEffect } from "react";
-import { Route, Routes, useMatch } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import BlogList from "./components/BlogList";
 import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
+import User from "./components/User";
 import UserInfo from "./components/UserInfo";
 import UserTable from "./components/UserTable";
 import { useAppDispatch, useAppSelector } from "./hooks";
@@ -40,6 +41,7 @@ const App = () => {
                             }
                         />
                         <Route path="/users" element={<UserTable />} />
+                        <Route path="/users/:id" element={<User />} />
                     </Routes>
                 </>
             ) : (
