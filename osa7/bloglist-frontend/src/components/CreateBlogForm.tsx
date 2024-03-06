@@ -1,8 +1,9 @@
-import { FormEvent, useState } from "react";
+import { FormEvent } from "react";
 import { useAppDispatch } from "../hooks";
 import { setNotification } from "../reducers/notificationReducer";
 import { createBlog } from "../reducers/blogReducer";
 import Togglable from "./Togglable";
+import useField from "../hooks/useField";
 
 interface NewBlog {
     title: string;
@@ -11,25 +12,34 @@ interface NewBlog {
 }
 
 const CreateBlogForm = () => {
-    const [newBlog, setNewBlog] = useState<NewBlog>({
-        title: "",
-        author: "",
-        url: "",
-    });
+    const { reset: resetTitle, ...title } = useField("text");
+    const { reset: resetAuthor, ...author } = useField("text");
+    const { reset: resetUrl, ...url } = useField("text");
+
     const dispatch = useAppDispatch();
 
     const handleCreateBlog = async (event: FormEvent) => {
         event.preventDefault();
 
-        dispatch(createBlog(newBlog));
-
         dispatch(
-            setNotification(
-                `Added new blog ${newBlog.title} by ${newBlog.author}`,
-            ),
+            createBlog({
+                title: title.value,
+                author: author.value,
+                url: url.value,
+            }),
         );
 
-        setNewBlog({ title: "", author: "", url: "" });
+        dispatch(
+            setNotification(`Added new blog ${title.value} by ${author.value}`),
+        );
+
+        handleReset();
+    };
+
+    const handleReset = () => {
+        resetTitle();
+        resetAuthor();
+        resetUrl();
     };
 
     return (
@@ -38,37 +48,13 @@ const CreateBlogForm = () => {
                 <h2>create new</h2>
                 <form onSubmit={handleCreateBlog}>
                     <div>
-                        title:{" "}
-                        <input
-                            id="title-input"
-                            type="text"
-                            value={newBlog.title}
-                            onChange={({ target }) =>
-                                setNewBlog({ ...newBlog, title: target.value })
-                            }
-                        />
+                        title: <input id="title-input" {...title} />
                     </div>
                     <div>
-                        author:{" "}
-                        <input
-                            id="author-input"
-                            type="text"
-                            value={newBlog.author}
-                            onChange={({ target }) =>
-                                setNewBlog({ ...newBlog, author: target.value })
-                            }
-                        />
+                        author: <input id="author-input" {...author} />
                     </div>
                     <div>
-                        url:{" "}
-                        <input
-                            id="url-input"
-                            type="text"
-                            value={newBlog.url}
-                            onChange={({ target }) =>
-                                setNewBlog({ ...newBlog, url: target.value })
-                            }
-                        />
+                        url: <input id="url-input" {...url} />
                     </div>
                     <button id="create-button" type="submit">
                         create
