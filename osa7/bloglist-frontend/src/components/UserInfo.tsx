@@ -5,13 +5,15 @@ const UserInfo = () => {
     const name = useAppSelector((state) => state.loggedUser?.name);
     const dispatch = useAppDispatch();
 
+    const style = { display: "flex", gap: "10px" };
+
     const logoutHandler = () => {
         dispatch(logout());
     };
 
     return (
-        <div>
-            <p>{name} logged in</p>
+        <div style={style}>
+            {name} logged in
             <button id="logout-button" onClick={logoutHandler}>
                 logout
             </button>

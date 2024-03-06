@@ -1,0 +1,6 @@
+#navigation-bar {
+    display: flex;
+    gap: 10px;
+    background-color: silver;
+    padding: 5px;
+}

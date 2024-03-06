@@ -5,12 +5,12 @@ import CreateBlogForm from "./components/CreateBlogForm";
 import LoginForm from "./components/LoginForm";
 import Notification from "./components/Notification";
 import User from "./components/User";
-import UserInfo from "./components/UserInfo";
 import UserTable from "./components/UserTable";
 import { useAppDispatch, useAppSelector } from "./hooks";
 import { initializeBlogs } from "./reducers/blogReducer";
 import { initializeUsers } from "./reducers/userReducer";
 import Blog from "./components/Blog";
+import NavigationBar from "./components/NavigationBar";
 
 const App = () => {
     const dispatch = useAppDispatch();
@@ -24,12 +24,12 @@ const App = () => {
 
     return (
         <div>
+            <NavigationBar />
             <Notification />
 
             {loggedUser ? (
                 <>
-                    <h2>blogs</h2>
-                    <UserInfo />
+                    <h2>blog app</h2>
 
                     <Routes>
                         <Route
