@@ -13,7 +13,7 @@ import { initializeUsers } from "./reducers/userReducer";
 const App = () => {
     const dispatch = useAppDispatch();
 
-    const user = useAppSelector((state) => state.loggedUser);
+    const loggedUser = useAppSelector((state) => state.loggedUser);
 
     useEffect(() => {
         dispatch(initializeBlogs());
@@ -25,7 +25,7 @@ const App = () => {
             <Notification />
 
             <Router>
-                {user ? (
+                {loggedUser ? (
                     <>
                         <h2>blogs</h2>
                         <UserInfo />
