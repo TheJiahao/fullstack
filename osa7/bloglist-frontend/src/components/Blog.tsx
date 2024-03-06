@@ -1,5 +1,6 @@
 import { MouseEventHandler, useState } from "react";
 import User from "../interfaces/user";
+import { useAppSelector } from "../hooks";
 
 interface BlogProps {
     id: string;
@@ -12,16 +13,15 @@ interface BlogProps {
 
 const Blog = ({
     blog,
-    username,
     handleDelete,
     handleLike,
 }: {
     blog: BlogProps;
-    username: string;
     handleDelete: MouseEventHandler;
     handleLike: MouseEventHandler;
 }) => {
     const [visible, setVisible] = useState(false);
+    const currentUsername = useAppSelector((state) => state.user?.username);
 
     const showWhenVisible = { display: visible ? "" : "none" };
     const buttonLabel = visible ? "hide" : "view";
@@ -57,7 +57,7 @@ const Blog = ({
                 </div>
                 <div>{blog.user.name}</div>
                 <div>
-                    {username === blog.user.username && (
+                    {currentUsername === blog.user.username && (
                         <button
                             className="delete-blog-button"
                             onClick={handleDelete}

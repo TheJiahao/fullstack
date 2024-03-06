@@ -3,7 +3,7 @@ import { deleteBlog, likeBlog } from "../reducers/blogReducer";
 import logger from "../utils/logger";
 import Blog, { BlogProps } from "./Blog";
 
-const BlogList = ({ username }: { username: string }) => {
+const BlogList = () => {
     const blogs = useAppSelector((state) => state.blogs);
 
     const dispatch = useAppDispatch();
@@ -28,7 +28,6 @@ const BlogList = ({ username }: { username: string }) => {
                 <Blog
                     key={blog.id}
                     blog={blog}
-                    username={username}
                     handleDelete={handleDelete(blog)}
                     handleLike={handleLike(blog.id)}
                 />

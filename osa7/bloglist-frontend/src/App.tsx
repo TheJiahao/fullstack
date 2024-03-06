@@ -32,7 +32,7 @@ const App = () => {
                         <CreateBlogForm />
                     </Toggable>
 
-                    <BlogList username={user.username} />
+                    <BlogList />
                 </>
             )}
         </div>
