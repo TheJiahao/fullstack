@@ -24,7 +24,7 @@ const App = () => {
 
     return (
         <div className="container">
-            <NavigationBar />
+            {loggedUser && <NavigationBar />}
             <Notification />
 
             {loggedUser ? (
