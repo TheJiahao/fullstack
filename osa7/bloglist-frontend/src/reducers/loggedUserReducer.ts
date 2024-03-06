@@ -50,7 +50,11 @@ const userSlice = createSlice({
         setUser(state, action: PayloadAction<User>) {
             return action.payload;
         },
-        logout() {
+        logout(state) {
+            logger.info("Logging out", state?.name);
+            window.localStorage.clear();
+            logger.info("Cleared local storage");
+
             return null;
         },
     },
