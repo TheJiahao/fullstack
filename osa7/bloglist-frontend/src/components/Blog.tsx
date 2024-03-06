@@ -1,3 +1,4 @@
+import { useMatch } from "react-router-dom";
 import { useAppDispatch, useAppSelector } from "../hooks";
 import User from "../interfaces/user";
 import { deleteBlog, likeBlog } from "../reducers/blogReducer";
@@ -12,20 +13,22 @@ interface BlogProps {
     user: User;
 }
 
-const Blog = ({ blog }: { blog: BlogProps }) => {
+const Blog = () => {
     const dispatch = useAppDispatch();
+    const match = useMatch("/blogs/:id");
 
+    const blogs = useAppSelector((state) => state.blogs);
     const currentUsername = useAppSelector(
         (state) => state.loggedUser?.username,
     );
 
-    const blogStyle = {
-        paddingTop: 10,
-        paddingLeft: 2,
-        border: "solid",
-        borderWidth: 1,
-        marginBottom: 5,
-    };
+    const blog = match
+        ? (blogs.find((blog) => blog.id === match.params.id) as BlogProps)
+        : null;
+
+    if (!blog) {
+        return null;
+    }
 
     const handleLike = async () => {
         dispatch(likeBlog(blog.id));
@@ -42,7 +45,7 @@ const Blog = ({ blog }: { blog: BlogProps }) => {
     };
 
     return (
-        <div className="blog" style={blogStyle}>
+        <div>
             <div>
                 {blog.title} {blog.author}{" "}
             </div>
