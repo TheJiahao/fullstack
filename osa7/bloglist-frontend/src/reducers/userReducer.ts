@@ -3,6 +3,7 @@ import User from "../interfaces/user";
 import blogService from "../services/blog_service";
 import loginService from "../services/login_service";
 import { setNotification } from "./notificationReducer";
+import logger from "../utils/logger";
 
 const initializeUser = (): User | null => {
     const loggedUserJSON = window.localStorage.getItem("loggedUser");
@@ -30,10 +31,14 @@ const login = createAsyncThunk(
             blogService.setToken(user.token);
 
             thunkAPI.dispatch(setNotification("Logged in"));
+            logger.info("Logged in", user.username);
 
             return user;
         } catch (error) {
-            thunkAPI.dispatch(setNotification("Invalid credentials"));
+            const message = "Invalid credentials";
+
+            thunkAPI.dispatch(setNotification(message));
+            logger.error(message);
         }
     },
 );
